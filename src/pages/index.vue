@@ -1,5 +1,11 @@
 <template>
   <div class="index">
+    <article class="region">
+      <header>
+        用户概览
+      </header>
+      <div class="region-main"></div>
+    </article>
   </div>
 </template>
 
