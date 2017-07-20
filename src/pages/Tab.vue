@@ -7,7 +7,7 @@
       <h2>{{DeployApi.SystemName}}</h2>
       <nav class="is-flex">
         <ul class="is-flex">
-          <li v-for = "item in navList" :key="item.icon">
+          <li v-for="item in navList" :key="item.icon">
             <i class="iconfont" :class="item.icon"></i>
           </li>
         </ul>
