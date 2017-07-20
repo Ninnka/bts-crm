@@ -1,5 +1,9 @@
 <template>
   <div class="account-center">
+    <article class="user-overview">
+      <header>用户概览</header>
+
+    </article>
   </div>
 </template>
 
