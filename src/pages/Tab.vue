@@ -87,6 +87,11 @@ export default {
           text: '交易分析'
         },
         {
+          index: 'fund-management',
+          icon: 'icon-churujinguanli',
+          text: '资金管理'
+        },
+        {
           index: 'account-center',
           icon: 'icon-zhanghuzhongxin',
           text: '账户中心'
@@ -95,6 +100,11 @@ export default {
           index: 'report',
           icon: 'icon-baobiao',
           text: '报表'
+        },
+        {
+          index: 'test',
+          icon: 'icon-baobiao',
+          text: '公共样式'
         }
       ]
     };

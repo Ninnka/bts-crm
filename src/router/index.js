@@ -31,6 +31,20 @@ export default new Router({
           }
         },
         {
+          path: 'test',
+          name: 'test',
+          component: (resolve) => {
+            require(['@pages/test'], resolve);
+          }
+        },
+        {
+          path: 'fund-management',
+          name: 'fund-management',
+          component: (resolve) => {
+            require(['@pages/fund-management'], resolve);
+          }
+        },
+        {
           path: 'analysis-transaction',
           name: 'analysis-transaction ',
           component: (resolve) => {
