@@ -169,7 +169,9 @@
         </header>
       </article>
       <div class="item__wrap is-flex calendar--news">
-        <div class="calendar__wrap"></div>
+        <div class="calendar__wrap">
+          <calendar-comp :date="dateToSet"></calendar-comp>
+        </div>
         <div class="news__wrap">
           <el-table id="news-table" :data="newsTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
             <el-table-column prop="time" label="时间"></el-table-column>
@@ -209,6 +211,8 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 
+import calendarComp from '@comps/calendar-comp';
+
 import pieEchartComp from '@comps/pie-echart-comp';
 import trendLineEchartComp from '@comps/trend-line-echart-comp';
 
@@ -219,12 +223,14 @@ export default {
   components: {
     swiper,
     swiperSlide,
+    calendarComp,
     pieEchartComp,
     trendLineEchartComp
   },
   mixins: [tmpDataMixin],
   data () {
     return {
+      dateToSet: new Date()
     };
   },
   computed: {
@@ -408,9 +414,10 @@ export default {
 }
 
 .assets {
-  width: 50%;
+  width: 49%;
+  max-width: 49%;
   height: 284px;
-  margin-right: 16px;
+  // margin-right: 16px;
 }
 
 .dealer--entry {
@@ -500,19 +507,19 @@ export default {
 }
 
 .entry--btn {
-  background-image:linear-gradient(-90deg, #00e2b8 0%, #009acd 100%);
-  border-radius:4px;
-  width:100px;
-  height:40px;
+  background-image: linear-gradient(-90deg, #00e2b8 0%, #009acd 100%);
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
   line-height: 40px;
   margin: auto;
 }
 
 .leave--btn {
-  background-image:linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%);
-  border-radius:4px;
-  width:100px;
-  height:40px;
+  background-image: linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%);
+  border-radius: 4px;
+  width: 100px;
+  height: 40px;
   line-height: 40px;
   margin: auto;
 }
@@ -525,9 +532,10 @@ export default {
 }
 
 .positions {
-  width: 50%;
+  width: 49%;
+  max-width: 49%;
   height: 465px;
-  margin-right: 16px;
+  // margin-right: 16px;
   text-align: left;
 }
 
@@ -610,7 +618,6 @@ export default {
 .swiper-slide {
   img {
     width: 100%;
-    height: 100%;
   }
 }
 
@@ -704,11 +711,12 @@ export default {
   justify-content: space-between;
   margin-top: 20px;
   > div {
-    margin: 0 27px 30px;
+    margin: 0 2.1% 2.2%;
     flex-basis: 50%;
     flex-shrink: 1;
     flex-grow: 1;
     height: 360px;
+    max-width: 50%;
   }
 }
 
