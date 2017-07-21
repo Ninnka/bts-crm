@@ -1,5 +1,6 @@
 <template>
   <div class="tab">
+    <recharge :show.sync="showRecharge"></recharge>
     <header class="tab-head is-flex">
       <h1>
         <img src="../assets/img/logo.png" :alt="DeployApi.SystemName">
@@ -7,7 +8,7 @@
       <h2>{{DeployApi.SystemName}}</h2>
       <nav class="is-flex">
         <ul class="is-flex">
-          <li v-for = "item in navList" :key="item.icon">
+          <li v-for = "item in navList" :key="item.icon" @click="userAction(item.index)">
             <i class="iconfont" :class="item.icon"></i>
           </li>
         </ul>
@@ -19,6 +20,9 @@
             <i class="el-icon-caret-bottom el-icon--right"></i>
           </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="userCenter">个人信息</el-dropdown-item>
+              <el-dropdown-item command="book">切换Book</el-dropdown-item>
+              <el-dropdown-item command="changePas">修改密码</el-dropdown-item>
               <el-dropdown-item command="exit">退出</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -44,8 +48,12 @@
 </template>
 
 <script>
+import recharge from '@comps/recharge.vue';
 export default {
   name: 'Tab',
+  components: {
+    recharge
+  },
   data () {
     return {
       defaultRoute: 'index',
@@ -54,25 +62,12 @@ export default {
       },
       navList: [
         {
-          icon: 'icon-fangzi'
+          icon: 'icon-churujinguanli',
+          index: 'recharge'
         },
         {
-          icon: 'icon-fangzi'
-        },
-        {
-          icon: 'icon-fangzi'
-        },
-        {
-          icon: 'icon-fangzi'
-        },
-        {
-          icon: 'icon-fangzi'
-        },
-        {
-          icon: 'icon-fangzi'
-        },
-        {
-          icon: 'icon-fangzi'
+          icon: 'icon-churujinguanli',
+          index: 'mention'
         }
       ],
       navLeftList: [
@@ -84,17 +79,12 @@ export default {
         {
           index: 'analysis-transaction',
           icon: 'icon-jiaoyifenxi',
-          text: '交易分析'
+          text: '交易记录'
         },
         {
           index: 'fund-management',
           icon: 'icon-churujinguanli',
           text: '资金管理'
-        },
-        {
-          index: 'account-center',
-          icon: 'icon-zhanghuzhongxin',
-          text: '账户中心'
         },
         {
           index: 'report',
@@ -106,7 +96,8 @@ export default {
           icon: 'icon-baobiao',
           text: '公共样式'
         }
-      ]
+      ],
+      showRecharge: false
     };
   },
   computed: {
@@ -115,8 +106,25 @@ export default {
   },
   methods: {
     userAction (command) {
-      if (command === 'exit') {
-        this.$router.replace('/signIn');
+      switch (command) {
+        case 'recharge' :
+          this.showRecharge = true;
+          break;
+        case 'mention' :
+          this.$router.push('/tab/account-center');
+          break;
+        case 'userMes' :
+          this.$router.push('/tab/account-center');
+          break;
+        case 'book' :
+          this.$router.push('/tab/user');
+          break;
+        case 'changePas' :
+          this.$router.push('/tab/user');
+          break;
+        case 'exit' :
+          this.$router.push('/tab/user');
+          break;
       }
     },
     goRouter (index) {
@@ -130,6 +138,7 @@ export default {
 .tab {
   width: 100%;
   height: 100%;
+  position: relative;
   .tab-head{
     width: 100%;
     height: 60px;
@@ -151,7 +160,7 @@ export default {
     }
     nav{
       position: absolute;
-      width: 600px;
+      width: auto;
       height: 60px;
       line-height: 60px;
       right: 30px;
@@ -161,10 +170,11 @@ export default {
         flex: 1;
         justify-content: space-around;
         li{
+          margin-right: 40px;
           width: 25px;
           height: auto;
           i{
-            width: 25px;
+            font-size: 25px;
           }
         }
       }
