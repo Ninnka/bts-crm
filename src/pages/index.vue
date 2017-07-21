@@ -4,7 +4,6 @@
       <article class="item__header">
         <header>
           用户概览
-          <!-- <div class="posi-abs header__more"></div> -->
         </header>
       </article>
       <div class="item__wrap user--profile is-flex">
@@ -53,7 +52,9 @@
         <article class="item__header">
           <header>
             资产概况
-            <div class="posi-abs header__more"></div>
+            <div class="posi-abs header__more">
+              <i class="iconfont icon-more"></i>
+            </div> 
           </header>
         </article>
         <div class="item__wrap">
@@ -75,7 +76,9 @@
           <article class="item__header">
             <header>
               交易概况
-              <div class="posi-abs header__more"></div>
+              <div class="posi-abs header__more">
+                <i class="iconfont icon-more"></i>
+              </div>
             </header>
           </article>
           <div class="is-flex dealer--content">
@@ -107,7 +110,9 @@
         <article class="item__header">
           <header>
             持仓概况
-            <div class="posi-abs header__more"></div>
+            <div class="posi-abs header__more">
+              <i class="iconfont icon-more"></i>
+            </div>
           </header>
         </article>
         <div class="positions--summary">
@@ -126,7 +131,9 @@
           <article class="item__header">
             <header>
               我的佣金
-              <div class="posi-abs header__more"></div>
+              <div class="posi-abs header__more">
+                <i class="iconfont icon-more"></i>
+              </div>
             </header>
           </article>
           <div class="is-flex commission__promote--distribution">
@@ -144,7 +151,9 @@
           <article class="item__header">
             <header>
               最新活动
-              <div class="posi-abs header__more"></div>
+              <div class="posi-abs header__more">
+                <i class="iconfont icon-more"></i>
+              </div>
             </header>
           </article>
           <div class="activity--wrap">
@@ -165,7 +174,9 @@
       <article class="item__header">
         <header>
           时事日历
-          <div class="posi-abs header__more"></div>
+          <div class="posi-abs header__more">
+            <i class="iconfont icon-more"></i>
+          </div>
         </header>
       </article>
       <div class="item__wrap is-flex calendar--news">
@@ -174,7 +185,11 @@
         </div>
         <div class="news__wrap">
           <el-table id="news-table" :data="newsTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间"></el-table-column>
+            <el-table-column prop="time" label="时间">
+              <template scope="scope">
+                {{ formatDate(scope.row.time) }}
+              </template>
+            </el-table-column>
             <el-table-column prop="country" label="国家/地区"></el-table-column>
             <el-table-column prop="theme" label="指标名称"></el-table-column>
             <el-table-column prop="influence" label="影响"></el-table-column>
@@ -187,7 +202,6 @@
       <article class="item__header">
         <header>
           交易行情
-          <!-- <div class="posi-abs header__more"></div> -->
           <div class="posi-abs add--more">
             <span>添加行情</span>
             <i class="el-icon-plus"></i>
@@ -195,12 +209,10 @@
         </header>
       </article>
       <div class="item__wrap is-flex dealer--detail">
-        <div>
+        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
+        <!-- <div>
           <trend-line-echart-comp :positionsOptions="dealerDetailOption"></trend-line-echart-comp>
-        </div>
-        <div>
-          <trend-line-echart-comp :positionsOptions="dealerDetailOption"></trend-line-echart-comp>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -211,12 +223,14 @@
 <script>
 import { swiper, swiperSlide } from 'vue-awesome-swiper';
 
+import dealerDetailComp from '@comps/dealer-detail-comp';
 import calendarComp from '@comps/calendar-comp';
-
 import pieEchartComp from '@comps/pie-echart-comp';
 import trendLineEchartComp from '@comps/trend-line-echart-comp';
 
 import tmpDataMixin from '@mixins/tmp-data-mixin';
+
+import moment from 'moment';
 
 export default {
   name: 'index',
@@ -225,12 +239,23 @@ export default {
     swiperSlide,
     calendarComp,
     pieEchartComp,
-    trendLineEchartComp
+    trendLineEchartComp,
+    dealerDetailComp
   },
   mixins: [tmpDataMixin],
   data () {
     return {
-      dateToSet: new Date()
+      dateToSet: new Date(),
+      dealerDetailArr: [
+        {
+          selectedInterval: '1M',
+          yAxisName: '美元/日元'
+        },
+        {
+          selectedInterval: '5M',
+          yAxisName: '美元/欧元'
+        }
+      ]
     };
   },
   computed: {
@@ -243,6 +268,9 @@ export default {
         return 'even-row';
       }
       return 'odd-row';
+    },
+    formatDate (time) {
+      return moment(time).format('hh:mm');
     }
   }
 };
@@ -290,11 +318,14 @@ export default {
     }
   }
   .header__more {
-    top: 12px;
-    right: 12px;
+    top: 0;
+    right: 16px;
     height: 24px;
     width: 10px;
-    background: greenyellow;
+    i {
+      color: #454b58 !important;
+      font-size: 24px;
+    }
   }
 }
 .item__wrap{
@@ -717,7 +748,13 @@ export default {
     flex-grow: 1;
     height: 360px;
     max-width: 50%;
+    position: relative;
   }
+}
+
+.dealer--detail--dropdown {
+  top: 16px;
+  right: 20px;
 }
 
 .add--more {

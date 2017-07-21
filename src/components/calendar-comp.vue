@@ -6,8 +6,8 @@
         <i class="el-icon-arrow-left" @click="preMonth"></i>
       </div>
       <div class="control__month_year">
-        <span class="month">{{ currentMonth }}</span>
-        <span class="year">{{ currentYear }}</span>
+        <span class="year">{{ currentYear }}年 </span>
+        <span class="month">{{ currentMonth }}月</span>
       </div>
       <div class="control control__right">
         <i class="el-icon-arrow-right" @click="nextMonth"></i>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import moment from 'moment';
+
 export default {
   props: {
     date: {
@@ -111,7 +113,7 @@ export default {
   },
   computed: {
     currentMonth () {
-      return this.months[this.dateToSet.getMonth()];
+      return this.dateToSet.getMonth() + 1;
     },
     currentYear () {
       return this.dateToSet.getFullYear();
@@ -121,8 +123,6 @@ export default {
   },
   created () {
     this.getFillsAndMonthLength();
-    // console.log('this.fills', this.fills);
-    // console.log('this.monthLength', this.monthLength);
   }
 };
 </script>
