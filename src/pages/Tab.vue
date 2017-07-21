@@ -113,7 +113,7 @@ export default {
         case 'mention' :
           this.$router.push('/tab/account-center');
           break;
-        case 'userMes' :
+        case 'userCenter' :
           this.$router.push('/tab/account-center');
           break;
         case 'book' :
