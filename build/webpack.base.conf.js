@@ -26,6 +26,7 @@ module.exports = {
       '@assets': resolve('src/assets'),
       '@pages': resolve('src/pages'),
       '@comps': resolve('src/components'),
+      '@mixins': resolve('src/mixins')
     }
   },
   module: {

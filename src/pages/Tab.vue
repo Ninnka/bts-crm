@@ -128,6 +128,7 @@ export default {
     position: relative;
     color:#94959a;
     background:#23262d;
+    box-sizing: border-box;
     h1{
       width: 60px;
       margin: 0 20px;
