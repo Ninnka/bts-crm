@@ -41,6 +41,22 @@ button{
   fill: currentColor;
   overflow: hidden;
 }
+
+// 修改element输入框风格样式
+.el-form{
+  .el-form-item{
+    .el-form-item__label{
+      color: #fff;
+    }
+    input{
+      background: #202228;
+      border: none;
+      border-radius: 0;
+      color: #fff;
+    }
+  }
+}
+
 //自定义全局样式
 
 //采用flex布局增加此class名
@@ -116,17 +132,22 @@ button{
     }
     .popup-content{
       box-sizing: border-box;
-      padding: 10px 3%;
+      padding: 30px 10%;
       background: #272a31;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
-      button{
-        background-image:linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%);
-        border-radius:4px;
-        width:200px;
+      .sure-btn{
+        width: 40%;
         height:40px;
         margin: 0 auto;
+        background-image:linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%);
+        border-radius:4px;
+        color: #fff;
+        font-size: 16px;
       }
     }
   }
 }
+
+
+
