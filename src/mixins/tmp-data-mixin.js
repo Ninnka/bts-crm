@@ -135,31 +135,46 @@ export default {
           time: 1500602645,
           country: '中国',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 3,
+          link: '',
+          status: 5
         },
         {
           time: 1500602645,
           country: '美国',
           theme: '美国7月年度USDA小麦产量预估（亿蒲式耳）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 2,
+          link: '',
+          status: -3
         },
         {
           time: 1500602645,
           country: '中国',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 4,
+          link: '',
+          status: -1
         },
         {
           time: 1500602645,
           country: '中国',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 1,
+          link: '',
+          status: 2
         },
         {
           time: 1500602645,
           country: '中国',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 5,
+          link: '',
+          status: 1
         }
       ],
       dealerDetailOption: {

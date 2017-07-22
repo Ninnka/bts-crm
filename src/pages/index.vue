@@ -95,11 +95,11 @@
         <div class="is-flex entry--leave">
           <div class="entry">
             <p>出金总数：$6,545.00</p>
-            <div class="entry--btn">出金</div>
+            <div class="btn entry--btn">出金</div>
           </div>
           <div class="leave">
             <p>入金总数：$6,545.00</p>
-            <div class="leave--btn">入金</div>
+            <div class="btn leave--btn">入金</div>
           </div>
         </div>
       </div>
@@ -184,15 +184,33 @@
           <calendar-comp :date="dateToSet"></calendar-comp>
         </div>
         <div class="news__wrap">
-          <el-table id="news-table" :data="newsTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间">
+          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
+            <el-table-column prop="time" label="时间" min-width="80" width="120">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
             </el-table-column>
-            <el-table-column prop="country" label="国家/地区"></el-table-column>
-            <el-table-column prop="theme" label="指标名称"></el-table-column>
-            <el-table-column prop="influence" label="影响"></el-table-column>
+            <el-table-column prop="country" label="国家/地区" min-width="90"></el-table-column>
+            <el-table-column prop="theme" label="指标名称" min-width="160">
+              <template scope="scope">
+                <a :href="scope.row.link">{{scope.row.theme}}</a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="重要程度" width="170">
+              <template scope="scope">
+                <el-rate v-model="scope.row.level" disabled text-color="#ff9900"></el-rate>
+              </template>
+            </el-table-column>
+            <el-table-column prop="influence" label="影响" width="110">
+              <template scope="scope">
+                <div class="influence--item" :class="scope.row.status > 0 ? 'up' : 'down'">{{scope.row.status > 0 ? '↑' : '↓'}} {{ scope.row.influence }} {{influenceStatus}}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="分享" width="80">
+              <template scope="scope">
+                <i class="el-icon-share" @click="shareNews"></i>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -255,7 +273,8 @@ export default {
           selectedInterval: '5M',
           yAxisName: '美元/欧元'
         }
-      ]
+      ],
+      influenceStatus: '原油'
     };
   },
   computed: {
@@ -271,6 +290,9 @@ export default {
     },
     formatDate (time) {
       return moment(time).format('hh:mm');
+    },
+    shareNews () {
+      console.log('shareNews');
     }
   }
 };
@@ -379,6 +401,7 @@ export default {
   div:nth-child(2) {
     margin-left: 20px;
     color: white;
+    line-height: 1.4;
     > p:not(:first-child) {
       color: @main-theme-sub;
     }
@@ -521,6 +544,9 @@ export default {
   height: 124px;
   justify-content: space-between;
   color: #ffffff;
+  .btn {
+    cursor: pointer;
+  }
   > div {
     background: #272a31;
     flex-basis: 50%;
@@ -624,6 +650,7 @@ export default {
         font-size: 14px;
         color: @main-theme-sub;
         margin-bottom: 9px;
+        margin-top: 20px;
       }
       &:last-child {
         color: #ffffff;
@@ -680,6 +707,27 @@ export default {
 .news__wrap {
   flex-basis: 61.34%; 
   max-width: 61.34%;
+  a {
+    &:hover {
+      color: #333333;
+    }
+  }
+}
+
+.influence--item {
+  padding: 0 4px;
+  border-radius: 3px;
+  width: 70px;
+  height: 24px;
+  font-size: 12px;
+  &.up {
+    border: 1px solid #00dfb9;
+    color: #00dfb9;
+  }
+  &.down {
+    border:1px solid #ff3b6a;
+    color: #ff3b6a;
+  }
 }
 
 .el-table {
@@ -687,7 +735,7 @@ export default {
   text-align: center;
   color: #ffffff;
   border-width: 0;
-  * {
+  *:not(.influence--item) {
     border-width: 0 !important;
   }
 }
@@ -725,10 +773,18 @@ export default {
   background-color: transparent !important;
 }
 
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+  background: initial;
+}
+
 .el-table__row {
-  &:hover {
-    color: #333;
+  a:hover {
+    color: #ffffff;
   }
+}
+
+.el-table td, .el-table th {
+  padding: 12px 0;
 }
 
 // --------------------------

@@ -147,6 +147,7 @@ li {
   }
   .control {
     color: #979797;
+    cursor: pointer;
     > i {
       &:first-child {
         margin-right: 28px;
