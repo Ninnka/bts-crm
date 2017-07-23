@@ -605,11 +605,11 @@ export default {
 }
 
 .asset--money {
-  top: 50px;
+  top: 45px;
   right: 90px;
   color: #ffffff;
   p {
-    margin-bottom: 20px;
+    margin-bottom: 23px;
   }
 }
 

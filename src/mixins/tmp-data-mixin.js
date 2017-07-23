@@ -127,7 +127,43 @@ export default {
             name: '时间',
             type: 'line',
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210]
+            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210],
+            lineStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#413e8a' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#f95b85' // 100% 处的颜色
+                  }]
+                }
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#413e8a' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#f95b85' // 100% 处的颜色
+                  }]
+                }
+              }
+            }
           }
         ]
       },
@@ -247,7 +283,43 @@ export default {
             name: '时间',
             type: 'line',
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210]
+            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210],
+            lineStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#00e2b8' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#009acd' // 100% 处的颜色
+                  }]
+                }
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#00e2b8' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#009acd' // 100% 处的颜色
+                  }]
+                }
+              }
+            }
           }
         ]
       },
