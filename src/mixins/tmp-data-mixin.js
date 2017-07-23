@@ -133,7 +133,7 @@ export default {
       },
       newsTableData: [
         {
-          time: 1500602645,
+          time: 1500220800,
           country: '中国',
           countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',
@@ -143,22 +143,22 @@ export default {
           status: 5
         },
         {
-          time: 1500602645,
+          time: 1500566400,
           country: '美国',
           countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/meiguo.png',
           theme: '美国7月年度USDA小麦产量预估（亿蒲式耳）',
           influence: '利空',
-          level: 2,
+          level: 4,
           link: '',
           status: -3
         },
         {
-          time: 1500602645,
+          time: 1500603945,
           country: '中国',
           countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',
           influence: '利空',
-          level: 4,
+          level: 2,
           link: '',
           status: -1
         },
@@ -173,7 +173,7 @@ export default {
           status: 2
         },
         {
-          time: 1500602645,
+          time: 1501084800,
           country: '中国',
           countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',

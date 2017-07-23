@@ -181,7 +181,7 @@
       </article>
       <div class="item__wrap is-flex calendar--news">
         <div class="calendar__wrap">
-          <calendar-comp :date="dateToSet"></calendar-comp>
+          <calendar-comp :date="dateToSet" :newsTableData="newsTableData"></calendar-comp>
         </div>
         <div class="news__wrap">
           <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
@@ -224,7 +224,7 @@
       <article class="item__header">
         <header>
           交易行情
-          <div class="posi-abs add--more">
+          <div class="posi-abs add--more" @click="showPopup">
             <span>添加行情</span>
             <i class="el-icon-plus"></i>
           </div>
@@ -232,14 +232,13 @@
       </article>
       <div class="item__wrap is-flex dealer--detail">
         <dealer-detail-comp v-for="(item, index) in dealerDetailArr" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
-        <!-- <div>
-          <trend-line-echart-comp :positionsOptions="dealerDetailOption"></trend-line-echart-comp>
-        </div> -->
       </div>
     </div>
 
+    <!-- <div v-if="" class="posi-abs popup-wrap">
+
+    </div> -->
   </div>
-  
 </template>
 
 <script>
@@ -287,6 +286,8 @@ export default {
   },
   created: function () {
   },
+  mounted () {
+  },
   methods: {
     tableRowClassName (row, index) {
       if (index % 2 === 1) {
@@ -300,9 +301,14 @@ export default {
     shareNews () {
       console.log('shareNews');
     },
+    showPopup () {
+      console.log('showPopup');
+    },
+    addMoreQuotation () {
+      console.log('addMoreQuotation');
+    },
     newsTablerenderHeader (createElement, { column }) {
       let aClassfies = this.aClassfyArr.map((currentValue, index, array) => {
-        var self = this;
         return createElement('el-radio', {
           class: {
             radio: true
@@ -930,8 +936,9 @@ export default {
 
 .add--more {
   right: 38px;
-  top: 13px;
+  top: 0;
   color: @main-theme-sub;
+  cursor: pointer;
   * {
     vertical-align: middle;
   }
@@ -942,6 +949,15 @@ export default {
     font-size: 11px;
     margin-left: 9px;
   }
+}
+
+// ------------------------
+.popup-wrap {
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 </style>
