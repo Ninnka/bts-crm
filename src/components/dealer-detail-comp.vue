@@ -1,6 +1,6 @@
 <template>
   <div>
-    <trend-line-echart-comp :positionsOptions="getDealerDetailOption"></trend-line-echart-comp>
+    <trend-line-echart-comp :positionsOptions="getDealerDetailOption" ref="chartCompWrap"></trend-line-echart-comp>
     <el-dropdown class="posi-abs dealer--detail--dropdown" trigger="click">
       <span class="el-dropdown-link">
         {{ compOption.selectedInterval }} <i class="el-icon-caret-bottom el-icon--right"></i>

@@ -123,7 +123,7 @@
           <p>浮动盈亏：<span class="positions--summary--hightlight">$88,888.00</span></p>
         </div>
         <div class="positions-chart">
-          <trend-line-echart-comp :positionsOptions="positionsOptions"></trend-line-echart-comp>
+          <trend-line-echart-comp ref="chartCompWrap" :positionsOptions="positionsOptions"></trend-line-echart-comp>
         </div>
       </div>
       <div class="commission--activity">
@@ -231,7 +231,7 @@
         </header>
       </article>
       <div class="item__wrap is-flex dealer--detail">
-        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
+        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
       </div>
     </div>
 
@@ -266,6 +266,8 @@ export default {
   mixins: [tmpDataMixin],
   data () {
     return {
+      hasWindowResize: false,
+      inIndex: true,
       dateToSet: new Date(),
       dealerDetailArr: [
         {
@@ -282,13 +284,20 @@ export default {
       bClassfyArr: ['美元', '加元']
     };
   },
-  computed: {
-  },
-  created: function () {
-  },
-  mounted () {
-  },
   methods: {
+    useResize () {
+      this.hasWindowResize = true;
+      if (!this.inIndex) {
+        return;
+      }
+      let indexRefs = this.$refs;
+      indexRefs.positionStructureComp && indexRefs.positionStructureComp.$refs.chart.resize();
+      indexRefs.chartCompWrap && indexRefs.chartCompWrap.$refs.chart && indexRefs.chartCompWrap.$refs.chart.resize();
+      for (let item of indexRefs.dealerDetailComp) {
+        item.$refs.chartCompWrap && item.$refs.chartCompWrap.$refs.chart.resize();
+      }
+      this.hasWindowResize = false;
+    },
     tableRowClassName (row, index) {
       if (index % 2 === 1) {
         return 'even-row';
@@ -299,12 +308,15 @@ export default {
       return moment(time).format('hh:mm');
     },
     shareNews () {
+      // TODO:
       console.log('shareNews');
     },
     showPopup () {
+      // TODO:
       console.log('showPopup');
     },
     addMoreQuotation () {
+      // TODO:
       console.log('addMoreQuotation');
     },
     newsTablerenderHeader (createElement, { column }) {
@@ -397,6 +409,16 @@ export default {
         ]
       );
     }
+  },
+  mounted () {
+    window.addEventListener('resize', this.useResize);
+  },
+  activated () {
+    this.inIndex = true;
+    this.useResize();
+  },
+  deactivated () {
+    this.inIndex = false;
   }
 };
 </script>
