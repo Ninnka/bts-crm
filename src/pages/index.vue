@@ -26,21 +26,21 @@
             <img src="../assets/img/Mt.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>2</span>个</p>
             </div>
           </div>
           <div class="account--item">
             <img src="../assets/img/hold-account.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>4</span>个</p>
             </div>
           </div>
           <div class="account--item">
             <img src="../assets/img/icon-documentary.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>3</span>个</p>
             </div>
           </div>
         </div>
@@ -530,6 +530,9 @@ export default {
     > p:not(:first-child) {
       color: @main-theme-sub;
     }
+    > p:first-child {
+      margin-top: 5px;
+    }
   }
 }
 .invite--link {
@@ -631,7 +634,8 @@ export default {
   right: 90px;
   color: #ffffff;
   p {
-    margin-bottom: 23px;
+    margin-bottom: 19px;
+    font-size: 18px;
   }
 }
 
