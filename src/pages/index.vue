@@ -185,15 +185,19 @@
         </div>
         <div class="news__wrap">
           <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间" min-width="80" width="120">
+            <el-table-column prop="time" label="时间" min-width="75" width="115">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
             </el-table-column>
-            <el-table-column prop="country" label="国家/地区" min-width="90"></el-table-column>
+            <el-table-column prop="country" label="国家/地区" min-width="96">
+              <template scope="scope">
+                <img :src="scope.row.countryIcon" alt="" class="country--icon">
+              </template>
+            </el-table-column>
             <el-table-column prop="theme" label="指标名称" min-width="160">
               <template scope="scope">
-                <a :href="scope.row.link">{{scope.row.theme}}</a>
+                <a :href="scope.row.link" target="_blank">{{scope.row.theme}}</a>
               </template>
             </el-table-column>
             <el-table-column prop="level" label="重要程度" width="170">
@@ -201,12 +205,12 @@
                 <el-rate v-model="scope.row.level" disabled text-color="#ff9900"></el-rate>
               </template>
             </el-table-column>
-            <el-table-column prop="influence" label="影响" width="110">
+            <el-table-column prop="influence" label="影响" width="110" :render-header="newsTablerenderHeader">
               <template scope="scope">
                 <div class="influence--item" :class="scope.row.status > 0 ? 'up' : 'down'">{{scope.row.status > 0 ? '↑' : '↓'}} {{ scope.row.influence }} {{influenceStatus}}</div>
               </template>
             </el-table-column>
-            <el-table-column label="分享" width="80">
+            <el-table-column label="分享" width="74">
               <template scope="scope">
                 <i class="el-icon-share" @click="shareNews"></i>
               </template>
@@ -274,7 +278,9 @@ export default {
           yAxisName: '美元/欧元'
         }
       ],
-      influenceStatus: '原油'
+      influenceStatus: '原油',
+      aClassfyArr: ['金银', '原油', '欧元', '铂钯', '铜', '英镑', '日元', '瑞郎', '澳元'],
+      bClassfyArr: ['美元', '加元']
     };
   },
   computed: {
@@ -293,6 +299,97 @@ export default {
     },
     shareNews () {
       console.log('shareNews');
+    },
+    newsTablerenderHeader (createElement, { column }) {
+      let aClassfies = this.aClassfyArr.map((currentValue, index, array) => {
+        var self = this;
+        return createElement('el-radio', {
+          class: {
+            radio: true
+          },
+          props: {
+            label: currentValue,
+            value: this.influenceStatus
+          },
+          on: {
+            input: (label) => {
+              this.influenceStatus = label;
+            }
+          }
+        }, [currentValue]);
+      });
+      let bClassfies = this.bClassfyArr.map((currentValue, index, array) => {
+        return createElement('el-radio', {
+          class: {
+            radio: true
+          },
+          props: {
+            label: currentValue,
+            value: this.influenceStatus
+          },
+          on: {
+            input: (label) => {
+              this.influenceStatus = label;
+            }
+          }
+        }, [currentValue]);
+      });
+      return createElement(
+        'el-dropdown', {
+          attrs: {
+            trigger: 'click'
+          },
+          props: {
+            isVisible: false
+          }
+        }, [
+          createElement('span', [
+            column.label,
+            createElement('i', {
+              class: {
+                'el-icon-arrow-down': true,
+                'el-icon--right': true
+              }
+            })
+          ], {
+            class: {
+              'el-dropdown-link': true
+            }
+          }),
+          createElement('el-dropdown-menu', {
+            slot: 'dropdown'
+          }, [
+            createElement('el-dropdown-item', {
+              class: {
+                'is-flex': true
+              },
+              style: {
+                'align-items': 'flex-start'
+              }
+            }, [
+              'A类：',
+              createElement('div', {
+                style: {
+                  'max-width': '200px'
+                }
+              }, [...aClassfies])
+            ]),
+            createElement('el-dropdown-item', {
+              class: {
+                'is-flex': true
+              }
+            }, [
+              'B类：',
+              createElement('div', {
+                style: {
+                  'max-width': '200px'
+                }
+              }, [...bClassfies])
+            ])
+          ]
+          )
+        ]
+      );
     }
   }
 };
@@ -699,14 +796,13 @@ export default {
 }
 
 .calendar__wrap {
-  // margin-right: 125px;
   flex-basis: 27.61%;
   max-width: 27.61%;
 }
 
 .news__wrap {
-  flex-basis: 61.34%; 
-  max-width: 61.34%;
+  flex-basis: 64%; 
+  max-width: 64%;
   a {
     &:hover {
       color: #333333;
@@ -730,6 +826,10 @@ export default {
   }
 }
 
+.country--icon {
+  width: 38px;
+}
+
 .el-table {
   background: #272a31 !important;
   text-align: center;
@@ -746,6 +846,10 @@ export default {
 
 .el-table .even-row {
   background: #22252d;
+}
+
+.el-table__header .el-dropdown {
+  color: @main-theme-sub;
 }
 
 .el-table__header tr {
@@ -784,7 +888,14 @@ export default {
 }
 
 .el-table td, .el-table th {
-  padding: 12px 0;
+  padding: 7px 0;
+}
+
+.el-dropdown-menu__item {
+  .el-radio {
+    margin: 0 15px 0 0;
+    min-width: 51px;
+  }
 }
 
 // --------------------------
@@ -798,19 +909,23 @@ export default {
   justify-content: space-between;
   margin-top: 20px;
   > div {
-    margin: 0 2.1% 2.2%;
+    margin: 0 1.2% 2.2%;
     flex-basis: 50%;
     flex-shrink: 1;
     flex-grow: 1;
     height: 360px;
     max-width: 50%;
     position: relative;
+    overflow: hidden;
   }
 }
 
 .dealer--detail--dropdown {
-  top: 16px;
-  right: 20px;
+  top: 18px;
+  right: 3%;
+  .el-dropdown-link {
+    color: @main-theme-sub;
+  }
 }
 
 .add--more {
