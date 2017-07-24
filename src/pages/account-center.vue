@@ -3,29 +3,64 @@
     <article class="region user-overview">
       <header>用户概览</header>
       <form class="user-msg">
-        <lable >
-          用户头像：
-          <div>
+        <lable>
+          <div class="title">用户头像：</div>
+          <div class="content">
             <div class="headshot">
             </div>
           </div>
           <button class="modify-btn" type="submit">修改</button>
         </lable>
         <lable>
-          交易账号：
-          <div>
-            <span>
-              JOHN DOE
-            </span>
+          <div class="title">交易账号：</div>
+          <div class="content">JOHN DOE</div>
+        </lable>
+        <lable>
+          <div class="title">昵称：</div>
+          <div class="content">方砖</div>
+          <button class="modify-btn" type="submit">修改</button>
+        </lable>
+        <lable>
+          <div class="title">密码：</div>
+          <div class="content">********</div>
+          <button class="modify-btn" type="submit">修改</button>
+        </lable>
+        <lable>
+          <div class="title">手机号码：</div>
+          <div class="content">13600000000</div>
+        </lable>
+        <lable>
+          <div class="title">邮箱地址：</div>
+          <div class="content">molehe_1024@163.com</div>
+          <button class="modify-btn" type="submit">修改</button>
+        </lable>
+      </form>
+      <hr />
+
+      <form class="card-info">
+        <lable>
+          <div class="title">姓名：</div>
+          <div class="content">谢霆锋</div>
+        </lable>
+        <lable>
+          <div class="title">证件编号：</div>
+          <div class="content">[身份证]440111111111111111</div>
+        </lable>
+        <lable>
+          <div class="title">证件有效期：</div>
+          <div class="content">2025年3月1日</div>
+        </lable>
+        <lable>
+          <div class="title">证件照片：</div>
+          <div class="content">
+            <div class="card-front"></div>
+            <div class="card-back"></div>
           </div>
         </lable>
         <lable>
-          昵称：
-          <div>
-            <span>
-              方砖
-            </span>
-          </div>
+          <div class="title">投递地址：</div>
+          <div class="content">广东省 广州市 荔湾区1850创意园</div>
+          <button class="modify-btn" type="submit">修改</button>
         </lable>
       </form>
     </article>
@@ -35,20 +70,21 @@
       <el-table
         :data="tableData"
         stripe
-        style="width: 100%">
+        style="width: 100%"
+        class="el-table">
         <el-table-column
-          prop="account-number"
-          label="账号"
-          width="180">
+          prop="accountNumber"
+          label="账号">
         </el-table-column>
         <el-table-column
           prop="lever"
-          label="杠杆"
-          width="180">
+          label="杠杆">
         </el-table-column>
         <el-table-column
-          prop="main-account-number"
           label="主账号">
+          <template scope="scope">
+            <el-switch v-model="scope.mainAccountNumber" on-text="" off-text="" off-color="#999" on-color="#00cc00"></el-switch>
+          </template>
         </el-table-column>
         <el-table-column
           prop="del"
@@ -66,6 +102,33 @@ export default {
   data () {
     return {
 
+      value1: true,
+      tableData: [
+        {
+          accountNumber: '56735678',
+          lever: '1:100',
+          mainAccountNumber: true,
+          del: ''
+        },
+        {
+          accountNumber: '56735678',
+          lever: '1:100',
+          mainAccountNumber: false,
+          del: ''
+        },
+        {
+          accountNumber: '56735678',
+          lever: '1:100',
+          mainAccountNumber: false,
+          del: ''
+        },
+        {
+          accountNumber: '56735678',
+          lever: '1:100',
+          mainAccountNumber: true,
+          del: ''
+        }
+      ]
     };
   },
   computed: {
@@ -82,42 +145,103 @@ export default {
     padding: 20px;
   }
   .user-overview{
-    width: 647px;
+    width: 50%;
+    hr {
+      color: #22232a;
+      width: 90%;
+    }
     .user-msg{
-      /*display: flex;*/
-      /*flex-direction: column;*/
-      padding: 40px;
+      padding: 30px;
       lable {
-        font-size: 14px;
-        color: #94959a;
+        font-family: PingFangSC-Regular;
         display: flex;
         flex-direction: row;
-        div{
+        padding: 5px 0px;
+        .title {
           display: inline-block;
+          width: 90px;
+          text-align: right;
+          font-size: 14px;
+          color: #94959a;
+          letter-spacing: 0;
+        }
+
+        .content {
           flex: 1;
+          font-size: 18px;
+          color: #ffffff;
+          letter-spacing: 0;
           text-align: left;
-          .headshot{
+
+          .headshot {
             border-radius: 50%;
             width: 70px;
             height: 70px;
             background-color: #fff;
-
           }
         }
         button {
           border: 1px solid #94959a;
-          width: 60px;
-          height: 30px;
+          width: 50px;
+          height: 25px;
           background: #272a31;
           color: #94959a;
           border-radius: 4px;
-          font-size: 14px;
+          font-size: 12px;
         }
       }
     }
   }
 
+  .card-info {
+    padding: 30px;
+    lable {
+      font-size: 14px;
+      font-family: PingFangSC-Regular;
+      display: flex;
+      flex-direction: row;
+      padding: 5px 0px;
+      .title{
+        display: inline-block;
+        width: 90px;
+        text-align: right;
+        color: #94959a;
+        letter-spacing: 0;
+      }
+      .content {
+        flex: 1;
+        flex-direction: row;
+        color: #ffffff;
+        letter-spacing: 0;
+        text-align: left;
+        .card-front,.card-back {
+          display: inline-block;
+          border:1px solid #94959a;
+          width:205px;
+          height:128px;
+          border-radius: 8px;
+        }
+        .card-back {
+          margin-left: 30px;
+        }
+      }
+      button {
+        border: 1px solid #94959a;
+        width: 50px;
+        height: 25px;
+        background: #272a31;
+        color: #94959a;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+    }
+  }
+
   .my-mt-account {
+    width: 50%;
+    .el-table th {
+      background-color: #18191d;
+    }
 
   }
 </style>
