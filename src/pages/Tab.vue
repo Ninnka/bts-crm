@@ -9,7 +9,7 @@
       <h2>{{DeployApi.SystemName}}</h2>
       <nav class="is-flex">
         <ul class="is-flex">
-          <li v-for = "item in navList" :key="item.icon" @click="userAction(item.index)">
+          <li v-for="item in navList" :key="item.icon" @click="userAction(item.index)">
             <i class="iconfont" :class="item.icon"></i>
           </li>
         </ul>
@@ -151,6 +151,7 @@ export default {
     position: relative;
     color:#94959a;
     background:#23262d;
+    box-sizing: border-box;
     h1{
       width: 60px;
       margin: 0 20px;
