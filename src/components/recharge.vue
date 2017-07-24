@@ -13,7 +13,7 @@
             </el-radio-group>
           </el-form-item>
           <el-form-item label="$入金金额">
-            <el-input v-model="rechargeForm.amount"></el-input>
+            <el-input v-model="rechargeForm.amount" placeholder="请输入金额"></el-input>
           </el-form-item>
           <el-form-item :label="'￥汇率：'+rechargeDeploy.exchange">
             <!--<el-input v-model="rechargeForm.amount*rechargeDeploy.exchange" :disabled="true"></el-input>-->
@@ -64,8 +64,8 @@ export default {
         exchange: 6
       },
       rechargeForm: {
-        amount: 100,
-        region: '上海',
+        amount: '',
+        region: '',
         type: ''
       }
     };
