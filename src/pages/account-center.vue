@@ -2,7 +2,7 @@
   <div class="account-center">
     <article class="region user-overview">
       <header>用户概览</header>
-      <form class="user-msg">
+      <div class="user-msg">
         <lable>
           <div class="title">用户头像：</div>
           <div class="content">
@@ -34,10 +34,10 @@
           <div class="content">molehe_1024@163.com</div>
           <button class="modify-btn" type="submit">修改</button>
         </lable>
-      </form>
-      <hr />
+      </div>
+      <div class="line"></div>
 
-      <form class="card-info">
+      <div class="card-info">
         <lable>
           <div class="title">姓名：</div>
           <div class="content">谢霆锋</div>
@@ -62,7 +62,15 @@
           <div class="content">广东省 广州市 荔湾区1850创意园</div>
           <button class="modify-btn" type="submit">修改</button>
         </lable>
-      </form>
+      </div>
+      <div class="line"></div>
+
+      <div class="bind-card">
+        <lable>
+          <div class="title">银行卡：</div>
+          <div class="content">已绑定2张</div>
+        </lable>
+      </div>
     </article>
 
     <article class="region my-mt-account">
@@ -83,7 +91,7 @@
         <el-table-column
           label="主账号">
           <template scope="scope">
-            <el-switch v-model="scope.mainAccountNumber" on-text="" off-text="" off-color="#999" on-color="#00cc00"></el-switch>
+            <el-switch v-model="scope.row.mainAccountNumber" on-text="" off-text="" off-color="#999" on-color="#00cc00"></el-switch>
           </template>
         </el-table-column>
         <el-table-column
@@ -125,7 +133,7 @@ export default {
         {
           accountNumber: '56735678',
           lever: '1:100',
-          mainAccountNumber: true,
+          mainAccountNumber: false,
           del: ''
         }
       ]
@@ -143,13 +151,18 @@ export default {
 <style lang="less" scoped>
   .account-center {
     padding: 20px;
+    .user-overview{
+      text-align: center;
+      .line {
+        margin: 0 auto;
+        background-color: #22232a;
+        width: 90%;
+        height:2px;
+      }
+    }
   }
   .user-overview{
     width: 50%;
-    hr {
-      color: #22232a;
-      width: 90%;
-    }
     .user-msg{
       padding: 30px;
       lable {
