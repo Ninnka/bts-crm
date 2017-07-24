@@ -1,6 +1,7 @@
 <template>
   <div class="tab">
     <recharge :show.sync="showRecharge"></recharge>
+    <mention :show.sync="showMention"></mention>
     <header class="tab-head is-flex">
       <h1>
         <img src="../assets/img/logo.png" :alt="DeployApi.SystemName">
@@ -8,7 +9,7 @@
       <h2>{{DeployApi.SystemName}}</h2>
       <nav class="is-flex">
         <ul class="is-flex">
-          <li v-for = "item in navList" :key="item.icon" @click="userAction(item.index)">
+          <li v-for="item in navList" :key="item.icon" @click="userAction(item.index)">
             <i class="iconfont" :class="item.icon"></i>
           </li>
         </ul>
@@ -49,10 +50,12 @@
 
 <script>
 import recharge from '@comps/recharge.vue';
+import mention from '@comps/mention.vue';
 export default {
   name: 'Tab',
   components: {
-    recharge
+    recharge,
+    mention
   },
   data () {
     return {
@@ -62,11 +65,11 @@ export default {
       },
       navList: [
         {
-          icon: 'icon-churujinguanli',
+          icon: 'icon-chongzhi',
           index: 'recharge'
         },
         {
-          icon: 'icon-churujinguanli',
+          icon: 'icon-tixian',
           index: 'mention'
         }
       ],
@@ -97,7 +100,8 @@ export default {
           text: '公共样式'
         }
       ],
-      showRecharge: false
+      showRecharge: false,
+      showMention: false
     };
   },
   computed: {
@@ -111,19 +115,19 @@ export default {
           this.showRecharge = true;
           break;
         case 'mention' :
-          this.$router.push('/tab/account-center');
+          this.showMention = true;
           break;
         case 'userCenter' :
           this.$router.push('/tab/account-center');
           break;
         case 'book' :
-          this.$router.push('/tab/user');
+          alert('暂未开发');
           break;
         case 'changePas' :
-          this.$router.push('/tab/user');
+          alert('暂未开发');
           break;
         case 'exit' :
-          this.$router.push('/tab/user');
+          alert('暂未开发');
           break;
       }
     },
@@ -147,6 +151,7 @@ export default {
     position: relative;
     color:#94959a;
     background:#23262d;
+    box-sizing: border-box;
     h1{
       width: 60px;
       margin: 0 20px;
