@@ -16,13 +16,21 @@
     </div>
     <div class="is-flex calendar--table table--head">
       <li class="calendar--table--cell" v-for="(day, index) in days" :key="this.date + index">
-        <div>{{day}}</div>
+         <div>{{ day }}</div> 
       </li>
     </div>
     <div class="is-flex calendar--table table--content">
       <li class="calendar--table--cell table-cell--wrap" v-for="num in fills" :key="num"></li>
-      <li class="calendar--table--cell table-cell--wrap" :class="getSchemeLevel(date)" v-for="date in monthLength" :key="this.date + date">
-        <div>{{date}}</div>
+      <li class="calendar--table--cell table-cell--wrap" v-for="date in monthLength" :key="this.date + date">
+        <div class="table-cell__date" :class="getSchemeLevel(date)">
+          <el-popover v-if="tmpObj[getSymbolStr(date)] !== undefined" popper-class="el-popover__extend" placement="top" width="200" trigger="click">
+            <div slot="reference">{{ date }}</div>
+            <div class="extend__content is-flex">
+              <div :class="tmpObj[getSymbolStr(date)].className"></div>
+              {{ tmpObj[getSymbolStr(date)].theme }}</div>
+          </el-popover>
+          <div v-else slot="reference">{{ date }}</div>
+        </div>
       </li>
     </div>
   </div>
@@ -36,29 +44,36 @@ export default {
     date: {
       type: Date,
       default: new Date()
+    },
+    newsTableData: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     }
   },
   data () {
     return {
       dateToSet: this.date,
-      days: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+      days: ['日', '一', '二', '三', '四', '五', '六'],
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       monthLength: 31,
       fills: 4,
-      scheme: [
-        {
-          date: '',
-          level: 2
-        },
-        {
-          date: '',
-          level: 1
-        },
-        {
-          date: '',
-          level: 0
-        }
-      ]
+      tmpObj: {}
+      // scheme: [
+      //   {
+      //     time: 1500220800,
+      //     level: 3
+      //   },
+      //   {
+      //     time: 1500566400,
+      //     level: 5
+      //   },
+      //   {
+      //     time: 1501084800,
+      //     level: 4
+      //   }
+      // ]
     };
   },
   methods: {
@@ -66,16 +81,44 @@ export default {
       let year = this.dateToSet.getFullYear();
       let month = this.dateToSet.getMonth();
       let days = new Date(year, month).getDay();
-      this.fills = days === 0 ? 6 : days - 1;
+      this.fills = days - 1; // === 0 ? 6 : days - 1;
       this.monthLength = this.getDaysInOneMonth(year, month + 1);
+    },
+    getSymbolStr (date) {
+      return String(date) + new Date(this.dateToSet.getFullYear(), this.dateToSet.getMonth());
     },
     getSchemeLevel (date) {
       // TODO:
       // 根据对应日期创建date
+      let nd = new Date(this.dateToSet.getFullYear(), this.dateToSet.getMonth(), date);
 
       // 在scheme中寻找对应的level
+      for (let item of this.newsTableData) {
+        // console.log(item.time);
+        if (item.time === moment(nd).unix()) {
+          let symbolStr = this.getSymbolStr(date);
+          let to = {
+            theme: item.theme
+          };
+          this.tmpObj[symbolStr] = to;
+          switch (item.level) {
+            case 3:
+              this.tmpObj[symbolStr].className = 'normal';
+              return 'normal';
+            case 4:
+              this.tmpObj[symbolStr].className = 'warn';
+              return 'warn';
+            case 5:
+              this.tmpObj[symbolStr].className = 'crucial';
+              return 'crucial';
+            default:
+              return '';
+          }
+        }
+      }
 
-      // 根据level返回类名
+      // 根据level返回类名并将类名添加到date对象中
+      return '';
     },
     getDaysInOneMonth (year, month) {
       try {
@@ -127,7 +170,7 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 @main-theme-sub: #94959a;
 li {
   list-style: none;
@@ -147,6 +190,7 @@ li {
   }
   .control {
     color: #979797;
+    cursor: pointer;
     > i {
       &:first-child {
         margin-right: 28px;
@@ -170,7 +214,7 @@ li {
   width: 14.285%;
   height: 32px;
   margin-bottom: 8px;
-  > div {
+  > div.table-cell__date {
     margin: 0 auto;
     width: 32px;
     height: 100%;
@@ -178,12 +222,15 @@ li {
     border-radius: 100%;
     &.crucial {
       background-color: #ff3b6a;
+      color: #ffffff;
     }
     &.warn {
       background-color: #ff9e22;
+      color: #ffffff;
     }
     &.normal {
       background-color: #00dfb9;
+      color: #333333;
     }
   }
   &.table-cell--wrap {
@@ -191,6 +238,50 @@ li {
     flex-basis: 65.55px;
     flex-grow: 1;
     flex-shrink: 1;
+  }
+}
+
+.el-popover__extend {
+  border-width: 0 !important;
+  background: #3b3c48 !important;
+  border-radius: 4px !important;
+  width: 172px !important;
+  height: 45px !important;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.el-popover[x-placement^=top] .popper__arrow {
+  border-top-color: #3b3c48 !important;
+}
+.el-popover__extend[x-placement^=top] .popper__arrow::after {
+  border-top-color: #3b3c48 !important;
+}
+.extend__content {
+  justify-content: flex-start;
+  align-items: flex-start;
+  > div:nth-child(1) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    margin-top: 6px;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    margin-right: 8px;
+  }
+  > div:nth-child(2) {
+    flex-grow: 1;
+    flex-shrink: 1;
+  }
+  .crucial {
+    background-color: #ff3b6a;
+  }
+  .warn {
+    background-color: #ff9e22;
+  }
+  .normal {
+    background-color: #00dfb9;
   }
 }
 </style>

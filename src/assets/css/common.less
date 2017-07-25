@@ -55,6 +55,26 @@ input:-ms-input-placeholder, textarea:-ms-input-placeholder {
   color: #94959a !important;
 }
 
+// 修改element按钮风格样式
+body{
+  .el-button--info{
+    background:#444b5b;
+    border-color: #444b5b;
+    &:hover{
+      background:#17191d;
+      border-color: #17191d;
+    }
+    &:focus{
+      background:#17191d;
+      border-color: #17191d;
+    }
+    &:active{
+      background:#17191d;
+      border-color: #17191d;
+    }
+  }
+}
+
 // 修改element输入框风格样式
 .el-form{
   .el-form-item{
@@ -147,7 +167,7 @@ body{
 }
 
 // 在弹出框中单选框样式修改
-.popup-content{
+body{
   .el-radio{
     color: #fff;
   }
@@ -260,6 +280,62 @@ body{
         color: #fff;
         font-size: 16px;
       }
+    }
+  }
+}
+
+// --------
+
+@content-item-bg: #272a31;
+@content-item-contract-bg: #18191d;
+@main-theme-sub: #94959a;
+
+.el-date-editor {
+  .el-input__inner {
+    background: #202228;
+    border-color: #202228;
+  }
+}
+.el-select {
+  .el-input__inner {
+    background: #202228;
+    border-color: #202228;
+  }
+  input.el-input__inner {
+    color: @main-theme-sub;
+  }
+}
+.el-pagination__total {
+  color: @main-theme-sub;
+}
+.el-pagination {
+  text-align: right;
+  button[type="button"] {
+    background: inherit !important;
+    border: none !important;
+  }
+  .el-pager {
+    color: @main-theme-sub;
+    .number {
+      border: none;
+      border-radius: 7px;
+      background: inherit;
+      &.active {
+        border-color: #20a0ff;
+        background-color: #20a0ff
+      }
+    }
+    li.more {
+      background: inherit;
+      border: none;
+    }
+  }
+  .el-pagination__jump {
+    color: @main-theme-sub;
+    .el-pagination__editor {
+      color: #ffffff;
+      background: inherit;
+      border-color: @main-theme-sub;
     }
   }
 }

@@ -19,7 +19,7 @@ export default {
           orient: 'vertical',
           x: 'right',
           y: 'center',
-          left: '55%',
+          left: '48%',
           top: '16%',
           data: ['可用资金', '占用保证金', 'MT帐余额', '赠金'],
           itemGap: 20,
@@ -27,11 +27,14 @@ export default {
           itemHeight: 20,
           textStyle: {
             color: '#ffffff'
+          },
+          formatter: function (name) {
+            return '      ' + name;
           }
         },
         series: [
           {
-            name: '持仓组成',
+            name: '资产概况',
             type: 'pie',
             radius: ['55%', '75%'],
             center: [180, '50%'],
@@ -95,9 +98,11 @@ export default {
           }
         },
         calculable: true,
+        containLabel: true,
         grid: {
           top: '10%',
-          right: '8%'
+          left: 65,
+          width: '86%'
         },
         xAxis: [
           {
@@ -126,40 +131,96 @@ export default {
             name: '时间',
             type: 'line',
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210]
+            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210],
+            lineStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#413e8a' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#f95b85' // 100% 处的颜色
+                  }]
+                }
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#413e8a' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#f95b85' // 100% 处的颜色
+                  }]
+                }
+              }
+            }
           }
         ]
       },
       newsTableData: [
         {
-          time: 1500602645,
+          time: 1500220800,
           country: '中国',
+          countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 3,
+          link: '',
+          status: 5
         },
         {
-          time: 1500602645,
+          time: 1500566400,
           country: '美国',
+          countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/meiguo.png',
           theme: '美国7月年度USDA小麦产量预估（亿蒲式耳）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 4,
+          link: '',
+          status: -3
+        },
+        {
+          time: 1500603945,
+          country: '中国',
+          countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
+          theme: '中国6月以美元计算贸易帐（亿美元）',
+          influence: '利空',
+          level: 2,
+          link: '',
+          status: -1
         },
         {
           time: 1500602645,
           country: '中国',
+          countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 1,
+          link: '',
+          status: 2
         },
         {
-          time: 1500602645,
+          time: 1501084800,
           country: '中国',
+          countryIcon: 'http://www.caijingriliba.com/app/Tpl/Index/Picture/img/zhongguo.png',
           theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
-        },
-        {
-          time: 1500602645,
-          country: '中国',
-          theme: '中国6月以美元计算贸易帐（亿美元）',
-          influence: '利空原油'
+          influence: '利空',
+          level: 5,
+          link: '',
+          status: 1
         }
       ],
       dealerDetailOption: {
@@ -188,9 +249,11 @@ export default {
           }
         },
         calculable: true,
+        containLabel: true,
         grid: {
           bottom: '8%',
-          right: '8%'
+          left: '7%',
+          width: '89%'
         },
         xAxis: [
           {
@@ -224,7 +287,43 @@ export default {
             name: '时间',
             type: 'line',
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
-            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210]
+            data: [320, 332, 301, 334, 390, 330, 320, 150, 232, 201, 154, 190, 330, 410, 220, 182, 191, 234, 290, 330, 134, 90, 230, 210],
+            lineStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 0,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#00e2b8' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#009acd' // 100% 处的颜色
+                  }]
+                }
+              }
+            },
+            areaStyle: {
+              normal: {
+                color: {
+                  type: 'linear',
+                  x: 0,
+                  y: 0,
+                  x2: 1,
+                  y2: 1,
+                  colorStops: [{
+                    offset: 0,
+                    color: '#00e2b8' // 0% 处的颜色
+                  }, {
+                    offset: 1,
+                    color: '#009acd' // 100% 处的颜色
+                  }]
+                }
+              }
+            }
           }
         ]
       },

@@ -26,21 +26,21 @@
             <img src="../assets/img/Mt.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>2</span>个</p>
             </div>
           </div>
           <div class="account--item">
             <img src="../assets/img/hold-account.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>4</span>个</p>
             </div>
           </div>
           <div class="account--item">
             <img src="../assets/img/icon-documentary.png" alt="">
             <div class="item-desc">
               <p>持有MT账号</p>
-              <p><span>1</span>个</p>
+              <p><span>3</span>个</p>
             </div>
           </div>
         </div>
@@ -95,11 +95,11 @@
         <div class="is-flex entry--leave">
           <div class="entry">
             <p>出金总数：$6,545.00</p>
-            <div class="entry--btn">出金</div>
+            <div class="btn entry--btn">出金</div>
           </div>
           <div class="leave">
             <p>入金总数：$6,545.00</p>
-            <div class="leave--btn">入金</div>
+            <div class="btn leave--btn">入金</div>
           </div>
         </div>
       </div>
@@ -123,7 +123,7 @@
           <p>浮动盈亏：<span class="positions--summary--hightlight">$88,888.00</span></p>
         </div>
         <div class="positions-chart">
-          <trend-line-echart-comp :positionsOptions="positionsOptions"></trend-line-echart-comp>
+          <trend-line-echart-comp ref="chartCompWrap" :positionsOptions="positionsOptions"></trend-line-echart-comp>
         </div>
       </div>
       <div class="commission--activity">
@@ -181,18 +181,40 @@
       </article>
       <div class="item__wrap is-flex calendar--news">
         <div class="calendar__wrap">
-          <calendar-comp :date="dateToSet"></calendar-comp>
+          <calendar-comp :date="dateToSet" :newsTableData="newsTableData"></calendar-comp>
         </div>
         <div class="news__wrap">
-          <el-table id="news-table" :data="newsTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间">
+          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="330" header-align="center" :row-class-name="tableRowClassName">
+            <el-table-column prop="time" label="时间" min-width="75" width="105">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
             </el-table-column>
-            <el-table-column prop="country" label="国家/地区"></el-table-column>
-            <el-table-column prop="theme" label="指标名称"></el-table-column>
-            <el-table-column prop="influence" label="影响"></el-table-column>
+            <el-table-column prop="country" label="国家/地区" min-width="90">
+              <template scope="scope">
+                <img :src="scope.row.countryIcon" alt="" class="country--icon">
+              </template>
+            </el-table-column>
+            <el-table-column prop="theme" label="指标名称" min-width="160">
+              <template scope="scope">
+                <a :href="scope.row.link" target="_blank">{{scope.row.theme}}</a>
+              </template>
+            </el-table-column>
+            <el-table-column prop="level" label="重要程度" width="170">
+              <template scope="scope">
+                <el-rate v-model="scope.row.level" disabled text-color="#ff9900"></el-rate>
+              </template>
+            </el-table-column>
+            <el-table-column prop="influence" label="影响" width="110" :render-header="newsTablerenderHeader">
+              <template scope="scope">
+                <div class="influence--item" :class="scope.row.status > 0 ? 'up' : 'down'">{{scope.row.status > 0 ? '↑' : '↓'}} {{ scope.row.influence }} {{influenceStatus}}</div>
+              </template>
+            </el-table-column>
+            <el-table-column label="分享" width="74">
+              <template scope="scope">
+                <i class="el-icon-share" @click="shareNews"></i>
+              </template>
+            </el-table-column>
           </el-table>
         </div>
       </div>
@@ -202,22 +224,56 @@
       <article class="item__header">
         <header>
           交易行情
-          <div class="posi-abs add--more">
+          <div class="posi-abs add--more" @click="showPopup">
             <span>添加行情</span>
             <i class="el-icon-plus"></i>
           </div>
         </header>
       </article>
       <div class="item__wrap is-flex dealer--detail">
-        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
-        <!-- <div>
-          <trend-line-echart-comp :positionsOptions="dealerDetailOption"></trend-line-echart-comp>
-        </div> -->
+        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption" @closeDetail="closeDetail"></dealer-detail-comp> 
       </div>
     </div>
 
+    <div class="popup" v-show="showAddNewDetailPopup">
+      <article class="popup-main">
+        <header>
+          添加交易行情
+          <i class="close" @click="contralPopup">×</i>
+        </header>
+        <div class="popup-content">
+          <el-form ref="form" :model="addDealerForm" label-width="100px">
+            <el-form-item label="交易种类">
+              <el-row>
+                <el-col :span="24">
+                  <el-select v-model="addDealerForm.transactionType" placeholder="请选择交易种类">
+                    <el-option v-for="(item, index) in addDealerForm.transactionTypeArr" :key="item" :label="item" :value="item"></el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+            </el-form-item>
+             <el-row>
+                <el-col :span="12">
+                  <el-form-item label="数据周期">
+                    <el-select v-model="addDealerForm.dataCycle" placeholder="请选择交易种类">
+                      <el-option v-for="(item, index) in addDealerForm.dataCycleArr" :key="item.value" :label="item.label" :value="item.label"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="图标种类">
+                    <el-select v-model="addDealerForm.chartType" placeholder="请选择交易种类">
+                      <el-option v-for="(item, index) in addDealerForm.chartTypeArr" :key="item.value" :label="item.label" :value="item.label"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+          </el-form>
+          <button class="sure-btn" @click="addMoreQuotation">确认按钮</button>
+        </div>
+      </article>
+    </div>  
   </div>
-  
 </template>
 
 <script>
@@ -245,7 +301,10 @@ export default {
   mixins: [tmpDataMixin],
   data () {
     return {
+      hasWindowResize: false,
+      inIndex: true,
       dateToSet: new Date(),
+      influenceStatus: '原油',
       dealerDetailArr: [
         {
           selectedInterval: '1M',
@@ -255,14 +314,46 @@ export default {
           selectedInterval: '5M',
           yAxisName: '美元/欧元'
         }
-      ]
+      ],
+      aClassfyArr: ['金银', '原油', '欧元', '铂钯', '铜', '英镑', '日元', '瑞郎', '澳元'],
+      bClassfyArr: ['美元', '加元'],
+      showAddNewDetailPopup: false,
+      addDealerForm: {
+        transactionType: '美元/日元',
+        dataCycle: '1M',
+        chartType: '分时图',
+        transactionTypeArr: ['美元/日元', '美元/欧元', '美元/人民币'],
+        dataCycleArr: [{
+          label: '1M',
+          value: 1
+        }, {
+          label: '5M',
+          value: 2
+        }, {
+          label: '1H',
+          value: 3
+        }],
+        chartTypeArr: [{
+          label: '分时图',
+          value: 1
+        }]
+      }
     };
   },
-  computed: {
-  },
-  created: function () {
-  },
   methods: {
+    useResize () {
+      this.hasWindowResize = true;
+      if (!this.inIndex) {
+        return;
+      }
+      let indexRefs = this.$refs;
+      indexRefs.positionStructureComp && indexRefs.positionStructureComp.$refs.chart.resize();
+      indexRefs.chartCompWrap && indexRefs.chartCompWrap.$refs.chart && indexRefs.chartCompWrap.$refs.chart.resize();
+      for (let item of indexRefs.dealerDetailComp) {
+        item.$refs.chartCompWrap && item.$refs.chartCompWrap.$refs.chart.resize();
+      }
+      this.hasWindowResize = false;
+    },
     tableRowClassName (row, index) {
       if (index % 2 === 1) {
         return 'even-row';
@@ -271,7 +362,156 @@ export default {
     },
     formatDate (time) {
       return moment(time).format('hh:mm');
+    },
+    shareNews () {
+      // TODO:
+      console.log('shareNews');
+    },
+    showPopup () {
+      this.showAddNewDetailPopup = true;
+    },
+    addMoreQuotation () {
+      for (let i = 0; i < this.dealerDetailArr.length; i++) {
+        if (this.dealerDetailArr[i].yAxisName === this.addDealerForm.transactionType) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '已存在相同的行情',
+            duration: 3000
+          });
+          return;
+        }
+      }
+      // NOTE: 后期可能会改变数据类型
+      this.dealerDetailArr.push({
+        selectedInterval: this.addDealerForm.dataCycle,
+        yAxisName: this.addDealerForm.transactionType
+      });
+      this.contralPopup();
+    },
+    contralPopup () {
+      this.showAddNewDetailPopup = !this.showAddNewDetailPopup;
+    },
+    closeDetail (params) {
+      for (let i = 0; i < this.dealerDetailArr.length; i++) {
+        if (this.dealerDetailArr[i].yAxisName === params.yAxisName) {
+          this.dealerDetailArr.splice(i, 1);
+          break;
+        }
+      }
+    },
+    newsTablerenderHeader (createElement, { column }) {
+      let aClassfies = this.aClassfyArr.map((currentValue, index, array) => {
+        return createElement('el-radio', {
+          class: {
+            radio: true
+          },
+          props: {
+            label: currentValue,
+            value: this.influenceStatus
+          },
+          on: {
+            input: (label) => {
+              this.influenceStatus = label;
+            }
+          }
+        }, [currentValue]);
+      });
+      let bClassfies = this.bClassfyArr.map((currentValue, index, array) => {
+        return createElement('el-radio', {
+          class: {
+            radio: true
+          },
+          props: {
+            label: currentValue,
+            value: this.influenceStatus
+          },
+          on: {
+            input: (label) => {
+              this.influenceStatus = label;
+            }
+          }
+        }, [currentValue]);
+      });
+      return createElement(
+        'el-dropdown', {
+          attrs: {
+            trigger: 'click'
+          },
+          props: {
+            isVisible: false
+          }
+        }, [
+          createElement('span', [
+            column.label,
+            createElement('i', {
+              class: {
+                'el-icon-arrow-down': true,
+                'el-icon--right': true
+              }
+            })
+          ], {
+            class: {
+              'el-dropdown-link': true
+            }
+          }),
+          createElement('el-dropdown-menu', {
+            slot: 'dropdown'
+          }, [
+            createElement('el-dropdown-item', {
+              class: {
+                'is-flex': true
+              },
+              style: {
+                'align-items': 'flex-start'
+              }
+            }, [
+              createElement('span', {
+                style: {
+                  'padding-right': '8px',
+                  'box-sizing': 'border-box',
+                  'width': '55px'
+                }
+              }, ['A类：']),
+              createElement('div', {
+                style: {
+                  'max-width': '200px'
+                }
+              }, [...aClassfies])
+            ]),
+            createElement('el-dropdown-item', {
+              class: {
+                'is-flex': true
+              }
+            }, [
+              createElement('span', {
+                style: {
+                  'padding-right': '8px',
+                  'box-sizing': 'border-box',
+                  'width': '55px'
+                }
+              }, ['B类：']),
+              createElement('div', {
+                style: {
+                  'max-width': '200px'
+                }
+              }, [...bClassfies])
+            ])
+          ]
+          )
+        ]
+      );
     }
+  },
+  mounted () {
+    window.addEventListener('resize', this.useResize);
+  },
+  activated () {
+    this.inIndex = true;
+    this.useResize();
+  },
+  deactivated () {
+    this.inIndex = false;
   }
 };
 </script>
@@ -379,8 +619,12 @@ export default {
   div:nth-child(2) {
     margin-left: 20px;
     color: white;
+    line-height: 1.4;
     > p:not(:first-child) {
       color: @main-theme-sub;
+    }
+    > p:first-child {
+      margin-top: 5px;
     }
   }
 }
@@ -479,11 +723,13 @@ export default {
 }
 
 .asset--money {
-  top: 50px;
+  top: 45px;
   right: 90px;
   color: #ffffff;
+  text-align: left;
   p {
-    margin-bottom: 20px;
+    margin-bottom: 19px;
+    font-size: 18px;
   }
 }
 
@@ -521,6 +767,9 @@ export default {
   height: 124px;
   justify-content: space-between;
   color: #ffffff;
+  .btn {
+    cursor: pointer;
+  }
   > div {
     background: #272a31;
     flex-basis: 50%;
@@ -624,6 +873,7 @@ export default {
         font-size: 14px;
         color: @main-theme-sub;
         margin-bottom: 9px;
+        margin-top: 20px;
       }
       &:last-child {
         color: #ffffff;
@@ -672,14 +922,38 @@ export default {
 }
 
 .calendar__wrap {
-  // margin-right: 125px;
   flex-basis: 27.61%;
   max-width: 27.61%;
 }
 
 .news__wrap {
-  flex-basis: 61.34%; 
-  max-width: 61.34%;
+  flex-basis: 65%; 
+  max-width: 65%;
+  a {
+    &:hover {
+      color: #333333;
+    }
+  }
+}
+
+.influence--item {
+  padding: 0 4px;
+  border-radius: 3px;
+  width: 70px;
+  height: 24px;
+  font-size: 12px;
+  &.up {
+    border: 1px solid #00dfb9;
+    color: #00dfb9;
+  }
+  &.down {
+    border:1px solid #ff3b6a;
+    color: #ff3b6a;
+  }
+}
+
+.country--icon {
+  width: 38px;
 }
 
 .el-table {
@@ -687,7 +961,7 @@ export default {
   text-align: center;
   color: #ffffff;
   border-width: 0;
-  * {
+  *:not(.influence--item) {
     border-width: 0 !important;
   }
 }
@@ -698,6 +972,10 @@ export default {
 
 .el-table .even-row {
   background: #22252d;
+}
+
+.el-table__header .el-dropdown {
+  color: @main-theme-sub;
 }
 
 .el-table__header tr {
@@ -725,42 +1003,70 @@ export default {
   background-color: transparent !important;
 }
 
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+  background: initial;
+}
+
 .el-table__row {
-  &:hover {
-    color: #333;
+  a:hover {
+    color: #ffffff;
+  }
+}
+
+.el-table td, .el-table th {
+  padding: 7px 0;
+}
+
+.el-dropdown-menu__item {
+  .el-radio {
+    margin: 0 15px 0 0;
+    min-width: 51px;
+    color: @main-theme-sub;
   }
 }
 
 // --------------------------
 
 .dealer--detail__wrap {
-  min-height: 465px;
+  // min-height: 465px;
 }
 
 .dealer--detail {
   min-height: calc(~"100% - 45px");
   justify-content: space-between;
   margin-top: 20px;
+  flex-wrap: wrap;
   > div {
-    margin: 0 2.1% 2.2%;
-    flex-basis: 50%;
+    margin: 0 0 2.2%;
+    flex-basis: 40%;
     flex-shrink: 1;
     flex-grow: 1;
     height: 360px;
     max-width: 50%;
     position: relative;
+    overflow: hidden;
   }
 }
 
 .dealer--detail--dropdown {
-  top: 16px;
-  right: 20px;
+  top: 18px;
+  right: 4%;
+  .el-dropdown-link {
+    color: @main-theme-sub;
+  }
+  i.c--close-icon {
+    margin: 0 4px 0 36px;
+    color: @main-theme-sub !important;
+    font-size: 14px;
+    cursor: pointer;
+  }
 }
 
 .add--more {
   right: 38px;
-  top: 13px;
+  top: 0;
   color: @main-theme-sub;
+  cursor: pointer;
   * {
     vertical-align: middle;
   }
@@ -771,6 +1077,15 @@ export default {
     font-size: 11px;
     margin-left: 9px;
   }
+}
+
+// ------------------------
+.popup-wrap {
+  margin: 0 auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 </style>

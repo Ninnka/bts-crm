@@ -28,16 +28,17 @@
           <i class="close" @click="contralPopup">×</i>
         </header>
         <div class="popup-content">
-          <el-form ref="form" :model="form" label-width="100px">
+          <el-form ref="form" :model="testForm" label-width="100px">
             <el-form-item label="活动名称">
-              <el-input v-model="form.name"></el-input>
+              <el-input v-model="testForm.name"></el-input>
             </el-form-item>
             <el-form-item label="活动区域">
-              <el-select v-model="form.region" placeholder="请选择活动区域">
+              <el-select v-model="testForm.region" placeholder="请选择活动区域">
                 <el-option label="上海" value="上海"></el-option>
                 <el-option label="北京" value="北京"></el-option>
               </el-select>
             </el-form-item>
+            <verify :parentVerify.sync="testForm.verify" :parentPhone.sync="testForm.phone" :needPhone="true"></verify>
           </el-form>
           <button class="sure-btn">确认按钮</button>
         </div>
@@ -62,16 +63,27 @@
         label="地址">
       </el-table-column>
     </el-table>
+    <button class="cold-bg" @click="showAddBank = true">添加银行卡</button>
+    <add-bank :show.sync="showAddBank"></add-bank>
   </div>
 </template>
 
 <script>
+import verify from '@comps/verify.vue';
+import addBank from '@comps/account-center/add-bank.vue';
 export default {
   name: 'test',
+  components: {
+    verify,
+    'add-bank': addBank
+  },
   data () {
     return {
       show: false,
-      form: {
+      showAddBank: false,
+      testForm: {
+        verify: '',
+        phone: '',
         name: '',
         region: '上海'
       },

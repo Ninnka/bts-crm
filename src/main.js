@@ -7,7 +7,8 @@ import router from './router';
 // 引入配置数据
 import DeployApi from '@assets/js/deploy.js';
 Vue.prototype.DeployApi = DeployApi;
-
+import CommonApi from '@assets/js/common.js';
+Vue.prototype.CommonApi = CommonApi;
 // 引进公共样式
 import '@assets/css/common.less';
 
