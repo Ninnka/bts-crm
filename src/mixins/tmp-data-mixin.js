@@ -252,8 +252,8 @@ export default {
         containLabel: true,
         grid: {
           bottom: '8%',
-          left: '5%',
-          width: '92%'
+          left: '7%',
+          width: '89%'
         },
         xAxis: [
           {

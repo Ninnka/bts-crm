@@ -1031,7 +1031,7 @@ export default {
 
 .dealer--detail--dropdown {
   top: 18px;
-  right: 3%;
+  right: 4%;
   .el-dropdown-link {
     color: @main-theme-sub;
   }
