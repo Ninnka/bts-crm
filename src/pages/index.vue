@@ -633,6 +633,7 @@ export default {
   top: 45px;
   right: 90px;
   color: #ffffff;
+  text-align: left;
   p {
     margin-bottom: 19px;
     font-size: 18px;

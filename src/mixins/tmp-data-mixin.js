@@ -19,7 +19,7 @@ export default {
           orient: 'vertical',
           x: 'right',
           y: 'center',
-          left: '55%',
+          left: '48%',
           top: '16%',
           data: ['可用资金', '占用保证金', 'MT帐余额', '赠金'],
           itemGap: 20,
@@ -27,11 +27,14 @@ export default {
           itemHeight: 20,
           textStyle: {
             color: '#ffffff'
+          },
+          formatter: function (name) {
+            return '      ' + name;
           }
         },
         series: [
           {
-            name: '持仓组成',
+            name: '资产概况',
             type: 'pie',
             radius: ['55%', '75%'],
             center: [180, '50%'],
