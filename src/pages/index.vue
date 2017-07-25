@@ -184,8 +184,8 @@
           <calendar-comp :date="dateToSet" :newsTableData="newsTableData"></calendar-comp>
         </div>
         <div class="news__wrap">
-          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间" min-width="75" width="110">
+          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="330" header-align="center" :row-class-name="tableRowClassName">
+            <el-table-column prop="time" label="时间" min-width="75" width="105">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
@@ -231,11 +231,11 @@
         </header>
       </article>
       <div class="item__wrap is-flex dealer--detail">
-        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption"></dealer-detail-comp> 
+        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption" @closeDetail="closeDetail"></dealer-detail-comp> 
       </div>
     </div>
 
-      <div class="popup" v-show="showAddNewDetailPopup">
+    <div class="popup" v-show="showAddNewDetailPopup">
       <article class="popup-main">
         <header>
           添加交易行情
@@ -371,6 +371,17 @@ export default {
       this.showAddNewDetailPopup = true;
     },
     addMoreQuotation () {
+      for (let i = 0; i < this.dealerDetailArr.length; i++) {
+        if (this.dealerDetailArr[i].yAxisName === this.addDealerForm.transactionType) {
+          this.$message({
+            showClose: true,
+            type: 'error',
+            message: '已存在相同的行情',
+            duration: 3000
+          });
+          return;
+        }
+      }
       // NOTE: 后期可能会改变数据类型
       this.dealerDetailArr.push({
         selectedInterval: this.addDealerForm.dataCycle,
@@ -380,6 +391,14 @@ export default {
     },
     contralPopup () {
       this.showAddNewDetailPopup = !this.showAddNewDetailPopup;
+    },
+    closeDetail (params) {
+      for (let i = 0; i < this.dealerDetailArr.length; i++) {
+        if (this.dealerDetailArr[i].yAxisName === params.yAxisName) {
+          this.dealerDetailArr.splice(i, 1);
+          break;
+        }
+      }
     },
     newsTablerenderHeader (createElement, { column }) {
       let aClassfies = this.aClassfyArr.map((currentValue, index, array) => {
@@ -908,8 +927,8 @@ export default {
 }
 
 .news__wrap {
-  flex-basis: 64%; 
-  max-width: 64%;
+  flex-basis: 65%; 
+  max-width: 65%;
   a {
     &:hover {
       color: #333333;
@@ -1009,7 +1028,7 @@ export default {
 // --------------------------
 
 .dealer--detail__wrap {
-  min-height: 465px;
+  // min-height: 465px;
 }
 
 .dealer--detail {
@@ -1034,6 +1053,12 @@ export default {
   right: 4%;
   .el-dropdown-link {
     color: @main-theme-sub;
+  }
+  i.c--close-icon {
+    margin: 0 4px 0 36px;
+    color: @main-theme-sub !important;
+    font-size: 14px;
+    cursor: pointer;
   }
 }
 
