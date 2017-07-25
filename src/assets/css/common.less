@@ -264,5 +264,61 @@ body{
   }
 }
 
+// --------
+
+@content-item-bg: #272a31;
+@content-item-contract-bg: #18191d;
+@main-theme-sub: #94959a;
+
+.el-date-editor {
+  .el-input__inner {
+    background: #202228;
+    border-color: #202228;
+  }
+}
+.el-select {
+  .el-input__inner {
+    background: #202228;
+    border-color: #202228;
+  }
+  input.el-input__inner {
+    color: @main-theme-sub;
+  }
+}
+.el-pagination__total {
+  color: @main-theme-sub;
+}
+.el-pagination {
+  text-align: right;
+  button[type="button"] {
+    background: inherit !important;
+    border: none !important;
+  }
+  .el-pager {
+    color: @main-theme-sub;
+    .number {
+      border: none;
+      border-radius: 7px;
+      background: inherit;
+      &.active {
+        border-color: #20a0ff;
+        background-color: #20a0ff
+      }
+    }
+    li.more {
+      background: inherit;
+      border: none;
+    }
+  }
+  .el-pagination__jump {
+    color: @main-theme-sub;
+    .el-pagination__editor {
+      color: #ffffff;
+      background: inherit;
+      border-color: @main-theme-sub;
+    }
+  }
+}
+
 
 

@@ -55,7 +55,7 @@ export default {
   data () {
     return {
       dateToSet: this.date,
-      days: ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'],
+      days: ['日', '一', '二', '三', '四', '五', '六'],
       months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
       monthLength: 31,
       fills: 4,
@@ -81,7 +81,7 @@ export default {
       let year = this.dateToSet.getFullYear();
       let month = this.dateToSet.getMonth();
       let days = new Date(year, month).getDay();
-      this.fills = days === 0 ? 6 : days - 1;
+      this.fills = days - 1; // === 0 ? 6 : days - 1;
       this.monthLength = this.getDaysInOneMonth(year, month + 1);
     },
     getSymbolStr (date) {

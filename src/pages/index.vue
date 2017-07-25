@@ -184,8 +184,8 @@
           <calendar-comp :date="dateToSet" :newsTableData="newsTableData"></calendar-comp>
         </div>
         <div class="news__wrap">
-          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间" min-width="75" width="110">
+          <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="330" header-align="center" :row-class-name="tableRowClassName">
+            <el-table-column prop="time" label="时间" min-width="75" width="105">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
@@ -235,7 +235,7 @@
       </div>
     </div>
 
-      <div class="popup" v-show="showAddNewDetailPopup">
+    <div class="popup" v-show="showAddNewDetailPopup">
       <article class="popup-main">
         <header>
           添加交易行情
@@ -908,8 +908,8 @@ export default {
 }
 
 .news__wrap {
-  flex-basis: 64%; 
-  max-width: 64%;
+  flex-basis: 65%; 
+  max-width: 65%;
   a {
     &:hover {
       color: #333333;
