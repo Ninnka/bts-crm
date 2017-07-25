@@ -385,7 +385,13 @@ export default {
                 'align-items': 'flex-start'
               }
             }, [
-              'A类：',
+              createElement('span', {
+                style: {
+                  'padding-right': '8px',
+                  'box-sizing': 'border-box',
+                  width: '55px'
+                }
+              }, ['A类：']),
               createElement('div', {
                 style: {
                   'max-width': '200px'
@@ -397,7 +403,13 @@ export default {
                 'is-flex': true
               }
             }, [
-              'B类：',
+              createElement('span', {
+                style: {
+                  'padding-right': '8px',
+                  'box-sizing': 'border-box',
+                  width: '55px'
+                }
+              }, ['B类：']),
               createElement('div', {
                 style: {
                   'max-width': '200px'
@@ -928,6 +940,7 @@ export default {
   .el-radio {
     margin: 0 15px 0 0;
     min-width: 51px;
+    color: @main-theme-sub;
   }
 }
 
