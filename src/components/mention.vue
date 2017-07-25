@@ -32,7 +32,7 @@
               <el-option  v-for="item in bankList" :key="item.name" :label="item.name" :value="item"></el-option>
             </el-select>
           </el-form-item>
-          <verity></verity>
+          <verify :parentVerify.sync="mentionForm.verify"></verify>
         </el-form>
         <button class="sure-btn" @click="close">出金</button>
       </div>
@@ -41,11 +41,11 @@
 </template>
 
 <script>
-import verity from '@comps/verity.vue';
+import verify from '@comps/verify.vue';
 export default {
   name: 'mention',
   components: {
-    verity
+    verify
   },
   data () {
     return {
