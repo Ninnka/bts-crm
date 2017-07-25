@@ -63,19 +63,24 @@
         label="地址">
       </el-table-column>
     </el-table>
+    <button class="cold-bg" @click="showAddBank = true">添加银行卡</button>
+    <add-bank :show.sync="showAddBank"></add-bank>
   </div>
 </template>
 
 <script>
 import verify from '@comps/verify.vue';
+import addBank from '@comps/account-center/add-bank.vue';
 export default {
   name: 'test',
   components: {
-    verify
+    verify,
+    'add-bank': addBank
   },
   data () {
     return {
       show: false,
+      showAddBank: false,
       testForm: {
         verify: '',
         phone: '',
