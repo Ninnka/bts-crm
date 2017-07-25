@@ -1,12 +1,12 @@
 <template>
   <div>
     <trend-line-echart-comp :positionsOptions="getDealerDetailOption" ref="chartCompWrap"></trend-line-echart-comp>
-    <el-dropdown class="posi-abs dealer--detail--dropdown" trigger="click">
+    <el-dropdown class="posi-abs dealer--detail--dropdown" trigger="click" @command="intervalSelectedCommand">
       <span class="el-dropdown-link">
-        {{ compOption.selectedInterval }} <i class="el-icon-caret-bottom el-icon--right"></i>
+        {{ selectedInterval }} <i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-         <el-dropdown-item v-for="item in intervalArr" :key="item.value">{{ item.label }}</el-dropdown-item> 
+         <el-dropdown-item v-for="item in intervalArr" :key="item.value" :command="item.label">{{ item.label }}</el-dropdown-item> 
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -41,7 +41,7 @@ export default {
   },
   data () {
     return {
-      selectedInterval: '1M',
+      selectedInterval: this.compOption.selectedInterval,
       intervalArr: [
         {
           label: '1M',
@@ -57,6 +57,14 @@ export default {
         }
       ]
     };
+  },
+  methods: {
+    intervalSelectedCommand (command) {
+      this.setSelectedInterval(command);
+    },
+    setSelectedInterval (value) {
+      this.selectedInterval = value;
+    }
   },
   computed: {
     getDealerDetailOption () {

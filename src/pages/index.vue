@@ -185,12 +185,12 @@
         </div>
         <div class="news__wrap">
           <el-table id="news-table" :data="newsTableData" style="width: 100%" max-height="320" header-align="center" :row-class-name="tableRowClassName">
-            <el-table-column prop="time" label="时间" min-width="75" width="115">
+            <el-table-column prop="time" label="时间" min-width="75" width="110">
               <template scope="scope">
                 {{ formatDate(scope.row.time) }}
               </template>
             </el-table-column>
-            <el-table-column prop="country" label="国家/地区" min-width="96">
+            <el-table-column prop="country" label="国家/地区" min-width="90">
               <template scope="scope">
                 <img :src="scope.row.countryIcon" alt="" class="country--icon">
               </template>
@@ -235,9 +235,44 @@
       </div>
     </div>
 
-    <!-- <div v-if="" class="posi-abs popup-wrap">
-
-    </div> -->
+      <div class="popup" v-show="showAddNewDetailPopup">
+      <article class="popup-main">
+        <header>
+          添加交易行情
+          <i class="close" @click="contralPopup">×</i>
+        </header>
+        <div class="popup-content">
+          <el-form ref="form" :model="addDealerForm" label-width="100px">
+            <el-form-item label="交易种类">
+              <el-row>
+                <el-col :span="24">
+                  <el-select v-model="addDealerForm.transactionType" placeholder="请选择交易种类">
+                    <el-option v-for="(item, index) in addDealerForm.transactionTypeArr" :key="item" :label="item" :value="item"></el-option>
+                  </el-select>
+                </el-col>
+              </el-row>
+            </el-form-item>
+             <el-row>
+                <el-col :span="12">
+                  <el-form-item label="数据周期">
+                    <el-select v-model="addDealerForm.dataCycle" placeholder="请选择交易种类">
+                      <el-option v-for="(item, index) in addDealerForm.dataCycleArr" :key="item.value" :label="item.label" :value="item.label"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item label="图标种类">
+                    <el-select v-model="addDealerForm.chartType" placeholder="请选择交易种类">
+                      <el-option v-for="(item, index) in addDealerForm.chartTypeArr" :key="item.value" :label="item.label" :value="item.label"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+          </el-form>
+          <button class="sure-btn" @click="addMoreQuotation">确认按钮</button>
+        </div>
+      </article>
+    </div>  
   </div>
 </template>
 
@@ -269,6 +304,7 @@ export default {
       hasWindowResize: false,
       inIndex: true,
       dateToSet: new Date(),
+      influenceStatus: '原油',
       dealerDetailArr: [
         {
           selectedInterval: '1M',
@@ -279,9 +315,29 @@ export default {
           yAxisName: '美元/欧元'
         }
       ],
-      influenceStatus: '原油',
       aClassfyArr: ['金银', '原油', '欧元', '铂钯', '铜', '英镑', '日元', '瑞郎', '澳元'],
-      bClassfyArr: ['美元', '加元']
+      bClassfyArr: ['美元', '加元'],
+      showAddNewDetailPopup: false,
+      addDealerForm: {
+        transactionType: '美元/日元',
+        dataCycle: '1M',
+        chartType: '分时图',
+        transactionTypeArr: ['美元/日元', '美元/欧元', '美元/人民币'],
+        dataCycleArr: [{
+          label: '1M',
+          value: 1
+        }, {
+          label: '5M',
+          value: 2
+        }, {
+          label: '1H',
+          value: 3
+        }],
+        chartTypeArr: [{
+          label: '分时图',
+          value: 1
+        }]
+      }
     };
   },
   methods: {
@@ -312,12 +368,18 @@ export default {
       console.log('shareNews');
     },
     showPopup () {
-      // TODO:
-      console.log('showPopup');
+      this.showAddNewDetailPopup = true;
     },
     addMoreQuotation () {
-      // TODO:
-      console.log('addMoreQuotation');
+      // NOTE: 后期可能会改变数据类型
+      this.dealerDetailArr.push({
+        selectedInterval: this.addDealerForm.dataCycle,
+        yAxisName: this.addDealerForm.transactionType
+      });
+      this.contralPopup();
+    },
+    contralPopup () {
+      this.showAddNewDetailPopup = !this.showAddNewDetailPopup;
     },
     newsTablerenderHeader (createElement, { column }) {
       let aClassfies = this.aClassfyArr.map((currentValue, index, array) => {
@@ -389,7 +451,7 @@ export default {
                 style: {
                   'padding-right': '8px',
                   'box-sizing': 'border-box',
-                  width: '55px'
+                  'width': '55px'
                 }
               }, ['A类：']),
               createElement('div', {
@@ -407,7 +469,7 @@ export default {
                 style: {
                   'padding-right': '8px',
                   'box-sizing': 'border-box',
-                  width: '55px'
+                  'width': '55px'
                 }
               }, ['B类：']),
               createElement('div', {
@@ -954,9 +1016,10 @@ export default {
   min-height: calc(~"100% - 45px");
   justify-content: space-between;
   margin-top: 20px;
+  flex-wrap: wrap;
   > div {
-    margin: 0 1.2% 2.2%;
-    flex-basis: 50%;
+    margin: 0 0 2.2%;
+    flex-basis: 40%;
     flex-shrink: 1;
     flex-grow: 1;
     height: 360px;
