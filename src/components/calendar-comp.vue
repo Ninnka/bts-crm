@@ -117,12 +117,8 @@ export default {
       return '';
     },
     getDaysInOneMonth (year, month) {
-      try {
-        month = parseInt(month, 10);
-        let d = new Date(year, month, 0);
-      } catch (e) {
-        console.error('getDaysInOneMonth', e);
-      }
+      month = parseInt(month, 10);
+      let d = new Date(year, month, 0);
       return d.getDate();
     },
     preYear () {
