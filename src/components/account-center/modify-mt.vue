@@ -11,10 +11,10 @@
             <el-input v-model="form.id" :disabled=true></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input v-model="form.pas" placeholder="请输入新的MT账号交易密码"></el-input>
+            <el-input type="password" v-model="form.pas" placeholder="请输入新的MT账号交易密码"></el-input>
           </el-form-item>
           <el-form-item label="确认密码">
-            <el-input v-model="form.surePas" placeholder="请再次输入交易密码"></el-input>
+            <el-input type="password" v-model="form.surePas" placeholder="请再次输入交易密码"></el-input>
           </el-form-item>
           <el-form-item label="交易杠杆">
             <el-select v-model="form.leverage" placeholder="请选择交易杠杆">
@@ -28,7 +28,10 @@
             </div>
           </el-form-item>
         </el-form>
-        <button class="sure-btn" @click="close">添加</button>
+        <div class="popup-btns">
+          <button class="hot-bg" @click="close">取消</button>
+          <button class="cold-bg" @click="close">添加</button>
+        </div>
       </div>
     </div>
   </article>
@@ -77,11 +80,6 @@ export default {
 
 <style lang="less" scoped>
   .modify-mt{
-    .el-input.is-disabled .el-input__inner{
-      background-color:transparent;
-      border-color:transparent;
-      color: #fff;
-    }
     .verify-input{
       text-align: left;
       .el-input{

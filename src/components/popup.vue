@@ -1,32 +1,70 @@
 <template>
-  <div class="popup" v-show="show">
-    <article class="popup-main">
+  <article class="popup" v-show="show">
+    <div class="popup-main">
       <header>
-        头部信息
-        <i class="close" @click="contralPopup">×</i>
+        {{title}}
+        <i class="close" @click="close">×</i>
       </header>
       <div class="popup-content">
-        <button>确认按钮</button>
+        <slot solt="content"></slot>
+        <div class="btns" :class="{'btn':needCancel}">
+          <button class="hot-bg" @click="close" v-if="needCancel">取消</button>
+          <button class="cold-bg" @click="confirm">确认</button>
+        </div>
       </div>
-    </article>
-  </div>
+    </div>
+  </article>
 </template>
 
 <script>
 export default {
-  name: 'report',
+  name: 'popup',
   data () {
     return {
     };
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: false
+    },
+    needCancel: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: '标题'
+    }
   },
   computed: {
   },
   created: function () {
   },
   methods: {
+    confirm () {
+      this.$emit('confirmEvent');
+    },
+    close () {
+      this.$emit('update:show', false);
+    }
   }
 };
 </script>
 
 <style lang="less" scoped>
+  .modify-mt{
+    .verify-input{
+      text-align: left;
+      .el-input{
+        width: 60%;
+        margin-right: 5%;
+      }
+      .verify-img{
+        display: inline-block;
+        width: 24%;
+        height: auto;
+      }
+    }
+  }
 </style>

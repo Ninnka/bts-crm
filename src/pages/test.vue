@@ -67,6 +67,12 @@
     <add-bank :show.sync="showAddBank"></add-bank>
     <button class="cold-bg" @click="showModifyMt = true">修改mt账号</button>
     <modify-mt :show.sync="showModifyMt"></modify-mt>
+    <button class="cold-bg" @click="showDelMt = true">禁用mt账号</button>
+    <popup :show.sync="showDelMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="test">
+      <p name="content" class="del-text">
+        您正在申请禁用MT账号：54321，禁用后，该账号的所有持仓单将会被自动平仓，同时，您将无法再使用该MT账号进行任何交易以及出入金操作，是否继续？
+      </p>
+    </popup>
   </div>
 </template>
 
@@ -74,18 +80,21 @@
 import verify from '@comps/verify.vue';
 import addBank from '@comps/account-center/add-bank.vue';
 import modifyMt from '@comps/account-center/modify-mt.vue';
+import popup from '@comps/popup.vue';
 export default {
   name: 'test',
   components: {
     verify,
     'add-bank': addBank,
-    'modify-mt': modifyMt
+    'modify-mt': modifyMt,
+    popup
   },
   data () {
     return {
       show: false,
       showAddBank: false,
       showModifyMt: false,
+      showDelMt: false,
       testForm: {
         verify: '',
         phone: '',
@@ -122,6 +131,12 @@ export default {
       } else {
         this.show = true;
       }
+    },
+    test () {
+      this.$message({
+        type: 'success',
+        message: '禁用成功!'
+      });
     }
   }
 };
