@@ -65,22 +65,27 @@
     </el-table>
     <button class="cold-bg" @click="showAddBank = true">添加银行卡</button>
     <add-bank :show.sync="showAddBank"></add-bank>
+    <button class="cold-bg" @click="showModifyMt = true">修改mt账号</button>
+    <modify-mt :show.sync="showModifyMt"></modify-mt>
   </div>
 </template>
 
 <script>
 import verify from '@comps/verify.vue';
 import addBank from '@comps/account-center/add-bank.vue';
+import modifyMt from '@comps/account-center/modify-mt.vue';
 export default {
   name: 'test',
   components: {
     verify,
-    'add-bank': addBank
+    'add-bank': addBank,
+    'modify-mt': modifyMt
   },
   data () {
     return {
       show: false,
       showAddBank: false,
+      showModifyMt: false,
       testForm: {
         verify: '',
         phone: '',
