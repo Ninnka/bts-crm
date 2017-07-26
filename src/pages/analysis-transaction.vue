@@ -247,14 +247,17 @@ export default {
         interest += data[i].accrual;
         poundage += data[i].poundage;
         obtain += data[i].obtain;
-        if (j < i) {
-          j = i + 1;
-          if (data[i].userId !== data[j].userId) {
-            mtNum++;
-          } else {
-            mtNum += 0;
-          }
+        console.log('i ==' + i);
+        console.log('j ==' + j);
+        j = i + 1;
+        if (j === data.length) {
+          j = i;
         };
+        if (data[i].userId !== data[j].userId) {
+          mtNum += 1;
+        } else {
+          mtNum += 0;
+        }
       }
       if (mtNum !== 0) {
         mtNum += 1;
@@ -340,6 +343,7 @@ export default {
     },
     handleCheckedCitiesChange (value) {
       // 点击多选框的方法
+      // console.log(value);
       let checkedCount = value.length;
       this.cloumnChoose.checkAll = checkedCount === this.cloumnChoose.lists.length;
       this.cloumnChoose.isIndeterminate = checkedCount > 0 && checkedCount < this.cloumnChoose.lists.length;
@@ -355,17 +359,79 @@ export default {
     tableSearch () {
       // 按下搜索框后调用的方法
       let date = '';
+      let type = this.form.type;
       let category = this.form.category;
       let account = this.form.account;
-      let type = this.form.type;
-      let region = this.form.region;
-      let lists = [];
+      let lists = this.tableDateAll();
       if (this.form.date) {
         let Y = this.form.date.getFullYear() + '-';
         let M = (this.form.date.getMonth() + 1 < 10 ? '0' + (this.form.date.getMonth() + 1) : this.form.date.getMonth() + 1) + '-';
         let D = '0' + this.form.date.getDate();
         date = Y + M + D;
+        lists = lists.filter(this.tableSearchFilter('date', date));
+      };
+      lists = category ? lists.filter(this.tableSearchFilter('category', category)) : lists;
+      lists = account ? lists.filter(this.tableSearchFilter('account', account)) : lists;
+      if (type) {
+        if (type === 'is') {
+          lists = lists.filter(this.tableSearchFilter('is', type));
+        } else {
+          lists = lists.filter(this.tableSearchFilter('voer', type));
+        }
+      };
+      if (date || type || category || account) {
+        console.log('true');
+        this.tableData2 = lists;
+      } else {
+        this.tableData2 = this.tableDateAll();
       }
+    },
+    tableSearchFilter (column, value) {
+      if (column === 'date') {
+        return n => {
+          let flag = false;
+          if (n.playDate === value) {
+            flag = true;
+          };
+          return flag;
+        };
+      };
+      if (column === 'category') {
+        return n => {
+          let flag = false;
+          if (n.type === value) {
+            flag = true;
+          };
+          return flag;
+        };
+      };
+      if (column === 'account') {
+        return n => {
+          let flag = false;
+          if (n.userId === value) {
+            flag = true;
+          };
+          return flag;
+        };
+      };
+      if (column === 'is') {
+        return n => {
+          let flag = false;
+          if (n.unwindPrice === value) {
+            flag = true;
+          };
+          return flag;
+        };
+      };
+      if (column === 'over') {
+        return n => {
+          let flag = false;
+          if (n.unwindPrice !== value) {
+            flag = true;
+          };
+          return flag;
+        };
+      };
     },
     accountSearch (queryString, cb) {
       // 交易账号输入提示方法
