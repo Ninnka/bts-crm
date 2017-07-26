@@ -84,9 +84,15 @@
               <el-carousel-item v-for="item in userBank" :key="item.bankCode">
                 <div class="band-cards is-flex">
                   <div class="band-card cold-bg">
-                    <i class="iconfont item.icon"></i>
-                    {{item.bankTitle}}
-                    <i class="iconfont icon-shanchu" @click="showDelBank = true"></i>
+                    <div class="card-header">
+                      <div class="band-name">
+                        <svg class="icon" aria-hidden="true">
+                          <use xlink:href="#icon-huaxiayinhang"></use>
+                        </svg>
+                        {{item.bankTitle}}
+                      </div>
+                      <i class="iconfont icon-shanchu" @click="showDelBank = true"></i>
+                    </div>
                     <div class="card-mes">
                       <p>谢**</p>
                       <p>8634 **** **** 8020</p>
@@ -153,9 +159,15 @@
         您正在申请删除银行卡：
       </p>
       <div class="band-card cold-bg">
-        <i class="iconfont selectBank.icon"></i>
-        {{selectBank.bankTitle}}
-        <i class="iconfont icon-shanchu"></i>
+        <div class="card-header">
+          <div class="band-name">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#icon-guangdayinhang"></use>
+            </svg>
+            {{selectBank.bankTitle}}
+          </div>
+          <i class="iconfont icon-shanchu"></i>
+        </div>
         <div class="card-mes">
           <p>谢**</p>
           <p>8634 **** **** 8020</p>
@@ -300,9 +312,25 @@ export default {
       height: 110px;
       color:#fff;
       padding:10px;
-      .icon-shanchu {
-        float:right;
-        color: #fff;
+      .card-header{
+        text-align: left;
+        display: flex;
+        align-items: center;
+        .band-name{
+          flex:1;
+          display: flex;
+          align-items:flex-start;
+          .icon{
+            background: #008666;
+            width:27px;
+            height:27px;
+            margin-right:10px;
+          }
+        }
+        .icon-shanchu {
+          color: #fff;
+          float:right;
+        }
       }
       .card-mes{
         text-align: right;
@@ -310,6 +338,7 @@ export default {
         p {
           font-size: 14px;
           margin: 10px 0;
+          text-align: right;
         }
       }
     }
