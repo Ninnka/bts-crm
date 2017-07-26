@@ -79,10 +79,31 @@
               <p>添加银行卡</p>
             </div>
           </li>
-          <li class="band-card-list is-flex">
-            <div class="band-card cold-bg">
-              <i class="iconfont icon-shanchu"></i>
-            </div>
+          <li class="band-card-list">
+            <el-carousel height="150px">
+              <el-carousel-item v-for="item in CommonApi.bankList" :key="item.bankCode">
+                <div class="band-cards is-flex">
+                  <div class="band-card cold-bg">
+                    <i class="iconfont item.icon"></i>
+                    {{item.bankTitle}}
+                    <i class="iconfont icon-shanchu"></i>
+                    <div class="card-mes">
+                      <p>谢**</p>
+                      <p>8634 **** **** 8020</p>
+                    </div>
+                  </div>
+                  <div class="band-card cold-bg">
+                    <i class="iconfont item.icon"></i>
+                    {{item.bankTitle}}
+                    <i class="iconfont icon-shanchu"></i>
+                    <div class="card-mes">
+                      <p>谢**</p>
+                      <p>8634 **** **** 8020</p>
+                    </div>
+                  </div>
+                </div>
+              </el-carousel-item>
+            </el-carousel>
           </li>
         </ul>
       </div>
@@ -142,7 +163,6 @@ export default {
   name: 'AccountCenter',
   data () {
     return {
-      value1: true,
       tableData: [
         {
           accountNumber: '56735678',
@@ -287,11 +307,32 @@ export default {
             }
           }
           .band-card-list{
-            .band-card{
-              flex:1;
-              border: 1px solid #55565c;
-              border-radius:6px;
-              height: 110px;
+            width:100%;
+            height:150px;
+            display:block;
+            .band-cards{
+              width: 100%;
+              justify-content: space-around;
+              .band-card{
+                width: 250px;
+                border: 1px solid #55565c;
+                border-radius:6px;
+                height: 110px;
+                color:#fff;
+                padding:10px;
+                .icon-shanchu {
+                  float:right;
+                  color: #fff;
+                }
+                .card-mes{
+                  text-align: right;
+                  margin-top: 30px;
+                  p {
+                    font-size: 14px;
+                    margin: 10px 0;
+                  }
+                }
+              }
             }
           }
         }
