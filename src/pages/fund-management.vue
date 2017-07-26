@@ -386,9 +386,9 @@ export default {
   }
 }
 // ----------------------------
-.manage--record {
+// .manage--record {
 
-}
+// }
 
 .record__form {
   box-sizing: border-box;

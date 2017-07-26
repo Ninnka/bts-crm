@@ -81,20 +81,18 @@ export default {
       let year = this.dateToSet.getFullYear();
       let month = this.dateToSet.getMonth();
       let days = new Date(year, month).getDay();
-      this.fills = days - 1; // === 0 ? 6 : days - 1;
+      this.fills = days; // === 0 ? 6 : days - 1;
       this.monthLength = this.getDaysInOneMonth(year, month + 1);
     },
     getSymbolStr (date) {
       return String(date) + new Date(this.dateToSet.getFullYear(), this.dateToSet.getMonth());
     },
     getSchemeLevel (date) {
-      // TODO:
-      // 根据对应日期创建date
+      // NOTE:
       let nd = new Date(this.dateToSet.getFullYear(), this.dateToSet.getMonth(), date);
 
       // 在scheme中寻找对应的level
       for (let item of this.newsTableData) {
-        // console.log(item.time);
         if (item.time === moment(nd).unix()) {
           let symbolStr = this.getSymbolStr(date);
           let to = {
@@ -116,14 +114,12 @@ export default {
           }
         }
       }
-
-      // 根据level返回类名并将类名添加到date对象中
       return '';
     },
     getDaysInOneMonth (year, month) {
       try {
         month = parseInt(month, 10);
-        var d = new Date(year, month, 0);
+        let d = new Date(year, month, 0);
       } catch (e) {
         console.error('getDaysInOneMonth', e);
       }
@@ -161,8 +157,6 @@ export default {
     currentYear () {
       return this.dateToSet.getFullYear();
     }
-  },
-  mounted () {
   },
   created () {
     this.getFillsAndMonthLength();

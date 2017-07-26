@@ -1027,9 +1027,9 @@ export default {
 
 // --------------------------
 
-.dealer--detail__wrap {
+// .dealer--detail__wrap {
   // min-height: 465px;
-}
+// }
 
 .dealer--detail {
   min-height: calc(~"100% - 45px");
