@@ -81,7 +81,7 @@ export default {
       let year = this.dateToSet.getFullYear();
       let month = this.dateToSet.getMonth();
       let days = new Date(year, month).getDay();
-      this.fills = days - 1; // === 0 ? 6 : days - 1;
+      this.fills = days; // === 0 ? 6 : days - 1;
       this.monthLength = this.getDaysInOneMonth(year, month + 1);
     },
     getSymbolStr (date) {
