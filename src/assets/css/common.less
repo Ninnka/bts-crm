@@ -91,6 +91,11 @@ body{
       color: #fff;
     }
   }
+  .el-input.is-disabled .el-input__inner{
+    background-color:#202228;
+    border-color:transparent;
+    color: #fff;
+  }
 }
 // 修改element表格风格样式
 #app{
@@ -200,11 +205,46 @@ body{
 }
 //渐变色风格
 .cold-bg{
-  background-image:linear-gradient(-90deg, #00e2b8 0%, #009acd 100%);
+  background:linear-gradient(-90deg, #00e2b8 0%, #009acd 100%) !important;
+  color: #fff !important;
 }
 .hot-bg{
-  background-image:linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%);
+  background:linear-gradient(-90deg, #ff5862 0%, #e54f9a 100%) !important;
+  color: #fff !important;
 }
+//按钮样式
+
+// 一排单个按钮
+.btn{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  button{
+    width: 40%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+  }
+}
+// 一排两个按钮
+.btns{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-around;
+  button{
+    width: 30%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    border-radius: 4px;
+  }
+}
+
 //页面单独模块风格样式
 .region{
   background:#272a31;
@@ -271,6 +311,19 @@ body{
       background: #272a31;
       border-bottom-left-radius: 8px;
       border-bottom-right-radius: 8px;
+      color: #fff;
+      .popup-btns{
+        width: 100%;
+        height: 40px;
+        display: flex;
+        justify-content: space-around;
+        button{
+          width: 30%;
+          height: 40px;
+          border-radius:4px;
+          font-size: 16px;
+        }
+      }
       .sure-btn{
         width: 40%;
         height:40px;
