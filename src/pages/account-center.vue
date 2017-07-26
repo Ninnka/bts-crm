@@ -74,28 +74,19 @@
           <li>
             <div class="user-label">银行卡：</div>
             <div class="user-mes">已绑定2张</div>
-            <div class="add-card">
+            <div class="add-card" @click="showAddBank = true">
               <div class="add-icon">+</div>
               <p>添加银行卡</p>
             </div>
           </li>
           <li class="band-card-list">
             <el-carousel height="150px">
-              <el-carousel-item v-for="item in CommonApi.bankList" :key="item.bankCode">
+              <el-carousel-item v-for="item in userBank" :key="item.bankCode">
                 <div class="band-cards is-flex">
                   <div class="band-card cold-bg">
                     <i class="iconfont item.icon"></i>
                     {{item.bankTitle}}
-                    <i class="iconfont icon-shanchu"></i>
-                    <div class="card-mes">
-                      <p>谢**</p>
-                      <p>8634 **** **** 8020</p>
-                    </div>
-                  </div>
-                  <div class="band-card cold-bg">
-                    <i class="iconfont item.icon"></i>
-                    {{item.bankTitle}}
-                    <i class="iconfont icon-shanchu"></i>
+                    <i class="iconfont icon-shanchu" @click="showDelBank = true"></i>
                     <div class="card-mes">
                       <p>谢**</p>
                       <p>8634 **** **** 8020</p>
@@ -145,24 +136,69 @@
             prop="del"
             label="操作">
             <template scope="scope">
-              <i class="iconfont icon-shanchu"></i>
+              <i class="iconfont icon-bianji" @click="showModifyMt = true"></i>
+              <i class="iconfont icon-jinzhi" @click="showDisableMt = true"></i>
             </template>
           </el-table-column>
         </el-table>
         <div class="mt-btns is-flex">
-          <button class="hot-bg">申请MT账号</button>
-          <button class="cold-bg">绑定MT账号</button>
+          <button class="hot-bg" @click="showAddMt = true">申请MT账号</button>
+          <button class="cold-bg" @click="showBindMt = true">绑定MT账号</button>
         </div>
       </article>
     </div>
+    <add-bank :show.sync="showAddBank"></add-bank>
+    <popup :show.sync="showDelBank" :needCancel=true :title="'删除银行卡'" v-on:confirmEvent="delBank">
+      <p name="content" class="del-text">
+        您正在申请删除银行卡：
+      </p>
+      <div class="band-card cold-bg">
+        <i class="iconfont selectBank.icon"></i>
+        {{selectBank.bankTitle}}
+        <i class="iconfont icon-shanchu"></i>
+        <div class="card-mes">
+          <p>谢**</p>
+          <p>8634 **** **** 8020</p>
+        </div>
+      </div>
+      <p>删除后，您将无法通过此银行卡进行出金，是否要删除该银行卡？</p>
+    </popup>
+    <modify-mt :show.sync="showModifyMt"></modify-mt>
+    <bind-mt :show.sync="showBindMt"></bind-mt>
+    <popup :show.sync="showDisableMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="disableMt">
+      <p name="content" class="del-text">
+        您正在申请禁用MT账号：54321，禁用后，该账号的所有持仓单将会被自动平仓，同时，您将无法再使用该MT账号进行任何交易以及出入金操作，是否继续？
+      </p>
+    </popup>
+    <popup :show.sync="showAddMt" :needCancel=true :title="'申请MT账号'" v-on:confirmEvent="addMt">
+      <p name="content" class="del-text">
+        本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 3 个MT账号了，是否继续申请MT账号？
+      </p>
+    </popup>
   </div>
 </template>
 
 <script>
+import addBank from '@comps/account-center/add-bank.vue';
+import modifyMt from '@comps/account-center/modify-mt.vue';
+import bindMt from '@comps/account-center/bind-mt.vue';
+import popup from '@comps/popup.vue';
 export default {
   name: 'AccountCenter',
+  components: {
+    'add-bank': addBank,
+    'modify-mt': modifyMt,
+    'bind-mt': bindMt,
+    popup
+  },
   data () {
     return {
+      showAddBank: false,
+      showModifyMt: false,
+      showDisableMt: false,
+      showAddMt: false,
+      showBindMt: false,
+      showDelBank: false,
       tableData: [
         {
           accountNumber: '56735678',
@@ -200,12 +236,20 @@ export default {
           mainAccountNumber: false,
           del: ''
         }
-      ]
+      ],
+      userBank: [],
+      selectBank: {}
     };
   },
   computed: {
   },
   created: function () {
+    this.userBank = this.CommonApi.bankList.filter((item, index) => {
+      if (index < 5) {
+        return item;
+      }
+    });
+    this.selectBank = this.userBank[0];
   },
   methods: {
     changeTableData (value) {
@@ -213,6 +257,32 @@ export default {
         if (item.accountNumber !== value.accountNumber) {
           item.mainAccountNumber = false;
         }
+      });
+    },
+    delBank () {
+      this.showDelBank = false;
+      this.userBank = this.userBank.filter((item) => {
+        if (item.bankCode !== this.selectBank.bankCode) {
+          return item;
+        }
+      });
+      this.$message({
+        type: 'success',
+        message: '删除成功!'
+      });
+    },
+    disableMt () {
+      this.showDisableMt = false;
+      this.$message({
+        type: 'success',
+        message: '禁用成功!'
+      });
+    },
+    addMt () {
+      this.showAddMt = false;
+      this.$message({
+        type: 'success',
+        message: '添加成功!'
       });
     }
   }
@@ -223,6 +293,26 @@ export default {
   .account-center {
     padding: 20px;
     align-items:flex-start;
+    .band-card{
+      width: 250px;
+      border: 1px solid #55565c;
+      border-radius:6px;
+      height: 110px;
+      color:#fff;
+      padding:10px;
+      .icon-shanchu {
+        float:right;
+        color: #fff;
+      }
+      .card-mes{
+        text-align: right;
+        margin-top: 30px;
+        p {
+          font-size: 14px;
+          margin: 10px 0;
+        }
+      }
+    }
     .add-card-btn {
       text-align: center;
       color: #94959a;
@@ -313,26 +403,6 @@ export default {
             .band-cards{
               width: 100%;
               justify-content: space-around;
-              .band-card{
-                width: 250px;
-                border: 1px solid #55565c;
-                border-radius:6px;
-                height: 110px;
-                color:#fff;
-                padding:10px;
-                .icon-shanchu {
-                  float:right;
-                  color: #fff;
-                }
-                .card-mes{
-                  text-align: right;
-                  margin-top: 30px;
-                  p {
-                    font-size: 14px;
-                    margin: 10px 0;
-                  }
-                }
-              }
             }
           }
         }

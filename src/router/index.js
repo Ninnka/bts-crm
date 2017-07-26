@@ -31,6 +31,20 @@ export default new Router({
           }
         },
         {
+          path: 'capital-flow',
+          name: 'capital-flow',
+          component: (resolve) => {
+            require(['@pages/capital-flow'], resolve);
+          }
+        },
+        {
+          path: 'money-records',
+          name: 'money-records',
+          component: (resolve) => {
+            require(['@pages/money-records'], resolve);
+          }
+        },
+        {
           path: 'test',
           name: 'test',
           component: (resolve) => {

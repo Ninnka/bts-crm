@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1500867593424'); /* IE9*/
-  src: url('iconfont.eot?t=1500867593424#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1500867593424') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1500867593424') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1500867593424#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1501056238015'); /* IE9*/
+  src: url('iconfont.eot?t=1501056238015#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1501056238015') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1501056238015') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1501056238015#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -16,6 +16,10 @@
 }
 
 .icon-shanchu:before { content: "\e711"; }
+
+.icon-bianji:before { content: "\e609"; }
+
+.icon-jinzhi:before { content: "\e6dd"; }
 
 .icon-more:before { content: "\e60b"; }
 

@@ -2,7 +2,7 @@
   <article class="popup modify-mt" v-show="show">
     <div class="popup-main">
       <header>
-        编辑MT账号
+        绑定MT账号
         <i class="close" @click="close">×</i>
       </header>
       <div class="popup-content">
@@ -12,9 +12,6 @@
           </el-form-item>
           <el-form-item label="密码">
             <el-input type="password" v-model="form.pas" placeholder="请输入新的MT账号交易密码"></el-input>
-          </el-form-item>
-          <el-form-item label="确认密码">
-            <el-input type="password" v-model="form.surePas" placeholder="请再次输入交易密码"></el-input>
           </el-form-item>
           <el-form-item label="交易杠杆">
             <el-select v-model="form.leverage" placeholder="请选择交易杠杆">
@@ -45,7 +42,6 @@ export default {
       form: {
         id: 123,
         pas: '',
-        surePas: '',
         leverage: '',
         verify: ''
       },

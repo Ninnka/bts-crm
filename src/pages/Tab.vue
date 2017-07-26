@@ -90,6 +90,16 @@ export default {
           text: '资金管理'
         },
         {
+          index: 'money-records',
+          icon: 'icon-churujinguanli',
+          text: '出入金记录'
+        },
+        {
+          index: 'capital-flow',
+          icon: 'icon-churujinguanli',
+          text: '资金流水'
+        },
+        {
           index: 'report',
           icon: 'icon-baobiao',
           text: '报表'
@@ -118,6 +128,7 @@ export default {
           this.showMention = true;
           break;
         case 'userCenter' :
+          this.defaultRoute = '';
           this.$router.push('/tab/account-center');
           break;
         case 'book' :
