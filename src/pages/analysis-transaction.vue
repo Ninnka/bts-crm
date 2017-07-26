@@ -12,7 +12,7 @@
     </article>
     <div class="table">
         <div class="analysis-transaction-hold">
-
+          <!--搜索框-->
           <div class="lists-table">
             <form action="" class="el-form">
                 <div class="el-form-item"> 
@@ -64,6 +64,8 @@
                   </div>
                 </div>
             </form>
+            <!--搜索框 结束-->
+
              <!--查询按钮-->
             <div class="form-button">
               <el-button type="primary" icon="search" @click="tableSearch">搜索
@@ -90,12 +92,11 @@
               <!--下拉选择列 over-->
             </div>
             <!--查询按钮 结束-->
-            
             <!--数据表格-->
             <div class="table-list">
               <template>
                 <el-table :data="pageTable" style="width: 100%">
-                  <el-table-column prop="id" label="交易编号"  width="120">
+                  <el-table-column prop="id" label="交易编号"  width="130">
                   </el-table-column>
                   <el-table-column prop="userName" label="交易用户"  width="120">
                   </el-table-column>
@@ -123,8 +124,8 @@
                   </el-table-column>
                   <el-table-column prop="obtain" label="盈亏"  width="120">
                   </el-table-column> 
-                 </el-table>
-
+                </el-table>
+                <!--合计总计-->
                  <div class="table-sum">
                    <div> 
                       <span>合计</span>
@@ -153,7 +154,8 @@
                     <span>{{ sum.obtain }}</span>
                   </div>
                  </div>
-
+                <!--合计总计 结束-->
+                <!-- 分页-->
                 <div class="block">
                   <el-pagination
                     @size-change="handleSizeChange"
@@ -165,6 +167,7 @@
                     :total="tableLength">
                   </el-pagination>
                 </div>
+                <!-- 分页 结束-->
               </template> 
             </div>
             <!--数据表格 结束-->
@@ -196,160 +199,7 @@ export default {
       pageStart: 0,
       accountPrompt: [],
       categoryPrompt: [],
-      tableData2: [{
-        playDate: '2016-05-02',
-        userName: '王小虎',
-        userId: '9527',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-04',
-        userName: '王小虎',
-        userId: '9527',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-01',
-        userName: '王小虎',
-        userId: '9817',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-01',
-        userName: '王小虎',
-        userId: '9517',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-02',
-        userName: '王小虎',
-        userId: '9517',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-01',
-        userName: '王小虎',
-        userId: '9517',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-01',
-        userName: '王小虎',
-        userId: '9517',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-01',
-        userName: 'ljh',
-        userId: '9717',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPrice: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }, {
-        playDate: '2016-05-03',
-        userName: '王小虎',
-        userId: '9537',
-        category: '买',
-        type: 'USDJPY',
-        playPrice: 1.0032,
-        number: 2,
-        win: {
-          profit: '止损1.0000止盈1.0050'
-        },
-        unwindDate: '2017-03-01 10:00:00',
-        unwindPric: 1.0050,
-        accrual: 99999.00,
-        poundage: 30,
-        obtain: 99999.00,
-        id: 'JY000000001'
-      }],
+      tableData2: [],
       formInline: {
         user: '',
         region: ''
@@ -365,9 +215,11 @@ export default {
   },
   computed: {
     tableLength: function () {
+      // 获取显示一共有多少条数据
       return this.tableData2.length;
     },
     sum: function () {
+      // 总计
       let mtNum = 0;
       let buy = 0;
       let sell = 0;
@@ -420,9 +272,11 @@ export default {
       };
     },
     pageTable: function () {
+      // 当前页显示的数据
       return this.tableData2.slice(this.pageStart, this.pageMax);
     },
     pageSum: function () {
+      // 合计
       let mtNum = 0;
       let buy = 0;
       let sell = 0;
@@ -480,26 +334,26 @@ export default {
   },
   methods: {
     handleCheckAllChange (event) {
+      // 点击全选的方法
       this.cloumnChoose.checkedCities = event.target.checked ? tableField : [];
       this.cloumnChoose.isIndeterminate = false;
     },
     handleCheckedCitiesChange (value) {
+      // 点击多选框的方法
       let checkedCount = value.length;
       this.cloumnChoose.checkAll = checkedCount === this.cloumnChoose.lists.length;
       this.cloumnChoose.isIndeterminate = checkedCount > 0 && checkedCount < this.cloumnChoose.lists.length;
     },
-    handleIconClick (ev) {
-      console.log(ev);
-    },
     handleSizeChange (val) {
-      console.log(`当前显示: ${val}`);
+      // 控制当前显示数据的方法
       this.pageMax = Number(val);
     },
     handleCurrentChange (val) {
-      console.log(`当前页: ${val}`);
+      // 获取点击下一页数的方法
       this.pageStart = Number(val) - 1;
     },
     tableSearch () {
+      // 按下搜索框后调用的方法
       let date = '';
       let category = this.form.category;
       let account = this.form.account;
@@ -514,13 +368,14 @@ export default {
       }
     },
     accountSearch (queryString, cb) {
-      // 输入提示方法
+      // 交易账号输入提示方法
       var tradingPrompt = this.accountPrompt;
       var results = queryString ? tradingPrompt.filter(this.createFilter(queryString)) : tradingPrompt;
       // 调用 callback 返回建议列表的数据
       cb(results);
     },
     categorySearch (queryString, cb) {
+      // 交易种类输入提示方法
       let categoryPrompt = this.categoryPrompt;
       let results = queryString ? categoryPrompt.filter(this.createFilter(queryString)) : categoryPrompt;
       cb(results);
@@ -542,6 +397,169 @@ export default {
         ]
       };
     },
+    tableDateAll () {
+      return [
+        {
+          playDate: '2016-05-02',
+          userName: '王小虎',
+          userId: '9527',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-04',
+          userName: '王小虎',
+          userId: '9527',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-01',
+          userName: '王小虎',
+          userId: '9817',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-01',
+          userName: '王小虎',
+          userId: '9517',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-02',
+          userName: '王小虎',
+          userId: '9517',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-01',
+          userName: '王小虎',
+          userId: '9517',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-01',
+          userName: '王小虎',
+          userId: '9517',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-01',
+          userName: 'ljh',
+          userId: '9717',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPrice: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }, {
+          playDate: '2016-05-03',
+          userName: '王小虎',
+          userId: '9537',
+          category: '买',
+          type: 'USDJPY',
+          playPrice: 1.0032,
+          number: 2,
+          win: {
+            profit: '止损1.0000止盈1.0050'
+          },
+          unwindDate: '2017-03-01 10:00:00',
+          unwindPric: 1.0050,
+          accrual: 99999.00,
+          poundage: 30,
+          obtain: 99999.00,
+          id: 'JY000000001'
+        }
+      ];
+    },
+    categorySelect (item) {
+      console.log('选中啦');
+      console.log('当前' + this.form.category);
+      console.log(item);
+    },
     accountSelect (item) {
       console.log('选中啦');
       console.log('当前' + this.form.account);
@@ -551,6 +569,7 @@ export default {
   mounted () {
     this.accountPrompt = this.loadAll().account;
     this.categoryPrompt = this.loadAll().category;
+    this.tableData2 = this.tableDateAll();
   }
 };
 </script>
@@ -567,7 +586,6 @@ export default {
   position: relative;
   padding:10px;
   box-sizing: border-box;
-
 }
 .nav{
   background:#272a31;
@@ -640,7 +658,14 @@ export default {
       border-radius:4px;
       border:none;
       margin-right: 20px;
+      &:hover{
+        color: #20a0ff;
+      }
+      &:active{
+        box-shadow: inset 0 0 5px 3px rgba(0,0,0,0.7)
+      }
     }
+
   }
   .table-list{
     margin: 0 10px;
