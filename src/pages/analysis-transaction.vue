@@ -679,8 +679,8 @@ export default {
         span:nth-child(2){ width: 80px;}
         span:nth-child(3){ margin-left: 30px; width: 50px;}
         span:nth-child(5){ width: 30%;}
-        span:nth-child(8){ margin-left: 20px; width: 100px;}
-        span:nth-child(9){ margin-left: 20px; width: 80px;}
+        span:nth-child(9){ margin-left: 20px; width: 100px;}
+        span:nth-child(10){ margin-left: 20px; width: 80px;}
       }
       div:nth-of-type(2){
         background-color: #0b415b; 
@@ -690,8 +690,8 @@ export default {
           span:nth-child(2){ width: 80px;}
           span:nth-child(3){ margin-left: 30px; width: 50px;}
           span:nth-child(5){ width: 30%;}
-          span:nth-child(8){ margin-left: 20px; width: 100px;}
-          span:nth-child(9){ margin-left: 20px; width: 80px;}
+          span:nth-child(9){ margin-left: 20px; width: 100px;}
+          span:nth-child(10){ margin-left: 20px; width: 80px;}
       }
       span{
         display: inline-block;
