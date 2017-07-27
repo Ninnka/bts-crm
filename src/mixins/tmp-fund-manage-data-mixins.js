@@ -109,6 +109,130 @@ export default {
           inAmount: '',
           latestAmount: ''
         }
+      ],
+      moneyRecordsTableData: [
+        {
+          recordNumber: 'LS00000001',
+          time: 1501148130,
+          type: '入金',
+          account: '方砖1号',
+          accountType: '用户',
+          fund: '999,999.00',
+          fundChange: '99,999.00',
+          status: '未知',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fund: '999,999.00',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fund: '999,999.00',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fund: '999,999.00',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fund: '999,999.00',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        }
+      ],
+      capitalFlowTableData: [
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fundType: '可用资金',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fundType: '赠金',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fundType: '赠金',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fundType: '赠金',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        },
+        {
+          recordNumber: 'LS00000002',
+          time: 1501147130,
+          type: '出金',
+          account: '方砖2号',
+          accountType: 'MT账号',
+          fundType: '赠金',
+          fundChange: '99,999.00',
+          status: '成功',
+          fundNew: '',
+          remark: ''
+        }
       ]
     };
   }

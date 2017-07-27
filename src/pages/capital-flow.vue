@@ -18,15 +18,17 @@
         <el-button type="info">导出</el-button>
       </div>
       <div class="record__table">
-        <el-table :data="fundSummaryTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
-          <el-table-column prop="account" label="用户/账号"></el-table-column>
+        <el-table :data="capitalFlowTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
+          <el-table-column prop="recordNumber" label="出入金编号"></el-table-column>
+          <el-table-column prop="time" label="时间"></el-table-column>
           <el-table-column prop="type" label="类型"></el-table-column>
-          <el-table-column prop="availableFund" label="可用资金"></el-table-column>
-          <el-table-column prop="positionMount" label="持仓手数"></el-table-column>
-          <el-table-column prop="appropriation" label="占用资金"></el-table-column>
-          <el-table-column prop="float" label="浮动盈亏"></el-table-column>
-          <el-table-column prop="cashGift" label="赠金"></el-table-column>
-          <el-table-column prop="updateTime" label="更新时间"></el-table-column>
+          <el-table-column prop="account" label="账号"></el-table-column>
+          <el-table-column prop="accountType" label="账号类型"></el-table-column>
+          <el-table-column prop="fundType" label="资金类型"></el-table-column>
+          <el-table-column prop="fundChange" label="变动金额"></el-table-column>
+          <el-table-column prop="status" label="状态"></el-table-column>
+          <el-table-column prop="fundNew" label="新值"></el-table-column>
+          <el-table-column prop="remark" label="说明"></el-table-column>
         </el-table>
       </div>
       <div class="record__total">
