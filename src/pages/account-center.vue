@@ -73,7 +73,7 @@
         <ul class="user-list">
           <li>
             <div class="user-label">银行卡：</div>
-            <div class="user-mes">已绑定2张</div>
+            <div class="user-mes">已绑定{{userBank.length}}张</div>
             <div class="add-card" @click="showAddBank = true">
               <div class="add-icon">+</div>
               <p>添加银行卡</p>
@@ -308,6 +308,7 @@ export default {
         message: '添加成功!'
       });
     }
+
   }
 };
 </script>
