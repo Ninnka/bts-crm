@@ -247,8 +247,6 @@ export default {
         interest += data[i].accrual;
         poundage += data[i].poundage;
         obtain += data[i].obtain;
-        console.log('i ==' + i);
-        console.log('j ==' + j);
         j = i + 1;
         if (j === data.length) {
           j = i;
@@ -376,11 +374,10 @@ export default {
         if (type === 'is') {
           lists = lists.filter(this.tableSearchFilter('is', type));
         } else {
-          lists = lists.filter(this.tableSearchFilter('voer', type));
+          lists = lists.filter(this.tableSearchFilter('over', type));
         }
       };
-      if (date || type || category || account) {
-        console.log('true');
+      if (date || type === 'all' || category || account || type) {
         this.tableData2 = lists;
       } else {
         this.tableData2 = this.tableDateAll();
@@ -417,7 +414,7 @@ export default {
       if (column === 'is') {
         return n => {
           let flag = false;
-          if (n.unwindPrice === value) {
+          if (n.unwindPrice === '持仓中') {
             flag = true;
           };
           return flag;
@@ -426,7 +423,7 @@ export default {
       if (column === 'over') {
         return n => {
           let flag = false;
-          if (n.unwindPrice !== value) {
+          if (n.unwindPrice >= 0.000) {
             flag = true;
           };
           return flag;
@@ -493,8 +490,8 @@ export default {
           win: {
             profit: '止损1.0000止盈1.0050'
           },
-          unwindDate: '2017-03-01 10:00:00',
-          unwindPrice: 1.0050,
+          unwindDate: '未平仓',
+          unwindPrice: '持仓中',
           accrual: 99999.00,
           poundage: 30,
           obtain: 99999.00,
@@ -510,8 +507,8 @@ export default {
           win: {
             profit: '止损1.0000止盈1.0050'
           },
-          unwindDate: '2017-03-01 10:00:00',
-          unwindPrice: 1.0050,
+          unwindDate: '未平仓',
+          unwindPrice: '持仓中',
           accrual: 99999.00,
           poundage: 30,
           obtain: 99999.00,

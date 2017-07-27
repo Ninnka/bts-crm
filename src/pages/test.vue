@@ -73,6 +73,14 @@
         您正在申请禁用MT账号：54321，禁用后，该账号的所有持仓单将会被自动平仓，同时，您将无法再使用该MT账号进行任何交易以及出入金操作，是否继续？
       </p>
     </popup>
+    <div class="demo__use-upload-image">
+      <upload-image cusClass="use-upload-image__cus-class" @fileLoaded="fileLoaded">
+        <template slot="upload-image__slot">
+          <!-- 这里需要什么样式或html元素自己填写 -->
+          <div class="use-upload-image__btn">上传图片</div>
+        </template>
+      </upload-image>
+    </div>
   </div>
 </template>
 
@@ -81,13 +89,15 @@ import verify from '@comps/verify.vue';
 import addBank from '@comps/account-center/add-bank.vue';
 import modifyMt from '@comps/account-center/modify-mt.vue';
 import popup from '@comps/popup.vue';
+import uploadImage from '@comps/upload-image';
 export default {
   name: 'test',
   components: {
     verify,
     'add-bank': addBank,
     'modify-mt': modifyMt,
-    popup
+    popup,
+    uploadImage
   },
   data () {
     return {
@@ -117,7 +127,9 @@ export default {
         date: '2016-05-03',
         name: '王小虎',
         address: '上海市普陀区金沙江路 1516 弄'
-      }]
+      }],
+      // 用于存储上传照片组件中的图片
+      fileList: []
     };
   },
   computed: {
@@ -137,6 +149,16 @@ export default {
         type: 'success',
         message: '禁用成功!'
       });
+    },
+    // 用于监听事件图片组件的事件
+    fileLoaded (param) {
+      for (let i = 0; i < this.fileList.length; i++) {
+        if (this.fileList[i].symbolId === param.symbolId) {
+          this.fileList[i] = param;
+          return;
+        }
+      }
+      this.fileList.push(param);
     }
   }
 };
@@ -156,4 +178,21 @@ export default {
       height: 40px;
     }
   }
+.demo__use-upload-image {
+  margin-top: 20px;
+  border: 1px solid #ffffff;
+  .use-upload-image__btn {
+    text-align: center;
+    line-height: 200px;
+    width: 300px;
+    height: 200px;
+    background: linear-gradient(-90deg, #00e2b8 0%, #009acd 100%) !important;
+    color: #ffffff;
+  }
+}
+.use-upload-image__cus-class {
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
 </style>
