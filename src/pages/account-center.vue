@@ -184,7 +184,7 @@
     </popup>
     <popup :show.sync="showAddMt" :needCancel=true :title="'申请MT账号'" v-on:confirmEvent="addMt">
       <p name="content" class="del-text">
-        本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 3 个MT账号了，是否继续申请MT账号？
+        本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 {{tableData.length}} 个MT账号了，是否继续申请MT账号？
       </p>
     </popup>
   </div>
@@ -239,12 +239,6 @@ export default {
         },
         {
           accountNumber: '56735674',
-          lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
-        },
-        {
-          accountNumber: '56735675',
           lever: '1:100',
           mainAccountNumber: false,
           del: ''
