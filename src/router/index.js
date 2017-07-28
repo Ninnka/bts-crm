@@ -10,6 +10,13 @@ export default new Router({
       redirect: '/tab/index'
     },
     {
+      path: '/signup',
+      name: 'signUp',
+      component: (resolve) => {
+        require(['@pages/sign-up'], resolve);
+      }
+    },
+    {
       path: '/tab',
       name: 'Tab',
       component: (resolve) => {

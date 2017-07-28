@@ -89,6 +89,7 @@ export default {
       img.src = imgData;
       img.onload = () => {
         // NOTE: 绘制图片暂时是100%填充，如果有其他需求可以提issue
+        ctx.clearRect(0, 0, cvs.width, cvs.height);
         ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, cvs.width, cvs.height);
         // NOTE: 获取canvas base64数据
         // strDataURI = cvs.toDataURL();
@@ -132,6 +133,7 @@ export default {
     canvas {
       width: 100%;
       height: 100%;
+      border-radius: 9px;
     }
   }
 }
@@ -147,6 +149,8 @@ export default {
       height: 100%;
       width: 100%;
       opacity: 0;
+      vertical-align: top;
+      cursor: pointer;
     }
   }
 }
