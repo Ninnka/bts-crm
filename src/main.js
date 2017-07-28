@@ -24,6 +24,10 @@ import ElementUI from 'element-ui';
 Vue.use(ElementUI);
 import 'element-ui/lib/theme-default/index.css';
 
+// 引入vue-clipboards
+import VueClipboards from 'vue-clipboards';
+Vue.use(VueClipboards);
+
 // 引入图表
 import ECharts from 'vue-echarts';
 Vue.component('chart', ECharts);

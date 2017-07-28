@@ -73,7 +73,7 @@
         <ul class="user-list">
           <li>
             <div class="user-label">银行卡：</div>
-            <div class="user-mes">已绑定2张</div>
+            <div class="user-mes">已绑定{{userBank.length}}张</div>
             <div class="add-card" @click="showAddBank = true">
               <div class="add-icon">+</div>
               <p>添加银行卡</p>
@@ -113,9 +113,9 @@
           </div>
           <div class="invite-mes">
             邀请码：888888865
-            <p>邀请链接：https://www.douban.com/group/topic/96482147/</p>
+            <p>邀请链接：{{inviteUrl}}</p>
           </div>
-          <button class="copy-btn hot-bg">复制推广链接</button>
+          <button class="copy-btn hot-bg" v-clipboard="inviteUrl" @success="handleSuccess" @error="handleError">复制推广链接</button>
         </div>
       </article>
       <article class="region my-mt-account">
@@ -211,6 +211,7 @@ export default {
       showAddMt: false,
       showBindMt: false,
       showDelBank: false,
+      inviteUrl: 'https://www.douban.com/group/topic/96482147/',
       tableData: [
         {
           accountNumber: '56735678',
@@ -264,6 +265,12 @@ export default {
     this.selectBank = this.userBank[0];
   },
   methods: {
+    handleSuccess (e) {
+      console.log(e);
+    },
+    handleError (e) {
+      console.log(e);
+    },
     changeTableData (value) {
       this.tableData.forEach((item) => {
         if (item.accountNumber !== value.accountNumber) {
@@ -275,6 +282,10 @@ export default {
       this.showDelBank = false;
       this.userBank = this.userBank.filter((item) => {
         if (item.bankCode !== this.selectBank.bankCode) {
+          return item;
+        } else {
+          var index = this.userBank.indexOf(item);
+          this.userBank.splice(index, 1);
           return item;
         }
       });
@@ -297,6 +308,7 @@ export default {
         message: '添加成功!'
       });
     }
+
   }
 };
 </script>
