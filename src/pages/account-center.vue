@@ -73,25 +73,25 @@
         <ul class="user-list">
           <li>
             <div class="user-label">银行卡：</div>
-            <div class="user-mes">已绑定{{userBank.length}}张</div>
+            <div class="user-mes">已绑定{{bankList.length}}张</div>
             <div class="add-card" @click="showAddBank = true">
               <div class="add-icon">+</div>
               <p>添加银行卡</p>
             </div>
           </li>
           <li class="band-card-list">
-            <el-carousel height="150px">
-              <el-carousel-item v-for="item in userBank" :key="item.bankCode">
+            <el-carousel height="150px" :autoplay=false>
+              <el-carousel-item v-for="item in bankList">
                 <div class="band-cards is-flex">
                   <div class="band-card cold-bg">
                     <div class="card-header">
                       <div class="band-name">
                         <svg class="icon" aria-hidden="true">
-                          <use xlink:href="#icon-huaxiayinhang"></use>
+                          <use :xlink:href="'#'+item.icon"></use>
                         </svg>
                         {{item.bankTitle}}
                       </div>
-                      <i class="iconfont icon-shanchu" @click="showDelBank = true"></i>
+                      <i class="iconfont icon-shanchu" @click="openDelBank(item)"></i>
                     </div>
                     <div class="card-mes">
                       <p>谢**</p>
@@ -162,7 +162,7 @@
         <div class="card-header">
           <div class="band-name">
             <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-guangdayinhang"></use>
+              <use :xlink:href="'#'+selectBank.icon"></use>
             </svg>
             {{selectBank.bankTitle}}
           </div>
@@ -244,19 +244,21 @@ export default {
           del: ''
         }
       ],
-      userBank: [],
       selectBank: {}
     };
   },
   computed: {
+    bankList () {
+      return this.$store.state.bankList;
+    }
   },
   created: function () {
-    this.userBank = this.CommonApi.bankList.filter((item, index) => {
+    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
       if (index < 5) {
         return item;
       }
-    });
-    this.selectBank = this.userBank[0];
+    }));
+    this.selectBank = this.bankList[0];
   },
   methods: {
     handleSuccess (e) {
@@ -272,17 +274,26 @@ export default {
         }
       });
     },
+    openDelBank (item) {
+      this.selectBank = item;
+      this.showDelBank = true;
+    },
     delBank () {
       this.showDelBank = false;
-      this.userBank = this.userBank.filter((item) => {
-        if (item.bankCode !== this.selectBank.bankCode) {
-          return item;
-        } else {
-          var index = this.userBank.indexOf(item);
-          this.userBank.splice(index, 1);
+      this.$store.commit('updateBankList', this.bankList.filter((item) => {
+        if (item !== this.selectBank) {
           return item;
         }
-      });
+      }));
+//      this.bankList = this.bankList.filter((item) => {
+//        if (item.bankCode !== this.selectBank.bankCode) {
+//          return item;
+//        } else {
+//          var index = this.bankList.indexOf(item);
+//          this.bankList.splice(index, 1);
+//          return item;
+//        }
+//      });
       this.$message({
         type: 'success',
         message: '删除成功!'
