@@ -3,7 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import router from './router';
-
+import store from './store';
 // 引入配置数据
 import DeployApi from '@assets/js/deploy.js';
 Vue.prototype.DeployApi = DeployApi;
@@ -44,5 +44,6 @@ console.log('%c已添加上传图片的组件，使用方法的可以看demo，�
 /* eslint-disable no-new */
 new Vue({
   router: router,
+  store,
   render: h => h(App)
 }).$mount('#app');
