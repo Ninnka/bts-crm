@@ -338,10 +338,15 @@ export default {
           display: flex;
           align-items:flex-start;
           .icon{
-            background: #008666;
-            width:27px;
-            height:27px;
-            margin-right:10px;
+            background:rgba(255,255,255,0.80);
+            width:31px;
+            height:31px;
+            border-radius:100%;
+            margin-right:13px;
+            use{
+              width:27px;
+              height:27px;
+            }
           }
         }
         .icon-shanchu {
