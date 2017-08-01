@@ -285,22 +285,26 @@ export default {
   box-sizing: border-box;
   padding: 0 16px;
   > div {
-    height: 40px;
-    line-height: 40px;
+    height: 56px;
+    line-height: 56px;
     color: @main-theme-sub;
-    background: #22232a;
+    // background: #22232a;
     &:first-child {
-      border-bottom: 2px solid #272a31;
+      // border-bottom: 2px solid #272a31;
+      background: #622332;
+    }
+    &:last-child {
+      background: #0b415b;
     }
   }
 }
 .c-lineheight-wrap {
-  height: 40px;
+  height: 56px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
-  display: inline-block;
   margin-left: 24px;
+  justify-content: center;
 }
 .c-lineheight {
   line-height: 1.2 !important;
@@ -308,9 +312,13 @@ export default {
   padding: 2px 0;
 }
 
-// .total--currentpage {
-
-// }
+.total--currentpage {
+  .el-col {
+    > div {
+      vertical-align: top;
+    }
+  }
+}
 
 // .total--allpage {
 // }

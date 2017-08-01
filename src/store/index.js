@@ -9,7 +9,7 @@ const debug = process.env.NODE_ENV !== 'production';
 export default new Vuex.Store({
   state: {
     user: {
-      name: ''
+      name: 'name'
     },
     bankList: []
   },

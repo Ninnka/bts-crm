@@ -51,6 +51,7 @@
 <script>
 import recharge from '@comps/recharge.vue';
 import mention from '@comps/mention.vue';
+import { mapGetters } from 'vuex';
 export default {
   name: 'Tab',
   components: {
@@ -60,9 +61,6 @@ export default {
   data () {
     return {
       defaultRoute: 'index',
-      user: {
-        name: 'zhou'
-      },
       navList: [
         {
           icon: 'icon-chongzhi',
@@ -115,6 +113,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['user'])
   },
   created: function () {
   },
