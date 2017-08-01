@@ -125,7 +125,7 @@
           stripe
           style="width: 100%">
           <el-table-column
-            prop="accountNumber"
+            prop="id"
             label="账号">
           </el-table-column>
           <el-table-column
@@ -142,7 +142,7 @@
             prop="del"
             label="操作">
             <template scope="scope">
-              <i class="iconfont icon-bianji" @click="showModifyMt = true"></i>
+              <i class="iconfont icon-bianji" @click="showModifyMt = true" ></i>
               <i class="iconfont icon-jinzhi" @click="showDisableMt = true"></i>
             </template>
           </el-table-column>
@@ -175,7 +175,7 @@
       </div>
       <p>删除后，您将无法通过此银行卡进行出金，是否要删除该银行卡？</p>
     </popup>
-    <modify-mt :show.sync="showModifyMt"></modify-mt>
+    <modify-mt :show.sync="showModifyMt" v-on:confirmEvent="modifyMt"></modify-mt>
     <bind-mt :show.sync="showBindMt"></bind-mt>
     <popup :show.sync="showDisableMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="disableMt">
       <p name="content" class="del-text">
@@ -214,34 +214,29 @@ export default {
       inviteUrl: 'https://www.douban.com/group/topic/96482147/',
       tableData: [
         {
-          accountNumber: '56735678',
+          id: '56735678',
           lever: '1:100',
-          mainAccountNumber: true,
-          del: ''
+          mainAccountNumber: true
         },
         {
-          accountNumber: '56735671',
+          id: '56735671',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735672',
+          id: '56735672',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735673',
+          id: '56735673',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735674',
+          id: '56735674',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         }
       ],
       selectBank: {}

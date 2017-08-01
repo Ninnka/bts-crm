@@ -14,8 +14,14 @@ export default new Vuex.Store({
     bankList: []
   },
   getters: {
-    user: state => state.user,
-    bankList: state => state.bankList
+    // user: state => state.user,
+    // bankList: state => state.bankList
+    user () {
+      return this.$store.state.user;
+    },
+    bankList () {
+      return this.$store.state.bankList;
+    }
   },
   actions,
   mutations,
