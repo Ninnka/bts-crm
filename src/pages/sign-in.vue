@@ -76,7 +76,7 @@ export default {
   background: rgba(100, 100, 100, .2);
   width: 490px;
   height: 750px;
-  margin: 45px auto 0;
+  margin: 45px auto 0 24px;
   overflow: hidden;
   > div {
     box-sizing: border-box;
