@@ -1,0 +1,145 @@
+<template>
+  <div class="sign-in--wrap">
+    <div class="sign-in--module__wrap">
+      <div class="sign-in--module">
+        <div class="module__head">
+          <p>CRM</p>
+          <p>金融后台系统</p>
+          <div class="head--sperator sperator-half"></div>
+          <div class="head--sperator sperator-full"></div>
+        </div>
+        <div class="module__form">
+          <el-form ref="signInForm" :model="signInInfo" label-width="72px">
+            <el-form-item label="实盘账号">
+              <el-input v-model="signInInfo.account" type="text" ></el-input>
+            </el-form-item>
+            <el-form-item label="交易密码">
+              <el-input v-model="signInInfo.password" type="password" ></el-input>
+            </el-form-item>
+            <el-row :gutter="16">
+              <el-col :span="16">
+                <el-form-item label="验证码">
+                  <el-input v-model="signInInfo.validCode" type="text" ></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
+                <canvas id="sign-in--valid-canvas" class="sign-in--valid-canvas"></canvas>
+              </el-col>
+            </el-row>
+            <button class="sign-in--submit">登录</button>
+          </el-form>
+          <div class="form--additional-action">忘记密码？</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      signInInfo: {
+        account: '',
+        password: '',
+        validCode: ''
+      }
+    };
+  },
+  methods: {
+
+  }
+};
+</script>
+
+<style lang="less">
+.sign-in--wrap {
+  // background-image: url(../assets/img/signin.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  overflow: hidden;
+}
+.sign-in--module__wrap {
+  width: 618px;
+  height: 840px;
+  margin: 90px auto 0;
+  overflow: hidden;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background: #34bbff;
+}
+
+.sign-in--module {
+  background: rgba(100, 100, 100, .2);
+  width: 490px;
+  height: 750px;
+  margin: 45px auto 0;
+  overflow: hidden;
+  > div {
+    box-sizing: border-box;
+    padding-left: 30px;
+  }
+  .module__head {
+    text-align: left;
+    margin-top: 185px;
+    p {
+      &:nth-child(1) {
+        font-size: 30px;
+        color: #52e3ff;
+      }
+      &:nth-child(2) {
+        font-size: 18px;
+        color: #ffffff;
+      }
+    }
+  }
+  .module__form {
+    position: relative;
+    padding-right: 167px;
+    margin-top: 40px;
+    text-align: left;
+    .el-form .el-form-item .el-form-item__label {
+      color: #94959a !important;
+      text-align: left;
+    }
+    .form--additional-action {
+      position: absolute;
+      right: 78px;
+      top: 66px;
+      color: #94959a !important;
+      text-decoration: underline;
+      font-size: 14px;
+    }
+  }
+  .sperator-half {
+    margin-top: 11px;
+    background:#52e3ff;
+    width:98px;
+    height:3px;
+  }
+  .sperator-full {
+    width: 236px;
+    height: 1px;
+    background:#648d94;
+    border-radius:4px;
+    position: relative;
+    top: -1px;
+  }
+}
+.sign-in--valid-canvas {
+  height: 35px;
+  width: 82px;
+}
+.sign-in--submit{
+  width: 100px;
+  height: 40px;
+  color: #fff;
+  font-size: 16px;
+  background-image: linear-gradient(-90deg, #00e2b8 0%, #009acd 100%);
+  border-radius: 4px;
+  margin: 52px 0 0 56px;
+}
+</style>
