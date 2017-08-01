@@ -11,6 +11,7 @@ import CommonApi from '@assets/js/common.js';
 Vue.prototype.CommonApi = CommonApi;
 // 引进公共样式
 import '@assets/css/common.less';
+import '@assets/css/tab-chunk.less';
 
 // 引进字体
 import '@assets/iconfont/iconfont.css';

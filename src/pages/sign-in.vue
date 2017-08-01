@@ -54,11 +54,11 @@ export default {
 
 <style lang="less">
 .sign-in--wrap {
-  // background-image: url(../assets/img/signin.png);
+  background-image: url(../assets/img/bg.png);
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
+  min-height: 100%;
   overflow: hidden;
 }
 .sign-in--module__wrap {
