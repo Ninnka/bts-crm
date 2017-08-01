@@ -1,7 +1,8 @@
 <template>
   <div class="sign-up--wrap">
-    <div class="popup" v-show="showSignUpForm">
-      <article class="popup-main popup-shadow">
+    <div class="popup popup-cus-bg" v-show="showSignUpForm">
+      <article class="popup-main posi-rel">
+        <article class="popup-main popup-shadow"></article>
         <header>
           实盘开户
           <span class="popup--additional-action" @click="simulationOpenAccount">模拟开户</span>
@@ -259,6 +260,9 @@ export default {
 @main-theme-sub: #94959a;
 @step-main-theme: #52e3ff;
 
+.posi-rel {
+  position: relative;
+}
 .sign-up--wrap {
   height: 100%;
   button {
@@ -282,8 +286,20 @@ export default {
     color: #ffffff;
   }
 }
+.popup-cus-bg {
+  background-image: url(../assets/img/bg.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .popup-shadow {
-  box-shadow: 0 0 0 16px rgba(0,0,0,0.50);
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 552px !important;
+  height: 772px !important;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.5);
 }
 .popup--additional-action {
   font-size: 14px;

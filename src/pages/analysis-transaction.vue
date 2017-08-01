@@ -372,9 +372,9 @@ export default {
       lists = account ? lists.filter(this.tableSearchFilter('account', account)) : lists;
       if (type) {
         if (type === 'is') {
-          lists = lists.filter(this.tableSearchFilter('is', type));
+          lists = lists.filter(this.tableSearchFilter(type, type));
         } else {
-          lists = lists.filter(this.tableSearchFilter('over', type));
+          lists = lists.filter(this.tableSearchFilter(type, type));
         }
       };
       if (date || type === 'all' || category || account || type) {
@@ -722,10 +722,16 @@ export default {
       border:none;
       margin-right: 20px;
       &:hover{
-        color: #20a0ff;
+        background:#17191d;
+        border-color: #17191d;
+      }
+      &:focus{
+        background:#17191d;
+        border-color: #17191d;
       }
       &:active{
-        box-shadow: inset 0 0 5px 3px rgba(0,0,0,0.7)
+        background:#17191d;
+        border-color: #17191d;
       }
     }
 

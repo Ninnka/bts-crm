@@ -956,67 +956,6 @@ export default {
   width: 38px;
 }
 
-.el-table {
-  background: #272a31 !important;
-  text-align: center;
-  color: #ffffff;
-  border-width: 0;
-  *:not(.influence--item) {
-    border-width: 0 !important;
-  }
-}
-
-.el-table .odd-row {
-  background: #272a31;
-}
-
-.el-table .even-row {
-  background: #22252d;
-}
-
-.el-table__header .el-dropdown {
-  color: @main-theme-sub;
-}
-
-.el-table__header tr {
-  background-color: #1e2128 !important;
-}
-
-.el-table__header tr th {
-  background-color: #1e2128 !important;
-}
-
-.el-table__header-wrapper thead div {
-  background-color: #1e2128 !important;
-}
-
-.el-table th>.cell {
-  text-align: center;
-  color: @main-theme-sub;
-}
-
-.el-table td, .el-table th.is-leaf {
-  border-width: 0 !important;
-}
-
-.el-table::after, .el-table::before {
-  background-color: transparent !important;
-}
-
-.el-table--enable-row-hover .el-table__body tr:hover>td {
-  background: initial;
-}
-
-.el-table__row {
-  a:hover {
-    color: #ffffff;
-  }
-}
-
-.el-table td, .el-table th {
-  padding: 7px 0;
-}
-
 .el-dropdown-menu__item {
   .el-radio {
     margin: 0 15px 0 0;

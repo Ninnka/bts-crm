@@ -17,6 +17,13 @@ export default new Router({
       }
     },
     {
+      path: '/signin',
+      name: 'signIn',
+      component: (resolve) => {
+        require(['@pages/sign-in'], resolve);
+      }
+    },
+    {
       path: '/tab',
       name: 'Tab',
       component: (resolve) => {
