@@ -16,11 +16,11 @@ export default new Vuex.Store({
   getters: {
     // user: state => state.user,
     // bankList: state => state.bankList
-    user () {
-      return this.$store.state.user;
+    user (state) {
+      return state.user;
     },
-    bankList () {
-      return this.$store.state.bankList;
+    bankList (state) {
+      return state.bankList;
     }
   },
   actions,

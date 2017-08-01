@@ -79,7 +79,7 @@
               <p>添加银行卡</p>
             </div>
           </li>
-          <li class="band-card-list">
+          <li class="band-card-list" v-if="bankList.length>0">
             <el-carousel height="150px" :autoplay=false>
               <el-carousel-item v-for="item in bankList">
                 <div class="band-cards is-flex">
@@ -87,15 +87,15 @@
                     <div class="card-header">
                       <div class="band-name">
                         <svg class="icon" aria-hidden="true">
-                          <use :xlink:href="'#'+item.icon"></use>
+                          <use :xlink:href="'#'+item.bankMes.icon"></use>
                         </svg>
-                        {{item.bankTitle}}
+                        {{item.bankMes.bankTitle}}
                       </div>
                       <i class="iconfont icon-shanchu" @click="openDelBank(item)"></i>
                     </div>
                     <div class="card-mes">
-                      <p>谢**</p>
-                      <p>8634 **** **** 8020</p>
+                      <p>{{item.name}}</p>
+                      <p>{{item.bankNumber}}</p>
                     </div>
                   </div>
                 </div>
@@ -175,7 +175,7 @@
       </div>
       <p>删除后，您将无法通过此银行卡进行出金，是否要删除该银行卡？</p>
     </popup>
-    <modify-mt :show.sync="showModifyMt" v-on:confirmEvent="modifyMt"></modify-mt>
+    <modify-mt :show.sync="showModifyMt"></modify-mt>
     <bind-mt :show.sync="showBindMt"></bind-mt>
     <popup :show.sync="showDisableMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="disableMt">
       <p name="content" class="del-text">
@@ -248,12 +248,14 @@ export default {
     }
   },
   created: function () {
-    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
-      if (index < 5) {
-        return item;
-      }
-    }));
-    this.selectBank = this.bankList[0];
+//    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
+//      if (index < 5) {
+//        return item;
+//      }
+//    }));
+    if (this.bankList.length > 0) {
+      this.selectBank = this.bankList[0];
+    };
   },
   methods: {
     handleSuccess (e) {
