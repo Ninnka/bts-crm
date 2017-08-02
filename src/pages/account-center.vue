@@ -191,6 +191,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import addBank from '@comps/account-center/add-bank.vue';
 import modifyMt from '@comps/account-center/modify-mt.vue';
 import bindMt from '@comps/account-center/bind-mt.vue';
@@ -248,11 +249,16 @@ export default {
     };
   },
   computed: {
-    bankList () {
-      return this.$store.state.bankList;
-    }
+    user () {
+      return '123';
+    },
+    // 使用对象展开运算符将此对象混入到外部对象中
+    ...mapState([
+      'bankList'
+    ])
   },
-  created: function () {
+  created () {
+    console.log(this.user);
     this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
       if (index < 5) {
         return item;
