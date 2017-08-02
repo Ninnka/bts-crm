@@ -7,5 +7,8 @@ export default {
   },
   addBankList (state, payload) {
     state.bankList.push(payload);
+  },
+  updateModifyMt (state, payload) {
+    state.bankList.push(payload);
   }
 };

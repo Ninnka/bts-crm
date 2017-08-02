@@ -142,8 +142,9 @@
             prop="del"
             label="操作">
             <template scope="scope">
-              <i class="iconfont icon-bianji" @click="showModifyMt = true" ></i>
+              <i class="iconfont icon-bianji" @click="showModifyMt = true"></i>
               <i class="iconfont icon-jinzhi" @click="showDisableMt = true"></i>
+              <i class="iconfont icon-qiyong" @click="showEnableMt = true"></i>
             </template>
           </el-table-column>
         </el-table>
@@ -182,6 +183,11 @@
         您正在申请禁用MT账号：54321，禁用后，该账号的所有持仓单将会被自动平仓，同时，您将无法再使用该MT账号进行任何交易以及出入金操作，是否继续？
       </p>
     </popup>
+    <popup :show.sync="showEnableMt" :needCancel=true :title="'启用MT账号'" v-on:confirmEvent="enableMt">
+      <p name="content" class="del-text">
+        您正在申请启用MT账号：54321，是否继续？
+      </p>
+    </popup>
     <popup :show.sync="showAddMt" :needCancel=true :title="'申请MT账号'" v-on:confirmEvent="addMt">
       <p name="content" class="del-text">
         本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 {{tableData.length}} 个MT账号了，是否继续申请MT账号？
@@ -209,6 +215,7 @@ export default {
       showAddBank: false,
       showModifyMt: false,
       showDisableMt: false,
+      showEnableMt: false,
       showAddMt: false,
       showBindMt: false,
       showDelBank: false,
@@ -247,6 +254,9 @@ export default {
     user () {
       return '123';
     },
+    mtStatus () {
+      return this.$store.state.mtStatus;
+    },
     // 使用对象展开运算符将此对象混入到外部对象中
     ...mapState([
       'bankList'
@@ -271,7 +281,7 @@ export default {
     },
     changeTableData (value) {
       this.tableData.forEach((item) => {
-        if (item.accountNumber !== value.accountNumber) {
+        if (item.id !== value.id) {
           item.mainAccountNumber = false;
         }
       });
@@ -308,6 +318,13 @@ export default {
         message: '禁用成功!'
       });
     },
+    enableMt () {
+      this.showEnableMt = false;
+      this.$message({
+        type: 'success',
+        message: '启用成功！'
+      });
+    },
     addMt () {
       this.showAddMt = false;
       this.$message({
@@ -315,7 +332,6 @@ export default {
         message: '添加成功!'
       });
     }
-
   }
 };
 </script>

@@ -30,7 +30,7 @@
         </el-form>
         <div class="popup-btns">
           <button class="hot-bg" @click="close">取消</button>
-          <button class="cold-bg" @click="close">添加</button>
+          <button class="cold-bg" @click="modifyMt">添加</button>
         </div>
       </div>
     </div>
@@ -64,12 +64,22 @@ export default {
     }
   },
   computed: {
+
   },
   created: function () {
   },
   methods: {
     close () {
       this.$emit('update:show', false);
+    },
+
+    modifyMt () {
+      this.$store.commit('updateModifyMt', this.form);
+      this.$message({
+        type: 'success',
+        message: '修改成功'
+      });
+      this.close();
     }
   }
 };
