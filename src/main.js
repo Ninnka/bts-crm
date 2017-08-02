@@ -17,9 +17,6 @@ import '@assets/css/tab-chunk.less';
 import '@assets/iconfont/iconfont.css';
 import '@assets/iconfont/iconfont.js';
 
-// 引进银行字体
-import '@assets/bank-icon/iconfont.js';
-
 // 引进element
 import ElementUI from 'element-ui';
 Vue.use(ElementUI);

@@ -4,4 +4,4 @@ let api = {
 
 export {
   api
-}
+};
