@@ -1,6 +1,6 @@
 <template>
   <div class="sign-up--wrap">
-    <div class="popup pupup-cus-bg" v-show="showSignUpForm">
+    <div class="popup popup-cus-bg" v-show="showSignUpForm">
       <article class="popup-main posi-rel">
         <article class="popup-main popup-shadow"></article>
         <header>
@@ -286,8 +286,11 @@ export default {
     color: #ffffff;
   }
 }
-.pupup-cus-bg {
+.popup-cus-bg {
   background-image: url(../assets/img/bg.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .popup-shadow {
   position: absolute;
