@@ -79,7 +79,7 @@
               <p>添加银行卡</p>
             </div>
           </li>
-          <li class="band-card-list">
+          <li class="band-card-list" v-if="bankList.length>0">
             <el-carousel height="150px" :autoplay=false>
               <el-carousel-item v-for="item in bankList">
                 <div class="band-cards is-flex">
@@ -87,15 +87,15 @@
                     <div class="card-header">
                       <div class="band-name">
                         <svg class="icon" aria-hidden="true">
-                          <use :xlink:href="'#'+item.icon"></use>
+                          <use :xlink:href="'#'+item.bankMes.icon"></use>
                         </svg>
-                        {{item.bankTitle}}
+                        {{item.bankMes.bankTitle}}
                       </div>
                       <i class="iconfont icon-shanchu" @click="openDelBank(item)"></i>
                     </div>
                     <div class="card-mes">
-                      <p>谢**</p>
-                      <p>8634 **** **** 8020</p>
+                      <p>{{item.name}}</p>
+                      <p>{{item.bankNumber}}</p>
                     </div>
                   </div>
                 </div>
@@ -125,7 +125,7 @@
           stripe
           style="width: 100%">
           <el-table-column
-            prop="accountNumber"
+            prop="id"
             label="账号">
           </el-table-column>
           <el-table-column
@@ -142,7 +142,7 @@
             prop="del"
             label="操作">
             <template scope="scope">
-              <i class="iconfont icon-bianji" @click="showModifyMt = true"></i>
+              <i class="iconfont icon-bianji" @click="showModifyMt = true" ></i>
               <i class="iconfont icon-jinzhi" @click="showDisableMt = true"></i>
             </template>
           </el-table-column>
@@ -191,6 +191,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import addBank from '@comps/account-center/add-bank.vue';
 import modifyMt from '@comps/account-center/modify-mt.vue';
 import bindMt from '@comps/account-center/bind-mt.vue';
@@ -214,51 +215,52 @@ export default {
       inviteUrl: 'https://www.douban.com/group/topic/96482147/',
       tableData: [
         {
-          accountNumber: '56735678',
+          id: '56735678',
           lever: '1:100',
-          mainAccountNumber: true,
-          del: ''
+          mainAccountNumber: true
         },
         {
-          accountNumber: '56735671',
+          id: '56735671',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735672',
+          id: '56735672',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735673',
+          id: '56735673',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         },
         {
-          accountNumber: '56735674',
+          id: '56735674',
           lever: '1:100',
-          mainAccountNumber: false,
-          del: ''
+          mainAccountNumber: false
         }
       ],
       selectBank: {}
     };
   },
   computed: {
-    bankList () {
-      return this.$store.state.bankList;
-    }
+    user () {
+      return '123';
+    },
+    // 使用对象展开运算符将此对象混入到外部对象中
+    ...mapState([
+      'bankList'
+    ])
   },
   created: function () {
-    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
-      if (index < 5) {
-        return item;
-      }
-    }));
-    this.selectBank = this.bankList[0];
+//    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
+//      if (index < 5) {
+//        return item;
+//      }
+//    }));
+    if (this.bankList.length > 0) {
+      this.selectBank = this.bankList[0];
+    };
   },
   methods: {
     handleSuccess (e) {

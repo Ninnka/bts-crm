@@ -8,8 +8,8 @@
       <div class="popup-content">
         <el-form ref="form" :model="form" label-width="100px">
           <el-form-item label="开户银行">
-            <el-select v-model="form.bankId" placeholder="请选择您的开户银行">
-              <el-option  v-for="item in CommonApi.bankList" :key="item.bankCode" :label="item.bankTitle" :value="item.bankCode"></el-option>
+            <el-select v-model="form.bankMes" placeholder="请选择您的开户银行">
+              <el-option  v-for="item in CommonApi.bankList" :key="item.bankCode" :label="item.bankTitle" :value="item"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="开户支行" class="bank-branch">
@@ -36,7 +36,7 @@
             <el-input v-model="form.phone" placeholder="请输入您在银行开户时预留的手机号码"></el-input>
           </el-form-item>
         </el-form>
-        <button class="sure-btn" @click="close">添加</button>
+        <button class="sure-btn" @click="addBank">添加</button>
       </div>
     </div>
   </article>
@@ -48,7 +48,7 @@ export default {
   data () {
     return {
       form: {
-        bankId: this.CommonApi.bankList[0].bankCode,
+        bankMes: this.CommonApi.bankList[0],
         province: this.CommonApi.provinceList[0],
         city: this.CommonApi.provinceList[0].cityList[0],
         branch: '',
@@ -66,6 +66,9 @@ export default {
     }
   },
   computed: {
+    bankList () {
+      return this.$store.state.bankList;
+    }
   },
   created: function () {
   },
@@ -75,6 +78,21 @@ export default {
     },
     close () {
       this.$emit('update:show', false);
+    },
+    addBank () {
+      if (this.form.branch === '') {
+        this.$message({
+          type: 'success',
+          message: '内容不许为空!'
+        });
+      } else {
+        this.$store.commit('addBankList', this.form);
+        this.$message({
+          type: 'success',
+          message: '添加成功!'
+        });
+        this.close();
+      }
     }
   }
 };

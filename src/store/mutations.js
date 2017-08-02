@@ -4,5 +4,8 @@ export default {
   },
   updateBankList (state, payload) {
     state.bankList = payload;
+  },
+  addBankList (state, payload) {
+    state.bankList.push(payload);
   }
 };
