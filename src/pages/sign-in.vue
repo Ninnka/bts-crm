@@ -1,5 +1,12 @@
 <template>
   <div class="sign-in--wrap">
+    <div class="sign-in--head">
+      <img src="~@assets/img/logo.png" alt="云软CRM登录LOGO">
+      <div class="head--desc">
+        <p class="">广州云软数据科技有限公司</p>
+        <p class="">Guangzhou Cloudsoft Data Technalogy Limited</p>
+      </div>
+    </div>
     <div class="sign-in--module__wrap">
       <div class="sign-in--module">
         <div class="module__head">
@@ -26,12 +33,14 @@
                 <canvas id="sign-in--valid-canvas" class="sign-in--valid-canvas"></canvas>
               </el-col>
             </el-row>
-            <button class="sign-in--submit">登录</button>
+            <button class="sign-in--submit" @click="submitSignIn">登录</button>
           </el-form>
           <div class="form--additional-action">忘记密码？</div>
         </div>
+        <div class="module__signup" @click="goRouter">注册账号</div>
       </div>
     </div>
+    <div class="crm-ver--fixed">Version 1.0</div>
   </div>
 </template>
 
@@ -47,12 +56,49 @@ export default {
     };
   },
   methods: {
-
+    goRouter () {
+      this.$router.push({name: 'signUp'});
+    },
+    submitSignIn () {
+      // TODO: 登录
+    }
   }
 };
 </script>
 
 <style lang="less">
+.clear-float {
+  content: '';
+  height: 0;
+  clear: both;
+  display: block;
+}
+.sign-in--head {
+  text-align: left;
+  > div {
+    vertical-align: middle;
+    display: inline-block;
+  }
+  img {
+    vertical-align: middle;
+    height: 31px;
+    width: 81px;
+    margin-left: 24px;
+  }
+  .head--desc {
+    margin-left: 12px;
+    color: #ffffff;
+    p {
+      text-align: left;
+      &:first-child {
+        font-size: 20px;
+      }
+      &:last-child {
+        font-size: 12px;
+      }
+    }
+  }
+}
 .sign-in--wrap {
   background-image: url(../assets/img/bg.png);
   background-position: center center;
@@ -61,19 +107,23 @@ export default {
   min-height: 100%;
   overflow: hidden;
 }
+.sign-in--head {
+  margin-top: 34px;
+  height: 40px;
+}
 .sign-in--module__wrap {
   width: 618px;
   height: 840px;
-  margin: 90px auto 0;
+  margin: 15px 40% 0;
   overflow: hidden;
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
-  background: #34bbff;
+  background-image: url(../assets/img/bg-float.png);
+  // background: #34bbff;
 }
-
 .sign-in--module {
-  background: rgba(100, 100, 100, .2);
+  // background: rgba(100, 100, 100, .2);
   width: 490px;
   height: 750px;
   margin: 45px auto 0 24px;
@@ -140,6 +190,30 @@ export default {
   font-size: 16px;
   background-image: linear-gradient(-90deg, #00e2b8 0%, #009acd 100%);
   border-radius: 4px;
-  margin: 52px 0 0 56px;
+  margin: 32px 0 0 56px;
+  cursor: pointer;
+}
+.module__signup {
+  cursor: pointer;
+  padding: 0 !important;
+  text-align: left;
+  text-indent: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  height: 125px;
+  width: 91px;
+  line-height: 125px;
+  margin: 36px auto 0 241px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../assets/img/signin-module-signup.png);
+}
+.crm-ver--fixed {
+  position: fixed;
+  bottom: 35px;
+  right: 50px;
+  color: #ffffff;
+  font-size: 18px;
 }
 </style>
