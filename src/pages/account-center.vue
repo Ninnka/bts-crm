@@ -129,13 +129,13 @@
             label="账号">
           </el-table-column>
           <el-table-column
-            prop="lever"
+            prop="leverage"
             label="杠杆">
           </el-table-column>
           <el-table-column
             label="主账号">
             <template scope="scope">
-              <el-switch v-model="scope.row.mainAccount" off-color="#999" on-color="#00cc00" @change="changeTableData(scope.row)"></el-switch>
+              <el-switch v-model="scope.row.mainAccount" off-color="#999" on-color="#00cc00" @change="changeMainAccount(scope.row)"></el-switch>
             </template>
           </el-table-column>
           <el-table-column
@@ -150,7 +150,7 @@
         </el-table>
         <div class="mt-btns is-flex">
           <button class="hot-bg" @click="showAddMt = true">申请MT账号</button>
-          <button class="cold-bg" @click="showBindMt = true">绑定MT账号</button>
+          <button class="cold-bg" @click="openBindMt">绑定MT账号</button>
         </div>
       </article>
     </div>
@@ -246,12 +246,8 @@ export default {
     handleError (e) {
       console.log(e);
     },
-    changeTableData (value) {
-      this.MtList.forEach((item) => {
-        if (item.id !== value.id) {
-          item.mainAccount = false;
-        }
-      });
+    changeMainAccount (value) {
+      this.$store.commit('changeMtMainAccount', value);
     },
     openDelBank (item) {
       this.selectBank = item;
@@ -281,6 +277,9 @@ export default {
       } else if (item.status === false) {
         this.showEnableMt = true;
       }
+    },
+    openBindMt () {
+      this.showBindMt = true;
     },
     ChangeMtStatus () {
       if (this.showDisableMt) {

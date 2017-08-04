@@ -79,7 +79,7 @@ export default {
     seletMt: {
       handler: function (val) {
         this.form.id = val.id;
-        this.form.leverage = val.lever;
+        this.form.leverage = val.leverage;
       },
       deep: true
     }
