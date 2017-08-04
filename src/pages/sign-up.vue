@@ -24,10 +24,10 @@
                 <el-input v-model="basicInfo.nickName" placeholder="请输入您想设置的昵称"></el-input>
               </el-form-item>
               <el-form-item label="密码">
-                <el-input v-model="basicInfo.password" placeholder="请输入您的交易密码"></el-input>
+                <el-input v-model="basicInfo.password" type="password" placeholder="请输入您的交易密码"></el-input>
               </el-form-item>
               <el-form-item label="确认密码">
-                <el-input v-model="basicInfo.ensurePassword" placeholder="请在此输入您的交易密码"></el-input>
+                <el-input v-model="basicInfo.ensurePassword" type="password" placeholder="请在此输入您的交易密码"></el-input>
               </el-form-item>
               <el-form-item label="手机号码">
                 <el-input v-model="basicInfo.tel" placeholder="请输入您的手机号码"></el-input>
