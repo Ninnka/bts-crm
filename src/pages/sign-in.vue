@@ -10,7 +10,7 @@
     <div class="sign-in--module__wrap">
       <div class="sign-in--module">
         <div class="module__head">
-          <p>CRM</p>
+          <p>运营中心</p>
           <p>金融后台系统</p>
           <div class="head--sperator sperator-half"></div>
           <div class="head--sperator sperator-full"></div>
@@ -61,6 +61,8 @@ export default {
     },
     submitSignIn () {
       // TODO: 登录
+      this.$store.commit('updateUser', {'name': this.signInInfo.account});
+      this.$router.push('tab/index');
     }
   }
 };
