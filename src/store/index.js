@@ -11,7 +11,33 @@ export default new Vuex.Store({
     user: {
       name: 'name'
     },
-    bankList: []
+    bankList: [],
+    MtList: [
+      {
+        id: '56735671',
+        pas: '',
+        lever: '1:100',
+        verify: '',
+        mainAccount: false,
+        status: false
+      },
+      {
+        id: '56735672',
+        pas: '',
+        lever: '1:100',
+        verify: '',
+        mainAccount: false,
+        status: false
+      },
+      {
+        id: '56735673',
+        pas: '',
+        lever: '1:100',
+        verify: '',
+        mainAccount: false,
+        status: false
+      }
+    ]
   },
   getters: {
     // user: state => state.user,
@@ -21,6 +47,9 @@ export default new Vuex.Store({
     },
     bankList (state) {
       return state.bankList;
+    },
+    MtList (state) {
+      return state.MtList;
     }
   },
   actions,

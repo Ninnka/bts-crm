@@ -121,7 +121,7 @@
       <article class="region my-mt-account">
         <header>我的MT账号</header>
         <el-table
-          :data="tableData"
+          :data="MtList"
           stripe
           style="width: 100%">
           <el-table-column
@@ -135,15 +135,16 @@
           <el-table-column
             label="主账号">
             <template scope="scope">
-              <el-switch v-model="scope.row.mainAccountNumber" off-color="#999" on-color="#00cc00" @change="changeTableData(scope.row)"></el-switch>
+              <el-switch v-model="scope.row.mainAccount" off-color="#999" on-color="#00cc00" @change="changeTableData(scope.row)"></el-switch>
             </template>
           </el-table-column>
           <el-table-column
             prop="del"
             label="操作">
             <template scope="scope">
-              <i class="iconfont icon-bianji" @click="showModifyMt = true" ></i>
-              <i class="iconfont icon-jinzhi" @click="showDisableMt = true"></i>
+              <i class="iconfont icon-bianji" @click="openModifyMt(scope.row)"></i>
+              <i class="iconfont icon-jinzhi" @click="openChangeMtStatus(scope.row)" v-if="scope.row.status"></i>
+              <i class="iconfont icon-qiyong" @click="openChangeMtStatus(scope.row)" v-else></i>
             </template>
           </el-table-column>
         </el-table>
@@ -175,16 +176,21 @@
       </div>
       <p>删除后，您将无法通过此银行卡进行出金，是否要删除该银行卡？</p>
     </popup>
-    <modify-mt :show.sync="showModifyMt"></modify-mt>
+    <modify-mt :show.sync="showModifyMt" :seletMt="selectMt"></modify-mt>
     <bind-mt :show.sync="showBindMt"></bind-mt>
-    <popup :show.sync="showDisableMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="disableMt">
+    <popup :show.sync="showDisableMt" :needCancel=true :title="'禁用MT账号'" v-on:confirmEvent="ChangeMtStatus">
       <p name="content" class="del-text">
         您正在申请禁用MT账号：54321，禁用后，该账号的所有持仓单将会被自动平仓，同时，您将无法再使用该MT账号进行任何交易以及出入金操作，是否继续？
       </p>
     </popup>
+    <popup :show.sync="showEnableMt" :needCancel=true :title="'启用MT账号'" v-on:confirmEvent="ChangeMtStatus">
+      <p name="content" class="del-text">
+        您正在申请启用MT账号：54321，是否继续？
+      </p>
+    </popup>
     <popup :show.sync="showAddMt" :needCancel=true :title="'申请MT账号'" v-on:confirmEvent="addMt">
       <p name="content" class="del-text">
-        本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 {{tableData.length}} 个MT账号了，是否继续申请MT账号？
+        本系统限制每个用户每个Book内只允许申请 5 个MT账户，您已经开通了 {{MtList.length}} 个MT账号了，是否继续申请MT账号？
       </p>
     </popup>
   </div>
@@ -209,38 +215,13 @@ export default {
       showAddBank: false,
       showModifyMt: false,
       showDisableMt: false,
+      showEnableMt: false,
       showAddMt: false,
       showBindMt: false,
       showDelBank: false,
       inviteUrl: 'https://www.douban.com/group/topic/96482147/',
-      tableData: [
-        {
-          id: '56735678',
-          lever: '1:100',
-          mainAccountNumber: true
-        },
-        {
-          id: '56735671',
-          lever: '1:100',
-          mainAccountNumber: false
-        },
-        {
-          id: '56735672',
-          lever: '1:100',
-          mainAccountNumber: false
-        },
-        {
-          id: '56735673',
-          lever: '1:100',
-          mainAccountNumber: false
-        },
-        {
-          id: '56735674',
-          lever: '1:100',
-          mainAccountNumber: false
-        }
-      ],
-      selectBank: {}
+      selectBank: {},
+      selectMt: {}
     };
   },
   computed: {
@@ -249,15 +230,11 @@ export default {
     },
     // 使用对象展开运算符将此对象混入到外部对象中
     ...mapState([
-      'bankList'
+      'bankList',
+      'MtList'
     ])
   },
   created: function () {
-//    this.$store.commit('updateBankList', this.CommonApi.bankList.filter((item, index) => {
-//      if (index < 5) {
-//        return item;
-//      }
-//    }));
     if (this.bankList.length > 0) {
       this.selectBank = this.bankList[0];
     };
@@ -270,9 +247,9 @@ export default {
       console.log(e);
     },
     changeTableData (value) {
-      this.tableData.forEach((item) => {
-        if (item.accountNumber !== value.accountNumber) {
-          item.mainAccountNumber = false;
+      this.MtList.forEach((item) => {
+        if (item.id !== value.id) {
+          item.mainAccount = false;
         }
       });
     },
@@ -287,26 +264,40 @@ export default {
           return item;
         }
       }));
-//      this.bankList = this.bankList.filter((item) => {
-//        if (item.bankCode !== this.selectBank.bankCode) {
-//          return item;
-//        } else {
-//          var index = this.bankList.indexOf(item);
-//          this.bankList.splice(index, 1);
-//          return item;
-//        }
-//      });
       this.$message({
         type: 'success',
         message: '删除成功!'
       });
     },
-    disableMt () {
-      this.showDisableMt = false;
-      this.$message({
-        type: 'success',
-        message: '禁用成功!'
-      });
+    openModifyMt (item) {
+      this.selectMt = item;
+      this.showModifyMt = true;
+    },
+    openChangeMtStatus (item) {
+      console.log(item);
+      this.selectMt = item;
+      if (item.status === true) {
+        this.showDisableMt = true;
+      } else if (item.status === false) {
+        this.showEnableMt = true;
+      }
+    },
+    ChangeMtStatus () {
+      if (this.showDisableMt) {
+        this.$store.commit('changeMtStatus', this.selectMt);
+        this.$message({
+          type: 'success',
+          message: '禁用成功!'
+        });
+        this.showDisableMt = false;
+      } else if (this.showEnableMt) {
+        this.$store.commit('changeMtStatus', this.selectMt);
+        this.$message({
+          type: 'success',
+          message: '启用成功!'
+        });
+        this.showEnableMt = false;
+      }
     },
     addMt () {
       this.showAddMt = false;
@@ -315,7 +306,6 @@ export default {
         message: '添加成功!'
       });
     }
-
   }
 };
 </script>

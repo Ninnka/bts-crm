@@ -7,7 +7,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/tab/index'
+      redirect: '/signin'
     },
     {
       path: '/signup',

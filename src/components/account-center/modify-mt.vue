@@ -6,7 +6,7 @@
         <i class="close" @click="close">×</i>
       </header>
       <div class="popup-content">
-        <el-form ref="form" :model="form" label-width="100px">
+        <el-form v-model="form" label-width="100px">
           <el-form-item label="MT账号">
             <el-input v-model="form.id" :disabled=true></el-input>
           </el-form-item>
@@ -30,7 +30,7 @@
         </el-form>
         <div class="popup-btns">
           <button class="hot-bg" @click="close">取消</button>
-          <button class="cold-bg" @click="close">添加</button>
+          <button class="cold-bg" @click="modifyMt">确定</button>
         </div>
       </div>
     </div>
@@ -42,8 +42,9 @@ export default {
   name: 'modify-mt',
   data () {
     return {
+      selectMt: {},
       form: {
-        id: 123,
+        id: '',
         pas: '',
         surePas: '',
         leverage: '',
@@ -61,15 +62,49 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    seletMt: {
+      type: Object,
+      default: {}
     }
   },
   computed: {
+    MtList () {
+      return this.$store.state.MtList;
+    }
   },
   created: function () {
   },
+  watch: {
+    seletMt: {
+      handler: function (val) {
+        this.form.id = val.id;
+        this.form.leverage = val.lever;
+      },
+      deep: true
+    }
+  },
   methods: {
     close () {
+      for (let item in this.form) {
+        this.form[item] = '';
+      };
       this.$emit('update:show', false);
+    },
+    modifyMt () {
+      if (this.form.pas === '' || this.form.surePas === '') {
+        this.$message({
+          type: 'success',
+          message: '内容不许为空!'
+        });
+      } else {
+        this.$store.commit('updateModifyMt', this.form);
+        this.$message({
+          type: 'success',
+          message: '修改成功'
+        });
+        this.close();
+      }
     }
   }
 };
