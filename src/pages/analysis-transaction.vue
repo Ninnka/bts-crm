@@ -261,15 +261,15 @@ export default {
         mtNum += 1;
       };
       return {
-        mtNum: mtNum,
-        buy: buy,
-        sell: sell,
-        play: play,
-        unwind: unwind,
-        unknown: unknown,
-        interest: interest,
-        poundage: poundage,
-        obtain: obtain
+        mtNum,
+        buy,
+        sell,
+        play,
+        unwind,
+        unknown,
+        interest,
+        poundage,
+        obtain
       };
     },
     pageTable: function () {
@@ -319,15 +319,15 @@ export default {
         mtNum += 1;
       };
       return {
-        mtNum: mtNum,
-        buy: buy,
-        sell: sell,
-        play: play,
-        unwind: unwind,
-        unknown: unknown,
-        interest: interest,
-        poundage: poundage,
-        obtain: obtain
+        mtNum,
+        buy,
+        sell,
+        play,
+        unwind,
+        unknown,
+        interest,
+        poundage,
+        obtain
       };
     }
   },

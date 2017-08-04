@@ -14,7 +14,7 @@
             <el-step title="交易信息"></el-step>
             <el-step title="完成"></el-step>
           </el-steps>
-          
+
           <div class="form--main-wrap">
             <el-form v-show="activeStep === 0" ref="basicInfoForm" :model="basicInfo" label-width="90px">
               <el-form-item label="交易账号">
@@ -146,12 +146,12 @@
               </el-form-item>
             </el-form>
             <div v-show="activeStep === 3" class="form--complete">
-               <i class="el-icon-check"></i> 
+               <i class="el-icon-check"></i>
                <p class="">您的资料已成功提交！</p>
                <p class="">我们正在加紧进行审核，审核结果将发送至预留的手机和邮箱，敬请留意。</p>
             </div>
           </div>
-          
+
           <div class="form--buttons-wrap">
             <button v-show="activeStep !== 0" class="pre--btn" @click="preStep">上一步</button>
             <button v-show="activeStep !== 3" class="next--btn" @click="nextStep">下一步</button>
@@ -159,7 +159,7 @@
           </div>
         </div>
       </article>
-    </div>  
+    </div>
   </div>
 </template>
 
@@ -251,6 +251,7 @@ export default {
     },
     completeStep () {
       // TODO: 跳转到登录页
+      this.$router.replace('signin');
     }
   }
 };
@@ -358,7 +359,7 @@ export default {
     color: #333333 !important;
     background-color: @step-main-theme !important;
     border-color: @step-main-theme !important;
-    
+
   }
   &.is-finish {
     color: @step-main-theme !important;
