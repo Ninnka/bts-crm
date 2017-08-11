@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-
+import Tab from '@pages/tab';
 Vue.use(Router);
 
 export default new Router({
@@ -25,10 +25,7 @@ export default new Router({
     },
     {
       path: '/tab',
-      name: 'Tab',
-      component: (resolve) => {
-        require(['@pages/Tab'], resolve);
-      },
+      component: Tab,
       children: [
         {
           path: 'index',
