@@ -27,7 +27,7 @@
         </el-form>
         <div class="popup-btns">
           <button class="hot-bg" @click="close">取消</button>
-          <button class="cold-bg" @click="close">添加</button>
+          <button class="cold-bg" @click="addMt">添加</button>
         </div>
       </div>
     </div>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-  name: 'modify-mt',
+  name: 'bind-mt',
   data () {
     return {
       form: {
@@ -65,7 +65,32 @@ export default {
   },
   methods: {
     close () {
+      for (let item in this.form) {
+        this.form[item] = '';
+      }
       this.$emit('update:show', false);
+    },
+    addMt () {
+      if (this.form.pas === '') {
+        this.$message({
+          type: 'success',
+          message: '内容不许为空！'
+        });
+      } else {
+        let mt = {
+          id: this.form.id,
+          pas: this.form.pas,
+          leverage: this.form.leverage,
+          mainAccount: false,
+          status: true
+        };
+        this.$store.commit('addMtList', mt);
+        this.$message({
+          type: 'success',
+          message: '添加成功!'
+        });
+        this.close();
+      }
     }
   }
 };

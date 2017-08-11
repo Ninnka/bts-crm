@@ -9,10 +9,20 @@ export default {
     state.bankList.push(payload);
   },
   updateModifyMt (state, payload) {
-    console.log(payload);
     state.MtList.forEach((item) => {
       if (item.id === payload.id) {
-        item.lever = payload.leverage;
+        item.leverage = payload.leverage;
+      }
+    });
+  },
+  addMtList (state, payload) {
+    console.log(payload);
+    state.MtList.push(payload);
+  },
+  changeMtMainAccount (state, payload) {
+    state.MtList.forEach((item) => {
+      if (item.id !== payload.id) {
+        item.mainAccount = false;
       }
     });
   },
