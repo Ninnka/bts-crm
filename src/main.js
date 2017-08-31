@@ -9,6 +9,11 @@ import DeployApi from '@assets/js/deploy.js';
 Vue.prototype.DeployApi = DeployApi;
 import CommonApi from '@assets/js/common.js';
 Vue.prototype.CommonApi = CommonApi;
+// 引进element
+import ElementUI from 'element-ui';
+Vue.use(ElementUI);
+import 'element-ui/lib/theme-default/index.css';
+
 // 引进公共样式
 import '@assets/css/common.less';
 import '@assets/css/tab-chunk.less';
@@ -16,11 +21,6 @@ import '@assets/css/tab-chunk.less';
 // 引进字体
 import '@assets/iconfont/iconfont.css';
 import '@assets/iconfont/iconfont.js';
-
-// 引进element
-import ElementUI from 'element-ui';
-Vue.use(ElementUI);
-import 'element-ui/lib/theme-default/index.css';
 
 // 引入vue-clipboards
 import VueClipboards from 'vue-clipboards';

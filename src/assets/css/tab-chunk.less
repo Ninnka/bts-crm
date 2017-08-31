@@ -141,23 +141,24 @@
 }
 
 .record__table {
-  padding: 16px;
+  padding: 0 16px;
   box-sizing: border-box;
 }
 
 .record__pagination {
   box-sizing: border-box;
-  padding: 16px;
+  margin-bottom: 16px;
+  // padding: 16px;
   // background: #212227;
 }
 
 .record__total {
   box-sizing: border-box;
   padding: 0 16px;
+  color: #ffffff;
   > div {
     height: 56px;
     line-height: 56px;
-    color: @main-theme-sub;
     // background: #22232a;
     &:first-child {
       // border-bottom: 2px solid #272a31;
@@ -187,5 +188,11 @@
     > div {
       vertical-align: top;
     }
+  }
+}
+
+.module__form {
+  .el-form-item {
+    margin-bottom: 22px !important;
   }
 }

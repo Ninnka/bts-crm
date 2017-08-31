@@ -117,8 +117,8 @@ export default {
           type: '入金',
           account: '方砖1号',
           accountType: '用户',
-          fund: '999,999.00',
-          fundChange: '99,999.00',
+          fund: 99999,
+          fundChange: 99999,
           status: '未知',
           fundNew: '',
           remark: ''
@@ -129,8 +129,8 @@ export default {
           type: '出金',
           account: '方砖2号',
           accountType: 'MT账号',
-          fund: '999,999.00',
-          fundChange: '99,999.00',
+          fund: 99999,
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -141,8 +141,8 @@ export default {
           type: '出金',
           account: '方砖2号',
           accountType: 'MT账号',
-          fund: '999,999.00',
-          fundChange: '99,999.00',
+          fund: 99999,
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -153,8 +153,8 @@ export default {
           type: '出金',
           account: '方砖2号',
           accountType: 'MT账号',
-          fund: '999,999.00',
-          fundChange: '99,999.00',
+          fund: 99999,
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -165,8 +165,8 @@ export default {
           type: '出金',
           account: '方砖2号',
           accountType: 'MT账号',
-          fund: '999,999.00',
-          fundChange: '99,999.00',
+          fund: 99999,
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -180,7 +180,7 @@ export default {
           account: '方砖2号',
           accountType: 'MT账号',
           fundType: '可用资金',
-          fundChange: '99,999.00',
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -192,7 +192,7 @@ export default {
           account: '方砖2号',
           accountType: 'MT账号',
           fundType: '赠金',
-          fundChange: '99,999.00',
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -204,7 +204,7 @@ export default {
           account: '方砖2号',
           accountType: 'MT账号',
           fundType: '赠金',
-          fundChange: '99,999.00',
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -216,7 +216,7 @@ export default {
           account: '方砖2号',
           accountType: 'MT账号',
           fundType: '赠金',
-          fundChange: '99,999.00',
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''
@@ -228,7 +228,7 @@ export default {
           account: '方砖2号',
           accountType: 'MT账号',
           fundType: '赠金',
-          fundChange: '99,999.00',
+          fundChange: 99999,
           status: '成功',
           fundNew: '',
           remark: ''

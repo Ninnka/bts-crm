@@ -92,11 +92,13 @@
         <el-select v-model="recordForm.MTAccount" placeholder="请选择">
           <el-option v-for="item in MTAccountArr" :key="item" :label="item" :value="item"></el-option>
         </el-select>
-        <el-button type="info">查询</el-button>
+        <el-button icon="search" class="search-btn">查询</el-button>
+      </div>
+      <div class="query-btns">
         <el-button type="info">导出</el-button>
       </div>
       <div class="record__table">
-        <el-table :data="fundSummaryTableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
+        <el-table :data="tableData" style="width: 100%" header-align="center" :row-class-name="tableRowClassName">
           <el-table-column prop="account" label="用户/账号"></el-table-column>
           <el-table-column prop="type" label="类型"></el-table-column>
           <el-table-column prop="availableFund" label="可用资金"></el-table-column>
@@ -108,7 +110,7 @@
         </el-table>
       </div>
       <div class="record__pagination">
-        <el-pagination
+        <!-- <el-pagination
           @size-change="recordTabelSizeChange"
           @current-change="recordTabelCurrentChange"
           :current-page="recordTabelCurrentPage"
@@ -116,7 +118,8 @@
           :page-size="5"
           layout="total, sizes, prev, pager, next, jumper"
           :total="50">
-        </el-pagination>
+        </el-pagination> -->
+        <paging :sourceData="fundSummaryTableData" @update:displayData="currentPageChanged"></paging>
       </div>
     </div>
 
@@ -126,11 +129,16 @@
 <script>
 import tmpFundManageDataMixins from '@mixins/tmp-fund-manage-data-mixins';
 
+import paging from '@comps/paging';
+
 import moment from 'moment';
 
 export default {
   name: 'fund-management',
   mixins: [tmpFundManageDataMixins],
+  components: {
+    paging
+  },
   data () {
     return {
       outAccountForm: {
@@ -174,7 +182,8 @@ export default {
         timeRange: ['', ''],
         MTAccount: ''
       },
-      recordTabelCurrentPage: 1
+      recordTabelCurrentPage: 1,
+      tableData: []
     };
   },
   computed: {
@@ -189,11 +198,8 @@ export default {
     ensureTransfer () {
       console.log('click ensureTransfer');
     },
-    recordTabelSizeChange () {
-
-    },
-    recordTabelCurrentChange () {
-
+    currentPageChanged (data) {
+      this.tableData = data;
     }
   },
   created: function () {
@@ -398,17 +404,6 @@ export default {
   > div {
     margin-right: 20px;
   }
-}
-
-.record__table {
-  padding: 16px;
-  box-sizing: border-box;
-}
-
-.record__pagination {
-  box-sizing: border-box;
-  padding: 16px;
-  // background: #212227;
 }
 
 </style>

@@ -16,23 +16,23 @@
           </el-steps>
 
           <div class="form--main-wrap">
-            <el-form v-show="activeStep === 0" ref="basicInfoForm" :model="basicInfo" label-width="90px">
-              <el-form-item label="交易账号">
+            <el-form v-show="activeStep === 0" ref="basicInfoForm" :model="basicInfo" :rules="basicInfoRules" label-width="90px">
+              <el-form-item label="交易账号" prop="account">
                 <el-input v-model="basicInfo.account" placeholder="请输入您想要注册的交易账号"></el-input>
               </el-form-item>
               <el-form-item label="昵称">
                 <el-input v-model="basicInfo.nickName" placeholder="请输入您想设置的昵称"></el-input>
               </el-form-item>
-              <el-form-item label="密码">
+              <el-form-item label="密码" prop="password">
                 <el-input v-model="basicInfo.password" type="password" placeholder="请输入您的交易密码"></el-input>
               </el-form-item>
-              <el-form-item label="确认密码">
+              <el-form-item label="确认密码" prop="ensurePassword">
                 <el-input v-model="basicInfo.ensurePassword" type="password" placeholder="请在此输入您的交易密码"></el-input>
               </el-form-item>
-              <el-form-item label="手机号码">
+              <el-form-item label="手机号码" prop="tel">
                 <el-input v-model="basicInfo.tel" placeholder="请输入您的手机号码"></el-input>
               </el-form-item>
-              <el-form-item label="验证码" class="form-tel">
+              <el-form-item label="验证码" class="form-tel" prop="validateTelCode">
                 <el-row>
                   <el-col :span="16">
                     <el-input v-model="basicInfo.validateTelCode" placeholder="请输入您手机上收到的验证码"></el-input>
@@ -204,7 +204,33 @@ export default {
         accountName: '',
         accountTel: ''
       },
-      bankCardList: []
+      bankCardList: [],
+      basicInfoRules: {
+        account: [{
+          required: true,
+          message: '账号不能为空',
+          trigger: 'blur'
+        }],
+        password: [{
+          required: true,
+          message: '密码不能为空',
+          trigger: 'blur'
+        }],
+        ensurePassword: [{
+          required: true,
+          message: '确认密码不能为空',
+          trigger: 'blur'
+        }],
+        tel: [{
+          required: true,
+          message: '手机号码不能为空',
+          trigger: 'blur'
+        }],
+        validateTelCode: [{
+          validator: this.checkValidateTelCode,
+          trigger: 'blur'
+        }]
+      }
     };
   },
   methods: {
@@ -252,6 +278,9 @@ export default {
     completeStep () {
       // TODO: 跳转到登录页
       this.$router.replace('signin');
+    },
+    checkValidateTelCode () {
+      // TODO: 电话验证码验证
     }
   }
 };

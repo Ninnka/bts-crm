@@ -15,47 +15,61 @@
           <!--搜索框-->
           <div class="lists-table">
             <form action="" class="el-form">
-                <div class="el-form-item"> 
+                <div class="el-form-item">
                   <span for="">时间范围</span>
                   <div class="el-form-item__label">
                     <el-col :span="11">
                       <el-date-picker type="date" :placeholder="inputText[0]" v-model="form.date" style="width: 100%;" format></el-date-picker>
                     </el-col>
                   </div>
-                </div>          
-                <div class="el-form-item">  
+                </div>
+                <div class="el-form-item">
                   <span for="">交易种类</span>
                   <div class="el-form-item__label">
                     <el-col :span="12">
-                        <el-autocomplete
+                        <!-- <el-autocomplete
                           class="inline-input"
                           v-model="form.category"
                           icon="caret-bottom"
                           :fetch-suggestions="categorySearch"
                           :placeholder="inputText[1]"
                           @select="categorySelect"
-                        ></el-autocomplete>
+                        ></el-autocomplete> -->
+                        <el-select v-model="form.category" :placeholder="inputText[1]">
+                          <el-option v-for="item in categorySearch" :key="item" label="item" value="item">
+                            {{ item }}
+                          </el-option>
+                        </el-select>
                       </el-col>
                   </div>
-                </div>         
-                <div class="el-form-item">  
+                </div>
+                <div class="el-form-item">
                   <span for="">交易账号</span>
-                  <div class="el-form-item__label"> 
+                  <div class="el-form-item__label">
                     <el-col :span="12">
-                        <el-autocomplete
+                        <!-- <el-autocomplete
                           class="inline-input"
                           v-model="form.account"
                           icon="caret-bottom"
                           :fetch-suggestions="accountSearch"
                           :placeholder="inputText[2]"
                           @select="accountSelect"
-                        ></el-autocomplete>
+                        ></el-autocomplete> -->
+                        <el-select v-model="form.category" :placeholder="inputText[1]">
+                          <el-option v-for="item in accountSearch" :key="item" label="item" value="item">
+                            {{ item }}
+                          </el-option>
+                        </el-select>
                       </el-col>
                   </div>
-                </div>         
-                <div class="el-form-item">  
+                </div>
+                <div class="item-solid" style="padding: 11px 12px 11px 0;">
+                  <el-button icon="search" class="search-btn" @click="tableSearch">搜索
+                  </el-button>
+                </div>
+                <div class="el-form-item">
                   <span for="">平仓类型</span>
-                  <div class="el-form-item__label"> 
+                  <div class="el-form-item__label">
                     <el-select v-model="form.type" :placeholder="inputText[3]">
                       <el-option label="全部" value="all"></el-option>
                       <el-option label="持仓中" value="is"></el-option>
@@ -67,13 +81,14 @@
             <!--搜索框 结束-->
 
              <!--查询按钮-->
-            <div class="form-button">
-              <el-button type="primary" icon="search" @click="tableSearch">搜索
-              </el-button>
+            <div class="query-btns">
+              <!-- <el-button type="primary" icon="search" @click="tableSearch">搜索
+              </el-button> -->
               <el-button type="primary" icon="upload2">导出
               </el-button>
               <!--下拉选择列-->
-              <el-dropdown trigger="hover" :hide-on-click="false">
+              <list-options :sourceList="tableColsStatus" @update:displayList="updateTableColsStatus"></list-options>
+              <!-- <el-dropdown trigger="hover" :hide-on-click="false">
                 <el-button type="primary">
                 列表选项<i class="el-icon-caret-bottom el-icon--right"></i>
                 </el-button>
@@ -88,15 +103,20 @@
                     </el-checkbox-group>
                   </el-dropdown-item>
                 </el-dropdown-menu>
-              </el-dropdown> 
+              </el-dropdown> -->
               <!--下拉选择列 over-->
             </div>
             <!--查询按钮 结束-->
             <!--数据表格-->
-            <div class="table-list">
+            <div class="table-list has-total">
               <template>
                 <el-table :data="pageTable" style="width: 100%">
-                  <el-table-column prop="id" label="交易编号"  width="130">
+                  <el-table-column v-for="col in tableUsableCols" :key="col.key" :prop="col.key" :label="col.label" :width="col.width ? col.width : '120'">
+                    <template scope="scope">
+                      <span>{{ scope.row[col.key] ? scope.row[col.key] : '' }}</span>
+                    </template>
+                  </el-table-column>
+                  <!-- <el-table-column prop="id" label="交易编号"  width="130">
                   </el-table-column>
                   <el-table-column prop="userName" label="交易用户"  width="120">
                   </el-table-column>
@@ -123,11 +143,11 @@
                   <el-table-column prop="poundage" label="手续费/外佣"  width="120">
                   </el-table-column>
                   <el-table-column prop="obtain" label="盈亏"  width="120">
-                  </el-table-column> 
+                  </el-table-column> -->
                 </el-table>
                 <!--合计总计-->
-                 <div class="table-sum">
-                   <div> 
+                 <!-- <div class="table-sum">
+                   <div>
                       <span>合计</span>
                       <span>{{  pageSum.mtNum }}</span>
                       <span>买{{ pageSum.buy }}</span>
@@ -153,11 +173,11 @@
                     <span>{{ sum.poundage }}</span>
                     <span>{{ sum.obtain }}</span>
                   </div>
-                 </div>
+                 </div> -->
                 <!--合计总计 结束-->
                 <!-- 分页-->
-                <div class="block">
-                  <el-pagination
+                <div class="record__pagination">
+                  <!-- <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
                     :current-page="currentPage"
@@ -165,22 +185,30 @@
                     :page-size="pageMax"
                     layout="total, sizes, prev, pager, next, jumper"
                     :total="tableLength">
-                  </el-pagination>
+                  </el-pagination> -->
+                  <paging :sourceData="tableData2" @update:displayData="currentPageChanged"></paging>
                 </div>
                 <!-- 分页 结束-->
-              </template> 
+              </template>
             </div>
             <!--数据表格 结束-->
-          </div>   
-        </div>      
+          </div>
+        </div>
     </div>
   </div>
 </template>
 
 <script>
+import paging from '@comps/paging';
+import listOptions from '@comps/list-options';
+
 var tableField = ['交易编号', '交易用户', 'MT账号', '类型', '交易种类', '开仓时间', '开仓价格', '手数', '止损／盈亏', '平仓时间', '平仓价格', '利息', '手续费/外佣', '盈亏'];
 export default {
   name: 'AnalysisTransaction',
+  components: {
+    paging,
+    listOptions
+  },
   data () {
     return {
       inputText: [
@@ -210,7 +238,81 @@ export default {
         account: '',
         type: ''
       },
-      currentPage: 1
+      currentPage: 1,
+      tableUsableCols: [],
+      tableColsStatus: [{
+        show: true,
+        label: '交易编号',
+        key: 'id',
+        canSelect: false,
+        width: '130'
+      }, {
+        show: true,
+        label: '交易用户',
+        key: 'userName',
+        canSelect: true
+      }, {
+        show: true,
+        label: 'MT账号',
+        key: 'userId',
+        canSelect: true
+      }, {
+        show: true,
+        label: '类型',
+        key: 'category',
+        canSelect: true
+      }, {
+        show: true,
+        label: '交易种类',
+        key: 'type',
+        canSelect: true
+      }, {
+        show: true,
+        label: '开仓时间',
+        key: 'playDate',
+        canSelect: true
+      }, {
+        show: true,
+        label: '开仓价格',
+        key: 'playPrice',
+        canSelect: true
+      }, {
+        show: true,
+        label: '手数',
+        key: 'number',
+        canSelect: true
+      }, {
+        show: true,
+        label: '止损／盈亏',
+        key: 'win.profit',
+        canSelect: true
+      }, {
+        show: true,
+        label: '平仓时间',
+        key: 'unwindDate',
+        canSelect: true
+      }, {
+        show: true,
+        label: '平仓价格',
+        key: 'unwindPrice',
+        canSelect: true
+      }, {
+        show: true,
+        label: '利息',
+        key: 'accrual',
+        canSelect: true
+      }, {
+        show: true,
+        label: '手续费/外佣',
+        key: 'poundage',
+        canSelect: true
+      }, {
+        show: true,
+        label: '盈亏',
+        key: 'obtain',
+        canSelect: true
+      }],
+      pageTable: []
     };
   },
   computed: {
@@ -272,10 +374,10 @@ export default {
         obtain
       };
     },
-    pageTable: function () {
-      // 当前页显示的数据
-      return this.tableData2.slice(this.pageStart, this.pageMax);
-    },
+    // pageTable: function () {
+    //   // 当前页显示的数据
+    //   return this.tableData2.slice(this.pageStart, this.pageMax);
+    // },
     pageSum: function () {
       // 合计
       let mtNum = 0;
@@ -330,8 +432,6 @@ export default {
         obtain
       };
     }
-  },
-  created: function () {
   },
   methods: {
     handleCheckAllChange (event) {
@@ -627,11 +727,32 @@ export default {
       console.log('选中啦');
       console.log('当前' + this.form.account);
       console.log(item);
+    },
+    currentPageChanged (data) {
+      console.log('data', data);
+      let resData = data;
+      let currentTotal = {
+        objSymbol: 'currentTotal',
+        id: '合计'
+      };
+      let allTotal = {
+        objSymbol: 'allTotal',
+        id: '总计'
+      };
+      resData.push(currentTotal);
+      resData.push(allTotal);
+      console.log('resData', resData);
+      this.pageTable = resData;
+    },
+    updateTableColsStatus (param) {
+      this.tableUsableCols = param;
     }
   },
   mounted () {
     this.accountPrompt = this.loadAll().account;
     this.categoryPrompt = this.loadAll().category;
+  },
+  created () {
     this.tableData2 = this.tableDateAll();
   }
 };
@@ -663,7 +784,7 @@ export default {
       font-size:14px;
       letter-spacing:0;
       color:#52e3ff;
-      letter-spacing:0; 
+      letter-spacing:0;
       height: 100%;
       display: inline-block;
       h2{
@@ -739,6 +860,7 @@ export default {
   .table-list{
     margin: 0 10px;
     .table-sum{
+      color: #ffffff;
       margin-top: 30px;
       div:nth-of-type(1){
         background-color: #622332;
@@ -752,7 +874,7 @@ export default {
         span:nth-child(10){ margin-left: 20px; width: 80px;}
       }
       div:nth-of-type(2){
-        background-color: #0b415b; 
+        background-color: #0b415b;
         display: -webkit-flex; /* Safari */
         display: flex;
           span:nth-child(1){ width: 15%;}
@@ -773,7 +895,7 @@ export default {
       }
       div{
         height: 56px;
-      }      
+      }
     }
   }
   div.block{

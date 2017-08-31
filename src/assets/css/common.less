@@ -141,6 +141,11 @@ body{
   }
 }
 // 修改element多选框风格样式
+.el-select {
+  .el-input__inner {
+    border: none !important;
+  }
+}
 .el-select-dropdown{
   background-color: #202328 !important;
   border: none !important;
@@ -362,37 +367,295 @@ body{
 .el-pagination__total {
   color: @main-theme-sub;
 }
-.el-pagination {
+// .el-pagination {
+//   text-align: right;
+//   button[type="button"] {
+//     background: inherit !important;
+//     border: none !important;
+//   }
+//   .el-pager {
+//     color: @main-theme-sub;
+//     .number {
+//       border: none;
+//       border-radius: 7px;
+//       background: inherit;
+//       &.active {
+//         border-color: #20a0ff;
+//         background-color: #20a0ff
+//       }
+//     }
+//     li.more {
+//       background: inherit;
+//       border: none;
+//     }
+//   }
+//   .el-pagination__jump {
+//     color: @main-theme-sub;
+//     .el-pagination__editor {
+//       color: #ffffff;
+//       background: inherit;
+//       border-color: @main-theme-sub;
+//     }
+//   }
+// }
+
+.el-pagination .el-pager .number.active{
+  border-color: #53e3ff;
+  background-color: #53e3ff;
+  color: #fff;
+}
+.el-pager li:hover{
+  color: #53e3ff;
+}
+.el-pagination button:hover{
+  color: #53e3ff;
+}
+.el-pagination{
+  margin-top: 20px;
+  width: 95%;
   text-align: right;
-  button[type="button"] {
-    background: inherit !important;
-    border: none !important;
+  .el-input__inner{
+    background: #202228;
+    border: none;
+    border-radius: 0;
+    color: #fff;
   }
-  .el-pager {
-    color: @main-theme-sub;
-    .number {
-      border: none;
-      border-radius: 7px;
-      background: inherit;
-      &.active {
-        border-color: #20a0ff;
-        background-color: #20a0ff
-      }
+}
+
+.item-solid {
+  width: auto !important;
+  flex-grow: 0;
+  flex-shrink: 0;
+  max-width: initial !important;
+  align-self: flex-start;
+  margin-left: 20px;
+}
+// 搜索按钮
+.search-btn{
+  font-size: 16px;
+  height: 40px;
+  line-height: 0px;
+  span{
+    vertical-align: middle;
+    margin-left: 10px !important;
+  }
+  i{
+    font-size: 20px;
+    vertical-align: middle;
+  }
+}
+
+// 修改element按钮风格样式
+.el-button--text{
+  color: #53e3ff;
+}
+.el-button{
+  background:#444b5b;
+  border-color: #444b5b;
+  color: #fff;
+  &:hover{
+    background:#17191d;
+    border-color: #17191d;
+    color: #53e3ff;
+  }
+  &:focus{
+    background:#17191d;
+    border-color: #17191d;
+    color: #53e3ff;
+  }
+  &:active{
+    background:#17191d;
+    border-color: #17191d;
+    color: #53e3ff;
+  }
+}
+.el-button--info{
+  background:#444b5b;
+  border-color: #444b5b;
+  &:hover{
+    background:#17191d;
+    border-color: #17191d;
+  }
+  &:focus{
+    background:#17191d;
+    border-color: #17191d;
+  }
+  &:active{
+    background:#17191d;
+    border-color: #17191d;
+  }
+}
+
+//操作按钮组
+.query-btns{
+  width: 100%;
+  height: 40px;
+  padding: 0 30px;
+  box-sizing: border-box;
+  text-align: left;
+  margin-bottom: 20px;
+  //.el-dropdown{
+  //  float:right;
+  //}
+  button{
+    border:1px solid #979797;
+    border-radius:4px;
+    background: #272a31;
+    color: #696a70;
+    &:not(:last-child) {
+      margin-right: 20px;
     }
-    li.more {
-      background: inherit;
-      border: none;
+    .el-icon-plus{
+      color: #fff;
     }
   }
-  .el-pagination__jump {
-    color: @main-theme-sub;
-    .el-pagination__editor {
-      color: #ffffff;
-      background: inherit;
-      border-color: @main-theme-sub;
+  p{
+    text-align: center;
+  }
+}
+
+// -------------滚动条样式---------------
+div, li {
+  &::-webkit-scrollbar{
+    width: 8px;
+    height: 10px;
+  }
+}
+div, li {
+  &::-webkit-scrollbar-track {
+    background-color: rgba(34, 36, 42, .8);
+    border-radius: 4px;
+  }
+}
+div, li {
+  &::-webkit-scrollbar-thumb {
+    background-color: #888888;
+    border-radius: 4px;
+  }
+}
+div, li {
+  &::-webkit-scrollbar-button {
+    background-color: #888;
+    display: none;
+  }
+}
+div, li {
+  &::-webkit-scrollbar-corner {
+    /*background-color: black;*/
+  }
+}
+
+.el-checkbox__input.is-checked .el-checkbox__inner{
+  border-color: #53e3ff;
+  background-color: #53e3ff;
+}
+// -----------链表选项里的checkbox标签颜色---------------
+.el-checkbox__label {
+  color: @main-theme-sub;
+}
+
+//修改下拉菜单框样式
+@top-nav-submenu-active-bg: #282b34;
+.table-action-menu{
+  width: auto;
+  background-color:#353943 !important;
+  padding: 10px 0;
+  border:1px solid #48494d;
+  box-shadow:6px 9px 7px 0 rgba(0,0,0,0.50);
+  border-radius:4px;
+  .el-dropdown-menu__item{
+    height: 40px;
+    line-height: 40px;
+    color:#94959a !important;
+    border-bottom: 1px solid #414652 !important;
+    font-size: 14px;
+    text-align: center;
+    &:hover {
+      color: #fff !important;
+      font-size: 14px !important;
+      background-color: #282b34 !important;
+    }
+    &.is-active{
+      color: #fff !important;
+      font-size: 14px !important;
+      background-color: @top-nav-submenu-active-bg !important;
+    }
+  }
+}
+.has-checkbox{
+  .el-dropdown-menu__item{
+    text-align: left;
+    p{
+      text-align: center;
     }
   }
 }
 
-
-
+// 修改element表格风格样式
+#app{
+  .has-total{
+    .el-table{
+      tr:nth-last-of-type(1){
+        background:#22242a;
+        td{
+          background:#22242a;
+        }
+        td:nth-of-type(1){
+          color: #52e3ff;
+        }
+      }
+      tr:nth-last-of-type(2){
+        background:#22242a;
+        td{
+          background:#22242a;
+        }
+        td:nth-of-type(1){
+          color: #ff3b6a;
+        }
+      }
+    }
+  }
+  .el-table{
+    background-color: initial;
+    text-align: left;
+    border: none;
+    &::before{
+      height: 0;
+    }
+    tr:nth-of-type(odd){
+      background: #272a31;
+      td{
+        background: #272a31;
+      }
+    }
+    tr:nth-of-type(even){
+      background: #22242a;
+      td{
+        background: #22242a;
+        width: auto;
+      }
+    }
+    tr:hover{
+      background: #3a3c46;
+      td{
+      background: #3a3c46;
+      }
+    }
+    tr{
+      color: #fff;
+      td{
+        border: none;
+      }
+    }
+    th{
+      background-color: #18191d;
+      border: none;
+      text-align: left;
+      >.cell{
+        background-color: #18191d;
+        color: #94959a;
+        text-align: left;
+      }
+    }
+  }
+}

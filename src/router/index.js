@@ -24,6 +24,13 @@ export default new Router({
       }
     },
     {
+      path: '/resetpw',
+      name: 'resetPw',
+      component: (resolve) => {
+        require(['@pages/reset-pw'], resolve);
+      }
+    },
+    {
       path: '/tab',
       name: 'Tab',
       component: (resolve) => {
