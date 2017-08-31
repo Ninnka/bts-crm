@@ -8,7 +8,7 @@
       </article>
       <div class="record__form">
         <span class="c-el-comp-label">时间范围</span><el-date-picker v-model="recordForm.timeRange" type="datetimerange" placeholder="选择查询的时间范围"></el-date-picker>
-        <span class="c-el-comp-label">类型</span><el-select v-model="recordForm.MTAccoutType" placeholder="全部/出金/入金">
+        <span class="c-el-comp-label">类型</span><el-select v-model="recordForm.MTAccountType" placeholder="全部/出金/入金">
           <el-option v-for="item in MTAccountTypeArr" :key="item" :label="item" :value="item"></el-option>
         </el-select>
         <span class="c-el-comp-label">账号</span><el-select v-model="recordForm.MTAccount" placeholder="请选择要查询的MT账号">

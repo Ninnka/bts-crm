@@ -54,7 +54,7 @@
             资产概况
             <div class="posi-abs header__more">
               <i class="iconfont icon-more"></i>
-            </div> 
+            </div>
           </header>
         </article>
         <div class="item__wrap">
@@ -231,7 +231,7 @@
         </header>
       </article>
       <div class="item__wrap is-flex dealer--detail">
-        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption" @closeDetail="closeDetail"></dealer-detail-comp> 
+        <dealer-detail-comp v-for="(item, index) in dealerDetailArr" ref="dealerDetailComp" :key="index" :compOption="item" :dealerDetailOption="dealerDetailOption" @closeDetail="closeDetail"></dealer-detail-comp>
       </div>
     </div>
 
@@ -272,7 +272,7 @@
           <button class="sure-btn" @click="addMoreQuotation">确认按钮</button>
         </div>
       </article>
-    </div>  
+    </div>
   </div>
 </template>
 
@@ -927,11 +927,11 @@ export default {
 }
 
 .news__wrap {
-  flex-basis: 65%; 
+  flex-basis: 65%;
   max-width: 65%;
   a {
     &:hover {
-      color: #333333;
+      color: #fafafa;
     }
   }
 }

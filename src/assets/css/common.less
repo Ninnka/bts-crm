@@ -88,7 +88,7 @@ body{
       background: #202228;
       border: none;
       border-radius: 0;
-      color: #fff;
+      color: #fff !important;
     }
   }
   .el-input.is-disabled .el-input__inner{
@@ -353,6 +353,8 @@ body{
   .el-input__inner {
     background: #202228;
     border-color: #202228;
+    color: #ffffff;
+    // color: #94959a;
   }
 }
 .el-select {
@@ -361,7 +363,8 @@ body{
     border-color: #202228;
   }
   input.el-input__inner {
-    color: @main-theme-sub;
+    // color: @main-theme-sub;
+    color: #ffffff;
   }
 }
 .el-pagination__total {
@@ -720,4 +723,8 @@ div, li {
     font-size: 14px;
     color: #94959a;
   }
+}
+
+.el-form .el-form-item .el-form-item__label {
+  color: #94959a;
 }
