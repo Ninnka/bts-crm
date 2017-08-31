@@ -740,7 +740,6 @@ export default {
       console.log(item);
     },
     currentPageChanged (data) {
-      console.log('data', data);
       let resData = data;
       let currentTotal = {
         objSymbol: 'currentTotal',
@@ -752,7 +751,6 @@ export default {
       };
       resData.push(currentTotal);
       resData.push(allTotal);
-      console.log('resData', resData);
       this.pageTable = resData;
     },
     updateTableColsStatus (param) {
