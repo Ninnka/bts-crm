@@ -659,3 +659,65 @@ div, li {
     }
   }
 }
+
+//顶部导航栏样式
+@top-nav-submenu-bg: #353943;
+@top-nav-submenu-active-bg: #282b34;
+@active-color: #52e3ff;
+.top-nav-submenu{
+  // width: 126px;
+  .el-menu--dark{
+    background-color: transparent;
+  }
+  .el-submenu{
+    // width: 126px;
+    .el-submenu__title{
+      display: inline-block;
+      font-size: 14px;
+      border-bottom:none !important;
+      .icon{
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .el-menu{
+      // width: 126px;
+      background-color: @top-nav-submenu-bg !important;
+      border: none !important;
+      box-shadow:0 2px 4px 0 rgba(0,0,0,0.50);
+      border-radius:8px;
+      .el-menu-item{
+        height: 40px;
+        line-height: 40px;
+        background-color: @top-nav-submenu-bg !important;
+        border-bottom: 1px solid #414652;
+        font-size: 14px;
+        color: #94959a;
+        &:nth-last-of-type(1){
+          border: none;
+        }
+        &.is-active{
+          color: @active-color !important;
+          background-color: @top-nav-submenu-active-bg !important;
+        }
+      }
+      .el-menu-item:hover{
+        background-color: @top-nav-submenu-active-bg !important;
+      }
+    }
+  }
+}
+
+.user-menu {
+  .el-dropdown-menu {
+
+  }
+  .el-dropdown-menu__item {
+    height: 40px;
+    line-height: 40px;
+    background-color: @top-nav-submenu-bg !important;
+    border-bottom: 1px solid #414652;
+    font-size: 14px;
+    color: #94959a;
+  }
+}

@@ -8,13 +8,13 @@
       </h1>
       <h2>{{DeployApi.SystemName}}</h2>
       <nav class="is-flex">
-        <ul class="is-flex">
+        <ul class="is-flex nav-actions">
           <li v-for="item in navList" :key="item.icon" @click="userAction(item.index)">
             <i class="iconfont" :class="item.icon"></i>
           </li>
         </ul>
-        <div class="user-menu">
-          <el-dropdown @command="userAction">
+        <div class="user-menu top-nav-submenu">
+          <!-- <el-dropdown @command="userAction">
           <span class="el-dropdown-link">
             <img src="../assets/img/user.jpg" />
             {{user.name}}
@@ -26,7 +26,32 @@
               <el-dropdown-item command="changePas">修改密码</el-dropdown-item>
               <el-dropdown-item command="exit">退出</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>
+          </el-dropdown> -->
+          <!-- <span class="">
+            <img src="../assets/img/user.jpg" />
+            {{user.name}}
+            <i class="el-icon-caret-bottom el-icon--right"></i>
+          </span> -->
+          <el-menu ref="topNav" theme="dark" mode="horizontal" @select="userAction">
+            <el-submenu index="top">
+              <template class="title" slot="title">
+                <img src="../assets/img/user.jpg" />
+                {{user.name}}
+              </template>
+              <el-menu-item index="userCenter">
+                个人信息
+              </el-menu-item>
+              <el-menu-item index="book">
+                切换Book
+              </el-menu-item>
+              <el-menu-item index="changePas">
+                修改密码
+              </el-menu-item>
+              <el-menu-item index="exit">
+               退出
+              </el-menu-item>
+            </el-submenu>
+          </el-menu>
         </div>
       </nav>
     </header>
@@ -82,11 +107,11 @@ export default {
           icon: 'icon-jiaoyifenxi',
           text: '交易记录'
         },
-        {
-          index: 'fund-management',
-          icon: 'icon-churujinguanli',
-          text: '资金管理'
-        },
+        // {
+        //   index: 'fund-management',
+        //   icon: 'icon-churujinguanli',
+        //   text: '资金管理'
+        // },
         {
           index: 'money-records',
           icon: 'icon-churujinguanli',
@@ -149,6 +174,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@top-nav-submenu-bg: #353943;
+@top-nav-submenu-active-bg: #282b34;
+@active-color: #52e3ff;
 .tab {
   width: 100%;
   height: 100%;
@@ -185,8 +213,9 @@ export default {
         flex: 1;
         justify-content: space-around;
         li{
-          margin-right: 40px;
-          width: 25px;
+          // margin-right: 40px;
+          // width: 25px;
+          // width: 100%;
           height: auto;
           i{
             font-size: 25px;
@@ -267,6 +296,11 @@ export default {
       height: 100%;
       overflow: auto;
     }
+  }
+}
+.nav-actions {
+  li {
+    margin-right: 40px;
   }
 }
 </style>
