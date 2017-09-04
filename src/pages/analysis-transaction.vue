@@ -61,7 +61,7 @@
                     </el-button>
                   </div>
               </form> -->
-              <el-form class="form--wrap" label-width="80px">
+              <el-form class="form--wrap" label-width="80px" style="margin: 0 10px 10px;">
                 <el-form-item label="时间范围">
                   <el-date-picker type="date" :placeholder="inputText[0]" v-model="form.date" style="width: 100%;" format></el-date-picker>
                 </el-form-item>
@@ -86,18 +86,21 @@
                     <el-option label="已平仓" value="over"></el-option>
                   </el-select>
                 </el-form-item>
-                <el-button icon="search" class="search-btn item-init-max" @click="tableSearch">搜索</el-button>
+                <el-button class="search-btn item-init-max" @click="tableSearch">
+                  <i class="iconfont icon-sousuo"></i>
+                  搜索
+                </el-button>
               </el-form>
               <!--搜索框 结束-->
 
               <!--查询按钮-->
-              <div class="query-btns">
+              <div class="query-btns" style="text-align: right;">
                 <!-- <el-button type="primary" icon="search" @click="tableSearch">搜索
                 </el-button> -->
-                <el-button type="primary" icon="upload2">导出
-                </el-button>
+                <!-- <el-button type="primary" icon="upload2">导出</el-button> -->
                 <!--下拉选择列-->
                 <list-options :sourceList="tableColsStatus" @update:displayList="updateTableColsStatus"></list-options>
+                <a style="float: left" class="el-button el-button--primary cold-bg" href="">导出</a>
                 <!-- <el-dropdown trigger="hover" :hide-on-click="false">
                   <el-button type="primary">
                   列表选项<i class="el-icon-caret-bottom el-icon--right"></i>
@@ -922,21 +925,5 @@ div.table{
   margin-top: 20px;
   background:#272a31;
 }
-
-.form--wrap {
-  display: flex;
-  .el-form-item, .el-button {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-wrap: nowrap;
-    margin-right: 20px;
-    text-align: left;
-    &.item-init-max {
-      flex-grow: 0;
-      width: auto !important;
-    }
-  }
-}
-
 
 </style>

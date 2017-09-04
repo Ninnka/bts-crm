@@ -6,7 +6,7 @@
           资金管理
         </header>
       </article>
-      <div class="record__form">
+      <div class="record__form record-form__control">
         <span class="c-el-comp-label">时间范围</span><el-date-picker v-model="recordForm.timeRange" type="datetimerange" placeholder="选择查询的时间范围"></el-date-picker>
         <span class="c-el-comp-label">类型</span><el-select v-model="recordForm.MTAccountType" placeholder="全部/出金/入金">
           <el-option v-for="item in MTAccountTypeArr" :key="item" :label="item" :value="item"></el-option>
@@ -14,12 +14,16 @@
         <span class="c-el-comp-label">账号</span><el-select v-model="recordForm.MTAccount" placeholder="请选择要查询的MT账号">
           <el-option v-for="item in MTAccountArr" :key="item" :label="item" :value="item"></el-option>
         </el-select>
-        <el-button icon="search" class="search-btn">查询</el-button>
+        <el-button class="search-btn">
+          <i class="iconfont icon-sousuo"></i>
+          查询
+        </el-button>
       </div>
-      <div class="query-btns">
-        <el-button type="info">导出</el-button>
+      <div class="query-btns" style="text-align: right;">
         <!--下拉选择列-->
         <list-options :sourceList="tableColsStatus" @update:displayList="updateTableColsStatus"></list-options>
+        <a style="float: left" class="el-button el-button--primary cold-bg" href="">导出</a>
+        <!-- <el-button type="info">导出</el-button> -->
       </div>
       <div class="record__table has-total">
         <el-table :data="tableData" style="width: 100%" header-align="center" >
@@ -231,7 +235,7 @@ export default {
           accounts.push(element.account);
         }
         total.fundChange += element.fundChange;
-        total.status.unknows += element.status === '未知' ? 1 : 0;
+        total.status.unknow += element.status === '未知' ? 1 : 0;
         total.status.success += element.status === '成功' ? 1 : 0;
         if (index === array.length - 1) {
           total.account = accounts.length;
